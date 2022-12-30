@@ -2,6 +2,8 @@ function cycleMovie(direction = 1) {
     if (!canCycle) return
 
     canCycle = false
+    setTimeout(() => canCycle = true, 1000)
+    
     positions = ['left', 'center', 'right']
     carousel = document.querySelectorAll('div.movie')
 
@@ -13,14 +15,15 @@ function cycleMovie(direction = 1) {
 
     clearInterval(interval)
     interval = setInterval(() => cycleMovie(-1), 10000)
-    setInterval(() => canCycle = true, 1000)
 }
 
 window.addEventListener('load', function() {
-    arrows = document.querySelectorAll('span.arrow')
+    const arrows = document.querySelectorAll('span.arrow')
     interval = setInterval(() => cycleMovie(-1), 10000)
     canCycle = true
     
     arrows[0].addEventListener('click', () => cycleMovie(1))
     arrows[1].addEventListener('click', () => cycleMovie(-1))
 })
+
+setInterval(() => console.log(canCycle), 100)
