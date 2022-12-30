@@ -1,0 +1,181 @@
+main {
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    display: flex;
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main header > * {
+    margin: 0 75px;
+}
+
+main header a.btn {
+    width: 100px;
+    height: 35px;
+}
+
+main > aside {
+    width: 30%;
+    min-width: 550px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #333;
+}
+
+main > aside div.wrapper {
+    width: calc(100% - 200px);
+    height: 80%;
+    padding: 15px 50px;
+}
+
+main > aside div.wrapper h2 {
+    --font-size: 1.8rem;
+}
+
+main > aside div.wrapper ul {
+    list-style: none;
+    margin-top: 50px;
+}
+
+main > aside div.wrapper ul li {
+    font-size: 1.3rem;
+    margin: 30px 0;
+    cursor: pointer;
+}
+
+main > section {
+    width: calc(70% - 200px);
+    max-width: calc(100% - 550px);
+    height: 100%;
+    padding: 0 100px;
+}
+
+main > section header {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 75px;
+}
+
+main article div.info {
+    width: calc(45% - 5% - 65px) !important;
+}
+
+main article > p {
+    width: 15%;
+    text-align: center;
+}
+
+main article > p.playing span {
+    color: var(--lime-accent);
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+main article div.manage {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+main article div.manage a {
+    width: 40%;
+    height: 35px;
+    box-sizing: border-box;
+    margin-left: 20px;
+}
+
+main section h2 {
+    --font-size: 1.8rem;
+}
+
+main section form {
+    display: flex;
+}
+
+main section form section {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-right: 5%;
+}
+
+main section form aside > label,
+main section form section > label {
+    font-size: 1.2rem;
+    margin: 25px 0 10px 0;
+}
+
+main section form section select option {
+    color: #222;
+}
+
+main section form section > div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+main section form section > div div.short-input {
+    width: 45%;
+}
+
+main section form section > div div.short-input > label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+main section form section > div div.short-input div.radio-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+main section form section > div div.short-input div#duration-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main section form section > div div.short-input div#duration-input input {
+    width: 80%;
+    text-align: center;
+}
+
+main section form section textarea {
+    resize: vertical;
+}
+
+main section form section button.cta-1 {
+    width: 150px;
+    height: 40px;
+    position: absolute;
+    bottom: -100px;
+    right: 0;
+}
+
+main section form aside {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main section form aside input#poster {
+    width: 150px;
+    aspect-ratio: 297/420;
+}
+
+main section form aside input#trailer {
+    width: 200px;
+    aspect-ratio: 16/9;
+}
+
+main section form aside input#YTlink {
+    width: 100%;
+}

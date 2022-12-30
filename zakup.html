@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/purchase.css">
+    <title>Kino Wawel</title>
+    <base href="index.html">
+</head>
+<body>
+    <header>
+        <h1><a href="#">Kino Wawel</a></h1>
+        <nav>
+            <ul>
+                <li><a href="administracja.html">Administracja</a></li>
+                <li><a href="repertuar.html">Repertuar</a></li>
+                <li><a href="#">Wydarzenia</a></li>
+                <li><a href="#">Promocje</a></li>
+            </ul>
+            <div id="user">
+                <div class="icon-user">
+                    <span class="head"></span>
+                    <span class="body"></span>
+                </div>
+                <menu>
+                    <li><a href="#">Zaloguj</a></li>
+                    <li><a href="rejestracja.html">Zarejestruj</a></li>
+                </menu>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <form action="">
+            <section id="hall">
+                <h2><span class="capital">W</span>ybór <span class="capital">M</span>iejsc</h2>
+                <div id="legend">
+                    <div>
+                        <span>Wybrane miejsca</span>
+                        <div class="seat chosen"></div>
+                    </div>
+                    <div>
+                        <span>Wolne miejsca</span>
+                        <div class="seat free"></div>
+                    </div>
+                    <div>
+                        <span>Zajęte miejsca</span>
+                        <div class="seat taken"></div>
+                    </div>
+                </div>
+                <div id="screen"></div>
+                <fieldset id="seats">
+                    <span>A</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="taken" disabled>
+                    <input type="checkbox" name="" class="taken" disabled>
+                    <input type="checkbox" name="" class="taken" disabled>
+                    <input type="checkbox" name="" class="taken" disabled>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <span>B</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <span>C</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <span>D</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <span>E</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <span>F</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <span>G</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <span>H</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <span>I</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <span>J</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <span>K</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" disabled> 
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <span>L</span>
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free">
+                    <input type="checkbox" name="" class="free" >
+                    <input type="checkbox" name="" class="free" >
+                    <input type="checkbox" name="" class="free" >
+                    <input type="checkbox" name="" class="free" >
+                    <input type="checkbox" name="" class="free" >
+                </fieldset>
+            </section>
+            <aside>
+                <h2><span class="capital">T</span>woje <span class="capital">B</span>ilety</h2>
+                <div id="tickets">
+                    <div class="ticket-type">
+                        <div class="counter">
+                            <div class="minus">
+                                <span></span>
+                            </div>
+                            <span>0</span>
+                            <div class="plus">
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <p>normalny <span class="price">37</span>,-</p>
+                    </div>
+                    <div class="ticket-type">
+                        <div class="counter">
+                            <div class="minus">
+                                <span></span>
+                            </div>
+                            <span>0</span>
+                            <div class="plus">
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <p>normalny <span class="price">37</span>,-</p>
+                    </div>
+                    <div class="ticket-type">
+                        <div class="counter">
+                            <div class="minus">
+                                <span></span>
+                            </div>
+                            <span>0</span>
+                            <div class="plus">
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <p>normalny <span class="price">37</span>,-</p>
+                    </div>
+                </div>
+                <div id="inputs">
+                    <input type="email" placeholder="Wprowadź adres e-mail">
+                    <div>
+                        <input type="text" placeholder="Kod rabatowy">
+                        <button>&#8594;</button>
+                    </div>
+                </div>
+                <div id="summary">
+                    <h3>Do zapłaty: </h3>
+                    <p><span>0</span> zł</p>
+                </div>
+                <div id="buttons">
+                    <a href="repertar.html" class="cta-3 btn">Anuluj</a>
+                    <button type="submit" class="cta-1">Zapłać</button>
+                </div>
+            </aside>
+        </form>
+    </main>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

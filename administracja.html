@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/admin.css">
+    <title>Kino Wawel</title>
+    <base href="index.html">
+</head>
+<body>
+    <header>
+        <h1><a href="#">Kino Wawel</a></h1>
+        <nav>
+            <ul>
+                <li><a href="administracja.html">Administracja</a></li>
+                <li><a href="repertuar.html">Repertuar</a></li>
+                <li><a href="#">Wydarzenia</a></li>
+                <li><a href="#">Promocje</a></li>
+            </ul>
+            <div id="user">
+                <div class="icon-user">
+                    <span class="head"></span>
+                    <span class="body"></span>
+                </div>
+                <menu>
+                    <li><a href="#">Zaloguj</a></li>
+                    <li><a href="rejestracja.html">Zarejestruj</a></li>
+                </menu>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <aside>
+            <div class="wrapper left-gradient-border">
+                <h2><span class="capital">P</span>anel kontrolny</h2>
+                <ul>
+                    <li>Filmy</li>
+                    <li>Seanse</li>
+                </ul>
+            </div>
+        </aside>
+        <section>
+            <header class="bottom-gradient-border">
+                <h2><span class="capital">F</span>ilmy</h2>
+                <a href="edytuj film copy.html" class="add btn cta-1">Dodaj</a>
+            </header>
+            <article class="bottom-gradient-border listing description">
+                <img src="img/Black Adam.jpg" alt="">
+                <div href="film.html" class="info">
+                    <div>
+                        <h2><span class="capital">B</span>lack <span class="capital">A</span>dam</h2>
+                    </div>
+                    <p class="info">Komedia | Od lat 13 | 125 min</p>
+                    <p class="description">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, repellendus modi dolor sequi magni saepe?
+                        Facere ipsum exercitationem blanditiis eaque consectetur! Architecto voluptatum repellendus facilis quidem
+                        fugit reiciendis maxime reprehenderit.
+                    </p>
+                </div>
+                <p class="playing"><span>•</span> Grany</p>
+                <div class="manage">
+                    <a href="edytuj film copy.html" class="edit btn cta-1">Edytuj</a>
+                    <a href="#" class="delete btn cta-2 alert">Usuń</a>
+                </div>
+            </article>
+        </section>
+    </main>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

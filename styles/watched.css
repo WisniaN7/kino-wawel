@@ -1,0 +1,38 @@
+main {
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main header h2 {
+    --font-size: 2rem;
+}
+
+main article.listing div.rating {
+    width: 30%;
+    height: 100%;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main article.listing div.rating div.p {
+    font-weight: 200;
+}
+
+main article.listing div.rating div.stars {
+    height: 20px;
+    width: 140px;
+    display: flex;
+}
+
+main article.listing a.btn {
+    width: 200px;
+    height: 40px;
+    transform: scale(0.8);
+    margin-top: 15px;
+}

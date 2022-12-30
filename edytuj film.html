@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/admin.css">
+    <title>Kino Wawel</title>
+    <base href="index.html">
+</head>
+<body>
+    <header>
+        <h1><a href="#">Kino Wawel</a></h1>
+        <nav>
+            <ul>
+                <li><a href="administracja.html">Administracja</a></li>
+                <li><a href="repertuar.html">Repertuar</a></li>
+                <li><a href="#">Wydarzenia</a></li>
+                <li><a href="#">Promocje</a></li>
+            </ul>
+            <div id="user">
+                <div class="icon-user">
+                    <span class="head"></span>
+                    <span class="body"></span>
+                </div>
+                <menu>
+                    <li><a href="#">Zaloguj</a></li>
+                    <li><a href="rejestracja.html">Zarejestruj</a></li>
+                </menu>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <aside>
+            <div class="wrapper left-gradient-border">
+                <h2><span class="capital">P</span>anel kontrolny</h2>
+                <ul>
+                    <li>Filmy</li>
+                    <li>Seanse</li>
+                </ul>
+            </div>
+        </aside>
+        <section>
+            <h2><span class="capital">E</span>dytuj film</h2>
+            <form action="">
+                <section>
+                    <label for="title">Tytuł</label>
+                    <input type="text" name="title" id="title" placeholder="Nowy Film" required>
+                    <label for="genere">Gatunek</label>
+                    <input type="text" name="genere" id="genere" required readonly>
+                    <select id="genere-list">
+                        <option>Akcja</option>
+                        <option>Horror</option>
+                        <option>Komedia</option>
+                        <option>Thriller</option>
+                        <option>Sensacja</option>
+                        <option>Nowy...</option>
+                    </select>
+                    <div>
+                        <div class="short-input">
+                            <label for="PG">Czas trwania</label>
+                            <div class="radio-group">
+                                <div>
+                                    <input type="radio" id="7" name="PG" required>
+                                    <label for="7">7+</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="13" name="PG" required>
+                                    <label for="13">13+</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="16" name="PG" required>
+                                    <label for="16">16+</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="18" name="PG" required>
+                                    <label for="18">18+</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="short-input">
+                            <label for="duration">Czas trwania</label>
+                            <div id="duration-input">
+                                <input type="number" name="duration" id="duration" required min="0">
+                                <span>min.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="description">Opis</label>
+                    <textarea name="description" id="description" required rows="10"></textarea>
+                    <button type="submit" class="cta-1">Zapisz</button>
+                </section>
+                <aside>
+                    <label for="poster">Plakat</label>
+                    <input type="file" id="poster" name="poster">
+                    <label for="poster">Trailer</label>
+                    <input type="file" id="trailer" name="trailer">
+                    <p>Lub wklej link do YouTube:</p>
+                    <input type="text" name="YTlink" id="YTlink">
+                </aside>
+            </form>
+        </section>
+    </main>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
