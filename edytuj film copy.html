@@ -53,14 +53,17 @@
                     <input type="file" id="poster" name="poster">
                 </div>
                 <div class="long-input">
-                    <label for="genere">Gatunek</label>
-                    <input type="text" name="genere" id="genere" required readonly>
-                    <select id="genere-list">
-                        <option>Akcja</option>
-                        <option>Horror</option>
-                        <option>Komedia</option>
-                        <option>Thriller</option>
-                        <option>Sensacja</option>
+                    <label for="genere-list">Gatunek</label>
+                    <select id="genere-list" required>
+                        <option id="current"></option>
+                        <option></option>
+                        <option value="Akcja">Akcja</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Komedia">Komedia</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Romans">Romans</option>
+                        <option value="Sensacja">Sensacja</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
                         <option>Nowy...</option>
                     </select>
                 </div>
@@ -109,5 +112,6 @@
         </section>
     </main>
     <script src="scripts/main.js"></script>
+    <script src="scripts/edit movie.js"></script>
 </body>
 </html>
