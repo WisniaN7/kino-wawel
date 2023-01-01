@@ -48,6 +48,7 @@ const getMovies = async () => {
 getMovies()
 
 window.addEventListener('load', function() {
+    document.querySelector('main div.lds-ring').remove()
     descCheckbox = document.querySelector('#show-descriptions input')
     movieListings = document.querySelectorAll('article')
 
