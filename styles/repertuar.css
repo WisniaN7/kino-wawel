@@ -2,6 +2,7 @@ main {
     width: 100vw;
     height: calc(100vh - var(--header-height));
     margin-top: var(--header-height);
+    position: relative;
     font-family: 'Montserrat', sans-serif;
     color: #fff;
 }
@@ -91,6 +92,11 @@ main header div#show-descriptions label {
 
 main header div#show-descriptions input {
     transform: scale(.85);
+}
+
+main div.lds-ring {
+    top: calc(50% - 40px);
+    left: calc(50% - 40px);
 }
 
 main article a.info div div.rating {
