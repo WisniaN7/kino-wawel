@@ -1,0 +1,170 @@
+main > section header div#day-select {
+    margin-left: 100px;
+}
+
+main > section #timetable {
+    height: calc(100% - 275px);
+    padding-bottom: 50px;
+    --time-scale: 40px;
+}
+
+main > section #timetable div.wrapper {
+    width: 85%;
+    height: calc(100% - 50px);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+main > section #timetable div.wrapper #table {
+    width: 65%;
+    height: 100%;
+    overflow: auto;
+    margin-bottom: 50px;
+}
+
+main > section #timetable div.wrapper #table table {
+    width: 95%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .25);
+    border-right: 1px solid rgba(255, 255, 255, .25);
+}
+
+main > section #timetable div.wrapper #table table tr {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+main > section #timetable div.wrapper #table table thead {
+    position: sticky;
+    top: 0;
+    background-color: #222;
+    z-index: 15;
+}
+
+main > section #timetable div.wrapper #table table thead tr {
+    border-bottom: 1px solid rgba(255, 255, 255, .25);
+}
+
+main > section #timetable div.wrapper #table table tr:nth-child(2n) {
+    background-color: #2D2D2D;
+}
+
+main > section #timetable div.wrapper #table table th,  
+main > section #timetable div.wrapper #table table td {
+    position: relative;
+    display: block;
+    border-top: 1px solid rgba(255, 255, 255, .25);
+    border-left: 1px solid rgba(255, 255, 255, .25);
+    padding: 10px 15px;
+    overflow: visible;
+}
+
+main > section #timetable div.wrapper #table table td.filled {
+    padding: 10px 5px;
+}
+
+main > section #timetable div.wrapper #table table td:first-child {
+    text-align: right;
+}
+
+main > section #timetable div.wrapper #table table td input {
+    display: none;
+}
+
+main > section #timetable div.wrapper aside {
+    width: 25%;
+}
+
+div.screening {
+    width: 100%;
+    font-size: .9rem;
+    border-radius: 10px;
+    background-color: rgb(134, 63, 63);
+    margin: 5px 0;
+    overflow: hidden;
+    cursor: grab;
+}
+
+table div.screening {
+    width: calc(var(--cell-width) - 10px);
+    position: absolute;
+    top: 0;
+    left: 5px;
+    z-index: 10;
+    /* left: calc(var(--cell-width) * var(--col) + 5px);
+    top: calc(var(--time-scale) * (var(--row) + 1) + 10px); */
+}
+
+div.screening p {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: space-between;
+    padding: 10px 10%;
+    transition: opacity 100ms;
+    margin: 0;
+}
+
+div.screening:hover p {
+    height: 0;
+    opacity: 0;
+}
+
+table div.screening p {
+    height: 0;
+    opacity: 0;
+}
+
+div.screening p span {
+    width: 40%;
+    text-align: right;
+}
+
+table div.screening p span {
+    display: none;
+}
+
+div.screening div {
+    height: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    /* transition: height 300ms; */
+}
+
+div.screening div.ads {
+    background-color: rgb(196, 171, 31);
+}
+
+div.screening div.movie {
+    background-color: rgb(134, 63, 63);
+}
+
+div.screening div.cleanup {
+    background-color: rgb(59, 59, 59);
+}
+
+table div.screening div,
+div.screening:hover div {
+    width: 80%;
+    padding: 0 10%;
+}
+
+table div.screening div.ads,
+div.screening:hover div.ads {
+    height: var(--time-scale);
+    margin-top: -20px;
+}
+
+table div.screening div.movie,
+div.screening:hover div.movie {
+    height: calc(var(--duration) / 60 * var(--time-scale));
+}
+
+table div.screening div.cleanup,
+div.screening:hover div.cleanup {
+    height: var(--time-scale);
+}

@@ -25,6 +25,10 @@ main > aside {
     background-color: #333;
 }
 
+main > aside * {
+    color: #fff;
+}
+
 main > aside div.wrapper {
     width: calc(100% - 200px);
     height: 80%;
@@ -37,15 +41,41 @@ main > aside div.wrapper h2 {
 
 main > aside div.wrapper ul {
     list-style: none;
-    margin-top: 50px;
 }
 
 main > aside div.wrapper ul li {
+    cursor: pointer;
+}
+
+main > aside div.wrapper > ul {
+    margin-top: 50px;
+}
+
+main > aside div.wrapper > ul > li {
     font-size: 1.3rem;
     margin: 30px 0;
     cursor: pointer;
 }
 
+main > aside div.wrapper > ul > li ul {
+    font-size: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: 300ms;
+}
+main > aside div.wrapper > ul > li ul.active {
+    max-height: calc(1rem * 5 + 15px * 4 + 30px);
+}
+
+main > aside div.wrapper > ul > li ul li {
+    margin-top: 15px;
+    opacity: .5;
+    transition: 150ms;
+}
+
+main > aside div.wrapper > ul > li ul li:hover {
+    opacity: 1;
+}
 main > section {
     width: calc(70% - 200px);
     max-width: calc(100% - 550px);
@@ -53,7 +83,7 @@ main > section {
     padding: 0 100px;
 }
 
-main > section header {
+main>section header {
     height: 75px;
     display: flex;
     justify-content: space-between;
@@ -89,93 +119,112 @@ main article div.manage a {
     margin-left: 20px;
 }
 
-main section h2 {
+main section > h2 {
     --font-size: 1.8rem;
+    margin: 75px 0 25px 0;
 }
 
+/* 
 main section form {
-    display: flex;
+    width: 100%;
+    height: calc(85% - 1.8rem - 100px);
+    display: grid;
+    column-gap: 75px;
+    grid-template-rows: 1fr 1fr 1fr 3fr .5fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: relative;
 }
 
-main section form section {
-    width: 60%;
+main section form > div {
     display: flex;
     flex-direction: column;
-    position: relative;
-    margin-right: 5%;
 }
 
-main section form aside > label,
-main section form section > label {
+main section form label {
     font-size: 1.2rem;
-    margin: 25px 0 10px 0;
-}
-
-main section form section select option {
-    color: #222;
-}
-
-main section form section > div {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 25px;
-}
-
-main section form section > div div.short-input {
-    width: 45%;
-}
-
-main section form section > div div.short-input > label {
-    display: block;
     margin-bottom: 10px;
 }
 
-main section form section > div div.short-input div.radio-group {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+main section form div.long-input {
+    grid-column: 1 / 3;
 }
 
-main section form section > div div.short-input div#duration-input {
+main section form div.short-input {
+    grid-row: 3; 
+}
+
+main section form div.short-input:first-of-type {
+    grid-column: 1; 
+}
+
+main section form div.short-input:last-of-type {
+    grid-column: 2; 
+}
+
+main section form div.long-input select option {
+    color: #222;
+}
+
+main section form div.long-input select option#current {
+    display: none;
+}
+
+main section form div.short-input div.radio-group {
+    display: flex;
+}
+
+main section form div.short-input div.radio-group label {
+    margin-right: 20px;
+}
+
+main section form div.short-input div#duration-input {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-main section form section > div div.short-input div#duration-input input {
+main section form div.short-input div#duration-input input {
     width: 80%;
-    text-align: center;
 }
 
-main section form section textarea {
+main section form div textarea {
     resize: vertical;
 }
 
-main section form section button.cta-1 {
-    width: 150px;
-    height: 40px;
-    position: absolute;
-    bottom: -100px;
-    right: 0;
+main section form div.file-input {
+    grid-column: 3;
 }
 
-main section form aside {
-    width: 35%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+main section form div.file-input#poster-input {
+    grid-row: 1 / 4;
 }
 
-main section form aside input#poster {
-    width: 150px;
+main section form div.file-input input#poster {
+    width: 45%;
     aspect-ratio: 297/420;
 }
 
-main section form aside input#trailer {
-    width: 200px;
+main section form div.file-input input#trailer {
+    width: 65%;
     aspect-ratio: 16/9;
 }
 
-main section form aside input#YTlink {
-    width: 100%;
+main section form div.file-input  p {
+    font-size: .75rem;
+    margin: 20px 0 5px 0;
 }
+
+main section form div#submit {
+    width: 100%;
+    height: 100%;
+    grid-column: 2;
+    position: relative;
+}
+
+main section form div#submit button.cta-1 {
+    width: 150px;
+    height: 100%;
+    position: absolute;
+    right: 0; 
+    font-size: 1.2rem;
+} */

@@ -1,6 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;700;800&family=Ubuntu&display=swap');
 
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #555 #333;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 20px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 20px;
+    border: 3px solid #333;
+}
+
 html, body {
     width: 100vw;
     margin: 0;
@@ -118,6 +138,43 @@ input[type="file"] {
 
 .lds-ring div:nth-child(3) {
     animation-delay: -0.15s;
+}
+
+div#day-select {
+    width: 220px;
+    text-align: center;
+    --arrow-size: 8px;
+    --arrow-distance: 0;
+    position: relative;
+}
+
+div#day-select:hover span.arrow {
+    opacity: .55;
+}
+
+div#day-select:hover span.arrow:hover {
+    opacity: .9;
+}
+
+div#day-select div {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+}
+
+div#day-select div input {
+    border-radius: 5px;
+    border: none;
+    padding: 2px;
+    padding-top: 5px;
+    background-color: #fff;
+}
+
+div#day-select div input {
+    width: 20px;
+    height: 20px;
 }
 
 body > header {

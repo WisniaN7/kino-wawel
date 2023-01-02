@@ -17,7 +17,7 @@ function cycleMovie(direction = 1) {
     interval = setInterval(() => cycleMovie(-1), 10000)
 }
 
-window.addEventListener('load', function() {
+window.addEventListener('load', () => {
     const arrows = document.querySelectorAll('span.arrow')
     interval = setInterval(() => cycleMovie(-1), 10000)
     canCycle = true
@@ -25,5 +25,3 @@ window.addEventListener('load', function() {
     arrows[0].addEventListener('click', () => cycleMovie(1))
     arrows[1].addEventListener('click', () => cycleMovie(-1))
 })
-
-setInterval(() => console.log(canCycle), 100)

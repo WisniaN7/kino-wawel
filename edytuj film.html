@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="styles/edit movie.css">
     <title>Kino Wawel</title>
     <base href="index.html">
 </head>
@@ -36,72 +37,92 @@
             <div class="wrapper left-gradient-border">
                 <h2><span class="capital">P</span>anel kontrolny</h2>
                 <ul>
-                    <li>Filmy</li>
-                    <li>Seanse</li>
+                    <li><a href="administracja.html">Filmy</a></li>
+                    <li id="screeningsBtn">Seanse</li>
+                    <li>
+                        <ul id="screenings">
+                            <li><a href="edytuj seanse.html">Katowice</a></li>
+                            <li><a href="edytuj seanse.html">Kraków</a></li>
+                            <li><a href="edytuj seanse.html">Lubań</a></li>
+                            <li><a href="edytuj seanse.html">Opole</a></li>
+                            <li><a href="edytuj seanse.html">Wrocław</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </aside>
         <section>
             <h2><span class="capital">E</span>dytuj film</h2>
             <form action="">
-                <section>
+                <div class="long-input">
                     <label for="title">Tytuł</label>
                     <input type="text" name="title" id="title" placeholder="Nowy Film" required>
-                    <label for="genere">Gatunek</label>
-                    <input type="text" name="genere" id="genere" required readonly>
-                    <select id="genere-list">
-                        <option>Akcja</option>
-                        <option>Horror</option>
-                        <option>Komedia</option>
-                        <option>Thriller</option>
-                        <option>Sensacja</option>
-                        <option>Nowy...</option>
-                    </select>
-                    <div>
-                        <div class="short-input">
-                            <label for="PG">Czas trwania</label>
-                            <div class="radio-group">
-                                <div>
-                                    <input type="radio" id="7" name="PG" required>
-                                    <label for="7">7+</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="13" name="PG" required>
-                                    <label for="13">13+</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="16" name="PG" required>
-                                    <label for="16">16+</label>
-                                </div>
-                                <div>
-                                    <input type="radio" id="18" name="PG" required>
-                                    <label for="18">18+</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="short-input">
-                            <label for="duration">Czas trwania</label>
-                            <div id="duration-input">
-                                <input type="number" name="duration" id="duration" required min="0">
-                                <span>min.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <label for="description">Opis</label>
-                    <textarea name="description" id="description" required rows="10"></textarea>
-                    <button type="submit" class="cta-1">Zapisz</button>
-                </section>
-                <aside>
+                </div>
+                <div class="file-input" id="poster-input">
                     <label for="poster">Plakat</label>
                     <input type="file" id="poster" name="poster">
-                    <label for="poster">Trailer</label>
+                </div>
+                <div class="long-input">
+                    <label for="genere-list">Gatunek</label>
+                    <select id="genere-list" required>
+                        <option id="current"></option>
+                        <option></option>
+                        <option value="Akcja">Akcja</option>
+                        <option value="Horror">Horror</option>
+                        <option value="Komedia">Komedia</option>
+                        <option value="Thriller">Thriller</option>
+                        <option value="Romans">Romans</option>
+                        <option value="Sensacja">Sensacja</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                        <option>Nowy...</option>
+                    </select>
+                </div>
+                <div class="short-input">
+                    <label for="PG">Czas trwania</label>
+                    <div class="radio-group">
+                        <div>
+                            <input type="radio" id="7" name="PG" required>
+                            <label for="7">7+</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="13" name="PG" required>
+                            <label for="13">13+</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="16" name="PG" required>
+                            <label for="16">16+</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="18" name="PG" required>
+                            <label for="18">18+</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="short-input">
+                    <label for="duration">Czas trwania</label>
+                    <div id="duration-input">
+                        <input type="number" name="duration" id="duration" required min="0">
+                        <span>min.</span>
+                    </div>
+                </div>
+                <div class="long-input high-input">
+                    <label for="description">Opis</label>
+                    <textarea name="description" id="description" required rows="11"></textarea>
+                </div>
+                <div class="file-input" id="trailer-input">
+                    <label for="poster">Zwiastun</label>
                     <input type="file" id="trailer" name="trailer">
                     <p>Lub wklej link do YouTube:</p>
                     <input type="text" name="YTlink" id="YTlink">
-                </aside>
+                </div>
+                <div id="submit">
+                    <button type="submit" class="cta-1">Zapisz</button>
+                </div>
             </form>
         </section>
     </main>
     <script src="scripts/main.js"></script>
+    <script src="scripts/admin.js"></script>
+    <script src="scripts/edit movie.js"></script>
 </body>
 </html>

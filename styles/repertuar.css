@@ -44,43 +44,6 @@ main header select option {
     color: #222;
 }
 
-main header div#day-select {
-    width: 220px;
-    text-align: center;
-    --arrow-size: 8px;
-    --arrow-distance: 0;
-    position: relative;
-}
-
-main header div#day-select:hover span.arrow {
-    opacity: .55;
-}
-
-main header div#day-select:hover span.arrow:hover {
-    opacity: .9;
-}
-
-main header div#day-select div {
-    width: 70%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: auto;
-}
-
-main header div#day-select div input {
-    border-radius: 5px;
-    border: none;
-    padding: 2px;
-    padding-top: 5px;
-    background-color: #fff;
-}
-
-main header div#day-select div input {
-    width: 20px;
-    height: 20px;
-}
-
 main header div#show-descriptions {
     display: flex;
     align-items: center;

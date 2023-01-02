@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="styles/edit screenings.css">
     <title>Kino Wawel</title>
     <base href="index.html">
 </head>
@@ -39,7 +40,7 @@
                     <li><a href="administracja.html">Filmy</a></li>
                     <li id="screeningsBtn">Seanse</li>
                     <li>
-                        <ul id="screenings">
+                        <ul id="screenings" class="active">
                             <li><a href="edytuj seanse.html">Katowice</a></li>
                             <li><a href="edytuj seanse.html">Kraków</a></li>
                             <li><a href="edytuj seanse.html">Lubań</a></li>
@@ -52,31 +53,44 @@
         </aside>
         <section>
             <header class="bottom-gradient-border">
-                <h2><span class="capital">F</span>ilmy</h2>
-                <a href="edytuj film.html" class="add btn cta-1">Dodaj</a>
-            </header>
-            <article class="bottom-gradient-border listing description">
-                <img src="img/black adam.jpg" alt="">
-                <div href="film.html" class="info">
+                <div id="day-select">
+                    <span class="arrow left"></span>
                     <div>
-                        <h2><span class="capital">B</span>lack <span class="capital">A</span>dam</h2>
+                        <span>Czwartek 11.09</span>
+                        <input type="date">
                     </div>
-                    <p class="info">Komedia | Od lat 13 | 125 min</p>
-                    <p class="description">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, repellendus modi dolor sequi magni saepe?
-                        Facere ipsum exercitationem blanditiis eaque consectetur! Architecto voluptatum repellendus facilis quidem
-                        fugit reiciendis maxime reprehenderit.
-                    </p>
+                    <span class="arrow right"></span>
                 </div>
-                <p class="playing"><span>•</span> Grany</p>
-                <div class="manage">
-                    <a href="edytuj film.html" class="edit btn cta-1">Edytuj</a>
-                    <a href="#" class="delete btn cta-2 alert">Usuń</a>
+            </header>
+            <section id="timetable" class="bottom-gradient-border">
+                <div class="wrapper">
+                    <div id="table">
+                        <form action="">
+                            <table> 
+                                <thead>
+                                    <tr>
+                                        <th>Godz.</th>
+                                        <th>Sala 1</th>
+                                        <th>Sala 2</th>
+                                        <th>Sala 3</th>
+                                        <th>Sala 4</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <aside>
+                        
+                    </aside>
                 </div>
-            </article>
+            </section>
         </section>
     </main>
     <script src="scripts/main.js"></script>
     <script src="scripts/admin.js"></script>
+    <script src="scripts/edit screenings.js"></script>
 </body>
 </html>
