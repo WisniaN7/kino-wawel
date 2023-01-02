@@ -81,7 +81,7 @@ div.screening {
     width: 100%;
     font-size: .9rem;
     border-radius: 10px;
-    background-color: rgb(134, 63, 63);
+    background-color: #972d2d;
     margin: 5px 0;
     overflow: hidden;
     cursor: grab;
@@ -93,8 +93,6 @@ table div.screening {
     top: 0;
     left: 5px;
     z-index: 10;
-    /* left: calc(var(--cell-width) * var(--col) + 5px);
-    top: calc(var(--time-scale) * (var(--row) + 1) + 10px); */
 }
 
 div.screening p {
@@ -132,15 +130,14 @@ div.screening div {
     display: flex;
     align-items: center;
     overflow: hidden;
-    /* transition: height 300ms; */
 }
 
 div.screening div.ads {
-    background-color: rgb(196, 171, 31);
+    background-color: #e1b21b;
 }
 
 div.screening div.movie {
-    background-color: rgb(134, 63, 63);
+    background-color: #972d2d;
 }
 
 div.screening div.cleanup {

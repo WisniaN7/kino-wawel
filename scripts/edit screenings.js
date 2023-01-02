@@ -79,13 +79,17 @@ window.addEventListener('load', () => {
         tbody.appendChild(tr)
     }
 
-    const moviesElements = document.querySelectorAll('#timetable aside div')
+    const moviesElements = document.querySelectorAll('#timetable aside div.screening')
     const timetableCells = document.querySelectorAll('#timetable tbody td:not(:first-child)')
+    const movieScreenings = document.querySelectorAll('aside div.screening')
+    let movieSchedules = {}
+
+    movieScreenings.forEach((movie) => {
+        movieSchedules[movie.id] = 0
+    })
 
     table.style = "--cell-width: " + timetableCells[0].offsetWidth + "px;"
     
-    console.log(moviesElements)
-
     moviesElements.forEach((movie) => {
         movie.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', e.target.id)
@@ -100,9 +104,11 @@ window.addEventListener('load', () => {
             const data = e.dataTransfer.getData('text/plain')
             let newNode
             
-            if (e.dataTransfer.getData('bool') === 'true')
+            if (e.dataTransfer.getData('bool') === 'true') {
                 newNode = document.getElementById(data).cloneNode(true)
-            else
+                newNode.id += '_' + movieSchedules[data]
+                movieSchedules[data]++
+            } else
                 newNode = document.querySelector('table #' + data)
 
             newNode.addEventListener('dragstart', (e) => {
@@ -112,7 +118,11 @@ window.addEventListener('load', () => {
 
             e.target.appendChild(newNode)
             e.target.querySelector('input[type="checkbox"]').checked = true
-            e.target.querySelector('input[type="number"]').value = data.slice(1)
+
+            if (data.indexOf('_') != -1)
+                e.target.querySelector('input[type="number"]').value = data.slice(1, data.indexOf('_') )
+            else
+                e.target.querySelector('input[type="number"]').value = data.slice(1)
         })
 
         cell.addEventListener('dragover', (e) => { e.preventDefault() })
