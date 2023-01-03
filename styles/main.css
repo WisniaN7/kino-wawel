@@ -143,7 +143,7 @@ input[type="file"] {
 }
 
 div#day-select {
-    width: 220px;
+    width: 230px;
     text-align: center;
     --arrow-size: 8px;
     --arrow-distance: 0;
@@ -159,7 +159,7 @@ div#day-select:hover span.arrow:hover {
 }
 
 div#day-select div {
-    width: 70%;
+    width: 80%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -167,6 +167,8 @@ div#day-select div {
 }
 
 div#day-select div input {
+    width: 20px;
+    height: 20px;
     border-radius: 5px;
     border: none;
     padding: 2px;
@@ -174,9 +176,8 @@ div#day-select div input {
     background-color: #fff;
 }
 
-div#day-select div input {
-    width: 20px;
-    height: 20px;
+div#day-select div span {
+    width: 100%;
 }
 
 body > header {
