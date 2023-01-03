@@ -30,6 +30,14 @@ main article.listing div.rating div.stars {
     display: flex;
 }
 
+main article.listing div.rating div.stars svg {
+    cursor: pointer;
+}
+
+main article.listing div.rating input {
+    display: none;
+}
+
 main article.listing a.btn {
     width: 200px;
     height: 40px;

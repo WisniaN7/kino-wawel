@@ -81,7 +81,7 @@ div.screening {
     width: 100%;
     font-size: .9rem;
     border-radius: 10px;
-    background-color: #972d2d;
+    background-color: #d91e4d;
     margin: 5px 0;
     overflow: hidden;
     cursor: grab;
@@ -133,15 +133,15 @@ div.screening div {
 }
 
 div.screening div.ads {
-    background-color: #e1b21b;
+    background-color: #efbd1c;
 }
 
 div.screening div.movie {
-    background-color: #972d2d;
+    background-color: #d91e4d;
 }
 
 div.screening div.cleanup {
-    background-color: rgb(59, 59, 59);
+    background-color: #555;
 }
 
 table div.screening div,

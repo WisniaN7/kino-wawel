@@ -7,13 +7,6 @@ main {
     color: #fff;
 }
 
-/* main div.wrapper {
-    max-width: 1152px;
-    height: 100%;
-    margin: 0 auto;
-    padding-top: 50px;
-} */
-
 main header {
     width: 100%;
     height: 70px;
@@ -55,11 +48,6 @@ main header div#show-descriptions label {
 
 main header div#show-descriptions input {
     transform: scale(.85);
-}
-
-main div.lds-ring {
-    top: calc(50% - 40px);
-    left: calc(50% - 40px);
 }
 
 main article a.info div div.rating {

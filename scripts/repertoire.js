@@ -3,6 +3,26 @@ function focusListing(id = 0) {
     movieListings[id].classList.add('description')
 }
 
+function addEventListeners() {
+    window.addEventListener('load', () => {
+        document.querySelector('main div.lds-ring').remove()
+        
+        descCheckbox = document.querySelector('#show-descriptions input')
+        movieListings = document.querySelectorAll('article')
+
+        descCheckbox.addEventListener('change', () => {
+            if (descCheckbox.checked)
+                movieListings.forEach((desc) => { desc.classList.add('description') })
+            else
+                focusListing()
+        })
+
+        movieListings.forEach((desc, id) => {
+            desc.addEventListener('mouseover', () => { if (!descCheckbox.checked) focusListing(id) })
+        })
+    })
+}
+
 const movies = fetch('https://wawel.herokuapp.com/movies')
     .then((response) => response.json())
     .then((data) => {
@@ -41,24 +61,7 @@ const getMovies = async () => {
 
         document.querySelector('main div.wrapper').appendChild(listing)
     })
-}
+}    
 
-getMovies()
-
-window.addEventListener('load', () => {
-    document.querySelector('main div.lds-ring').remove()
-    descCheckbox = document.querySelector('#show-descriptions input')
-    movieListings = document.querySelectorAll('article')
-
-    descCheckbox.addEventListener('change', () => {
-        if (descCheckbox.checked)
-            movieListings.forEach((desc) => { desc.classList.add('description') })
-        else
-            focusListing()
-    })
-
-    movieListings.forEach((desc, id) => {
-        desc.addEventListener('mouseover', () => { if (!descCheckbox.checked) focusListing(id) })
-    })
-})
+getMovies().then(() => { addEventListeners() })
 

@@ -79,16 +79,21 @@ main > aside div.wrapper > ul > li ul li:hover {
 main > section {
     width: calc(70% - 200px);
     max-width: calc(100% - 550px);
+    position: relative;
     height: 100%;
     padding: 0 100px;
 }
 
-main>section header {
+main > section header {
     height: 75px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 75px;
+}
+
+main > section header h2 {
+    --font-size: 1.5rem;
 }
 
 main article div.info {
@@ -100,10 +105,28 @@ main article > p {
     text-align: center;
 }
 
-main article > p.playing span {
-    color: var(--lime-accent);
+main article > p span {
+    color: var(--color);
     font-weight: 900;
     margin-right: 10px;
+    animation: blink 1s infinite;
+}
+
+main article > p.pre-premiere span {
+    --color: #7e4fc5;
+}
+
+main article > p.playing span {
+    --color: var(--lime-accent);
+}
+
+main article > p.not-playing span {
+    --color: rgb(255, 0, 64);
+}
+
+main article > p.archived span {
+    --color: #AAA;
+    animation: none;
 }
 
 main article div.manage {
@@ -119,112 +142,19 @@ main article div.manage a {
     margin-left: 20px;
 }
 
-main section > h2 {
+main section>h2 {
     --font-size: 1.8rem;
     margin: 75px 0 25px 0;
 }
 
-/* 
-main section form {
-    width: 100%;
-    height: calc(85% - 1.8rem - 100px);
-    display: grid;
-    column-gap: 75px;
-    grid-template-rows: 1fr 1fr 1fr 3fr .5fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    position: relative;
+@keyframes blink {
+    from {
+        opacity: 1;
+        text-shadow: 0 0px 4px var(--color);
+    }
+    
+    to {
+        opacity: .5;
+        text-shadow: 0 0px 0px var(--color);
+    }
 }
-
-main section form > div {
-    display: flex;
-    flex-direction: column;
-}
-
-main section form label {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-}
-
-main section form div.long-input {
-    grid-column: 1 / 3;
-}
-
-main section form div.short-input {
-    grid-row: 3; 
-}
-
-main section form div.short-input:first-of-type {
-    grid-column: 1; 
-}
-
-main section form div.short-input:last-of-type {
-    grid-column: 2; 
-}
-
-main section form div.long-input select option {
-    color: #222;
-}
-
-main section form div.long-input select option#current {
-    display: none;
-}
-
-main section form div.short-input div.radio-group {
-    display: flex;
-}
-
-main section form div.short-input div.radio-group label {
-    margin-right: 20px;
-}
-
-main section form div.short-input div#duration-input {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-main section form div.short-input div#duration-input input {
-    width: 80%;
-}
-
-main section form div textarea {
-    resize: vertical;
-}
-
-main section form div.file-input {
-    grid-column: 3;
-}
-
-main section form div.file-input#poster-input {
-    grid-row: 1 / 4;
-}
-
-main section form div.file-input input#poster {
-    width: 45%;
-    aspect-ratio: 297/420;
-}
-
-main section form div.file-input input#trailer {
-    width: 65%;
-    aspect-ratio: 16/9;
-}
-
-main section form div.file-input  p {
-    font-size: .75rem;
-    margin: 20px 0 5px 0;
-}
-
-main section form div#submit {
-    width: 100%;
-    height: 100%;
-    grid-column: 2;
-    position: relative;
-}
-
-main section form div#submit button.cta-1 {
-    width: 150px;
-    height: 100%;
-    position: absolute;
-    right: 0; 
-    font-size: 1.2rem;
-} */
