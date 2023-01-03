@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
-    document.querySelector('#user div.icon-user').addEventListener('click', function() {
-        document.querySelector('#user menu').classList.toggle('active')
+    document.querySelector('header div.user div.icon-user').addEventListener('click', function() {
+        document.querySelector('header div.user menu').classList.toggle('active')
     })
 })
 

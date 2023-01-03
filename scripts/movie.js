@@ -38,4 +38,35 @@ const getMovie = async () => {
     document.querySelector('main').appendChild(movieHTML)
 }
 
-getMovie()
+const reviews = fetch('https://wawel.herokuapp.com/movies/reviews/' + id)
+    .then((response) => response.json())
+    .then((data) => {
+        return data
+    })
+
+const getReviews = async () => {
+    const section = document.createElement('section')
+    section.id = 'reviews'
+
+    const h2 = createElementFromHTML('<h2><span class="capital">R</span>ecenzje użytkowników</h2>')
+    section.appendChild(h2)
+
+    document.querySelector('main').appendChild(section)
+
+    const r = await reviews
+
+    r.forEach((review) => {
+        const reviewHTML = createElementFromHTML('<article> <div class="bottom-gradient-border"> <div class="user"><div class="icon-user"><span class="head"></span><span class="body"></span></div></div> <p class="username">Username</p> <div class="rating"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"> <polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /> </svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"> <polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /> </svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"> <polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /> </svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"> <polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /> </svg> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"> <polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /> </svg> </div> </div> <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora quia dolores vel tenetur a ipsam quas earum minus ea! Odio cumque voluptas dolorum voluptatem delectus deleniti iure cupiditate ad explicabo?</p> </article>')
+
+        reviewHTML.querySelector('p.username').innerText = review.username        
+        const stars = reviewHTML.querySelectorAll('div.rating svg')
+        
+        for (let i = 0; i < review.rating; i++)
+            stars[i].classList.add('full')
+
+        reviewHTML.querySelector('p.description').innerText = review.reviewText
+        section.appendChild(reviewHTML)
+    })
+}
+
+getMovie().then(() => { getReviews() })
