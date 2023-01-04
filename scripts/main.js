@@ -52,6 +52,6 @@ function handleErrors() {
 
 function isItTooLate(time, timeOffset) {
     const currentTime = new Date()
-    const date = new Date(currentTime.setMinutes(currentTime.getMinutes() - timeOffset))
+    const date = new Date(currentTime.setMinutes(currentTime.getMinutes() + timeOffset))
     return time < date
 }
