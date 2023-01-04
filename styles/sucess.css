@@ -1,0 +1,27 @@
+main {
+    width: 70vw;
+    height: calc(100vh - var(--header-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15vw;
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    text-align: center;
+}
+
+main h2 {
+    --font-size: 1.7rem;
+}
+
+main p {
+    margin: 0;
+}
+
+main a {
+    font-size: 1.3rem;
+    padding: 10px 20px;
+    margin-top: 50px;
+}

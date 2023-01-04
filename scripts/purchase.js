@@ -1,4 +1,8 @@
-const seats = fetch('https://wawel.herokuapp.com/movies/screening/' + 2 || id)
+// TODO: Discount codes
+
+const screeningId = urlParams.get('screeningId')
+
+const seats = fetch('https://wawel.herokuapp.com/movies/screening/' + screeningId)
     .then((response) => response.json())
     .then((data) => {
         return data
@@ -6,13 +10,13 @@ const seats = fetch('https://wawel.herokuapp.com/movies/screening/' + 2 || id)
 
 const getSeats = async () => {
     const s = await seats
-    
+
     const fieldset = document.querySelector('#seats')
     let rowCounter = 0
 
     s.seats.forEach((row) => {
         const rowLabel = document.createElement('span')
-        rowLabel.innerText = String.fromCharCode(65 + rowCounter++)
+        rowLabel.innerText = rowCounter++
         fieldset.appendChild(rowLabel)
 
         let colCounter = 0
@@ -21,18 +25,22 @@ const getSeats = async () => {
             const input = document.createElement('input')
             input.type = 'checkbox'
             input.name = 'seats'
-            input.value = rowLabel.innerText + (colCounter++)
+            input.value = rowLabel.innerText + '|' + (colCounter++)
 
             switch (seatType) {
                 case 'WOLNE':
                     input.classList.add('free')
                     break
-                case 'ZAJĘTE':
+                case 'ZAJETE':
                     input.classList.add('taken')
                     input.disabled = true
                     break
                 case 'NIE_ISTNIEJE':
                     input.disabled = true
+                    break
+                default:
+                    input.style.background = 'red'
+                    input.style.border = 'red'
                     break
             }
             
@@ -47,7 +55,9 @@ function addEventListeners() {
     const countersPlus = ticketsSelector.querySelectorAll('.plus')
     const validateEvent = new Event('validate')
     const ticketValidator = ticketsSelector.querySelector('#validation input[type="radio"]')
-    
+
+    document.querySelector('input[type="hidden"]').value = screeningId
+
     ticketsSelector.addEventListener('validate', () => {
         if (ticketsSelector.getAttribute('data-required') == ticketsSelector.getAttribute('data-chosen') && ticketsSelector.getAttribute('data-chosen') != 0)
             ticketsSelector.classList.add('correct')
@@ -55,7 +65,6 @@ function addEventListeners() {
             ticketValidator.required = true
         else
             ticketsSelector.classList.remove('correct')
-
     })
 
     countersPlus.forEach((plus) => {
@@ -70,6 +79,7 @@ function addEventListeners() {
             total.innerText = parseInt(total.innerText) + parseInt(counter.getAttribute('data-price'))
             ticketsSelector.setAttribute('data-required', parseInt(ticketsSelector.getAttribute('data-required')) + 1)
             ticketsSelector.classList.add('chosen')
+            ticketsSelector.classList.remove('incorrect')
 
             ticketValidator.required = false
             ticketsSelector.dispatchEvent(validateEvent)
@@ -92,6 +102,7 @@ function addEventListeners() {
 
             total.innerText = parseInt(total.innerText) - parseInt(counter.getAttribute('data-price'))
             ticketsSelector.setAttribute('data-required', parseInt(ticketsSelector.getAttribute('data-required')) - 1)
+            ticketsSelector.classList.remove('incorrect')
             
             if (parseInt(ticketsSelector.getAttribute('data-required')) == 0)
                 ticketsSelector.classList.remove('chosen')
@@ -115,10 +126,22 @@ function addEventListeners() {
                 ticketsSelector.classList.remove('chosen')
             }
             
+            ticketsSelector.classList.remove('incorrect')
             ticketsSelector.dispatchEvent(validateEvent)
         })
     })
 
+    const submit = document.querySelector('button[type="submit"]')
+    console.log(submit);
+
+    submit.addEventListener('click', (e) => {
+        if (!ticketsSelector.classList.contains('correct')) {
+            e.preventDefault()
+            ticketsSelector.classList.add('incorrect')
+        } 
+
+        // TODO: check whether is it not too late to buy tickets
+    })
 }
 
 getSeats().then(() => { addEventListeners() })

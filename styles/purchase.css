@@ -113,7 +113,8 @@ main form section fieldset input::before {
 
 main form aside {
     width: calc(30% - 120px);
-    height: calc(100% - 50px);
+    min-height: calc(100% - 50px);
+    height: fit-content;
     background-color: #333;
     text-align: right;
     padding: 25px 60px;
@@ -132,11 +133,16 @@ main form aside div#tickets::after {
 }
 
 main form aside div#tickets.chosen::after {
-    opacity: 0.5;
+    color: rgba(128, 128, 128);
+    opacity: 1;
 }
 
 main form aside div#tickets.correct::after {
-    color: var(--lime-accent);
+    color: var(--lime-accent-half-transparent);
+}
+
+main form aside div#tickets.incorrect::after {
+    color: #f00 !important;
 }
 
 main form aside div#tickets div.ticket-type {
@@ -152,15 +158,22 @@ main form aside div#tickets div.ticket-type p {
     margin: 0;
 }
 
-main form aside div#tickets div.ticket-type div span {
-    font-size: 1.5rem;
-    text-transform: uppercase;
-}
-
 main form aside div#tickets div.ticket-type div.counter {
     display: flex;
     align-items: center;
 }
+
+main form aside div#tickets div.ticket-type div.counter div:nth-child(2) {
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+main form aside div#tickets div.ticket-type div.counter div span {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
 
 main form aside div#tickets div.ticket-type div.counter div.plus,
 main form aside div#tickets div.ticket-type div.counter div.minus {
@@ -250,7 +263,7 @@ main form aside div#buttons {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: baseline;
 }
 
 main form aside div#summary {
