@@ -121,6 +121,22 @@ main form aside {
 
 main form aside div#tickets {
     margin-top: 40px;
+    position: relative;
+}
+
+main form aside div#tickets::after {
+    content: 'Wybrane miejsca: ' attr(data-chosen) '/' attr(data-required);
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: 300ms;
+}
+
+main form aside div#tickets.chosen::after {
+    opacity: 0.5;
+}
+
+main form aside div#tickets.correct::after {
+    color: var(--lime-accent);
 }
 
 main form aside div#tickets div.ticket-type {
@@ -136,7 +152,7 @@ main form aside div#tickets div.ticket-type p {
     margin: 0;
 }
 
-main form aside div#tickets div.ticket-type span {
+main form aside div#tickets div.ticket-type div span {
     font-size: 1.5rem;
     text-transform: uppercase;
 }
@@ -146,7 +162,8 @@ main form aside div#tickets div.ticket-type div.counter {
     align-items: center;
 }
 
-main form aside div#tickets div.ticket-type div.counter div {
+main form aside div#tickets div.ticket-type div.counter div.plus,
+main form aside div#tickets div.ticket-type div.counter div.minus {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,7 +172,8 @@ main form aside div#tickets div.ticket-type div.counter div {
     position: relative;
 }
 
-main form aside div#tickets div.ticket-type div.counter div span {
+main form aside div#tickets div.ticket-type div.counter div.plus span,
+main form aside div#tickets div.ticket-type div.counter div.minus span {
     width: 7px;
     height: 2px;
     background: var(--lime-accent);
@@ -166,8 +184,22 @@ main form aside div#tickets div.ticket-type div.counter div.plus span:last-of-ty
     transform: rotate(90deg);
 }
 
-main form aside div#tickets div.ticket-type p span {
-    margin-left: 15px;
+main form aside div#tickets div.ticket-type div.counter div#validation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+main form aside div#tickets div.ticket-type div.counter div input[type="number"] {
+    display: none;
+}
+
+main form aside div#tickets div.ticket-type div.counter div#validation input[type="radio"] {
+    position: absolute;
+    top: 75%;
+    opacity: 0;
+    margin: 0;
 }
 
 main form aside div#inputs {
@@ -183,6 +215,11 @@ main form aside div#inputs button {
     padding: 5px 20px;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
+    transition: background-color 100ms;
+}
+
+main form aside div#inputs button:hover {
+    background-color: rgba(255, 255, 255, .05);
 }
 
 main form aside div#inputs > input {
@@ -229,5 +266,5 @@ main form aside div#buttons {
 main form aside div#buttons * {
     width: 49%;
     height: 100%;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
