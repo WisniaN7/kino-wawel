@@ -10,8 +10,6 @@ function addEventListeners() {
     })
 }
 
-const queryString = window.location.search
-const urlParams = new URLSearchParams(queryString);
 const id = urlParams.get('id')
 let city = urlParams.get('city')
 const date = urlParams.get('date')
