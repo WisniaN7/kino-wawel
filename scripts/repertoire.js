@@ -52,9 +52,24 @@ function addEventListeners() {
 
 function addEventListenersForListings() {
     movieListings = document.querySelectorAll('article')
+    screenings = document.querySelectorAll('article div.screenings > a')
 
     movieListings.forEach((desc, id) => {
         desc.addEventListener('mouseover', () => { if (!descCheckbox.checked) focusListing(id) })
+    })
+
+    screenings.forEach((screening) => {
+        screening.addEventListener('click', (e) => {      
+            let time = dateSelect.value
+            screeningTime = screening.querySelector('p').innerText.split(':')
+            time.setHours(screeningTime[0], screeningTime[1], 0, 0)
+            
+            if (isItTooLate(time, 15))
+                e.preventDefault()
+
+            const snackbar = createSnackbar('Termin seansu już minął lub jest niedostępny')
+            snackbar.classList.add('warning')
+        })
     })
 }
 
@@ -67,7 +82,7 @@ const getMovies = async (city, date) => {
 
     const m = await movies
 
-    const lisings = document.querySelectorAll('main div.wrapper article')
+    const lisings = document.querySelectorAll('main div.wrapper article, main div.wrapper h2')
 
     lisings.forEach((listing) => {
         listing.remove()
@@ -103,8 +118,17 @@ const getMovies = async (city, date) => {
         listing.querySelector('p.info').innerText += ' | ' + (movie.duration || 120) + ' min'
 
         listing.querySelector('p.description').innerText = movie.description
+
+        let endIndex = 3
         
-        for (let index = 0; index < Math.min(screenings.length, 3); index++) {
+        for (let index = 0; index < Math.min(screenings.length, endIndex); index++) {
+            let time = new Date(date + 'T' + screenings[index].startTime)
+
+            if (isItTooLate(time, 15)) {
+                endIndex++
+                continue
+            }
+
             const screening = createElementFromHTML('<a href="zakup.html" class="cta-2 bean"> <p class="hour"></p> <p class="type">2D napisy</p> </a>')
             
             screening.href = index == 2 && screenings.length > 3 ? 'film.html?id=' + movie.id : 'zakup.html?movieId=' + movie.id + '&screeningId=' + screenings[index].screeningId
@@ -113,9 +137,16 @@ const getMovies = async (city, date) => {
             listing.querySelector('div.screenings').appendChild(screening)
         }
 
-        document.querySelector('main div.wrapper').appendChild(listing)
+        if (screenings.length + 3 > endIndex)
+            document.querySelector('main div.wrapper').appendChild(listing)
     })
-}    
+
+    if (document.querySelectorAll('article').length == 0) {
+        const h2 = document.createElement('h2')
+        h2.innerText = 'Brak najbliższych seansów w danym dniu'
+        document.querySelector('main div.wrapper').appendChild(h2)
+    }
+}
 
 let city = 'KRAKOW'
 let date = new Date().toISOString().slice(0, 10)
