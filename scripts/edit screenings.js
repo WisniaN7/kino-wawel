@@ -33,64 +33,61 @@ function createTimetable(tbody) {
 }
 
 function addEventListeners() {
+    const table = document.querySelector('#timetable table')
+    const tbody = table.querySelector('tbody')
+    createTimetable(tbody)
 
-    window.addEventListener('load', () => {
-        const table = document.querySelector('#timetable table')
-        const tbody = table.querySelector('tbody')
-        createTimetable(tbody)
+    const moviesElements = document.querySelectorAll('#timetable aside div.screening')
+    const timetableCells = document.querySelectorAll('#timetable tbody td:not(:first-child)')
+    const movieScreenings = document.querySelectorAll('aside div.screening')
+    let movieSchedules = {}
 
-        const moviesElements = document.querySelectorAll('#timetable aside div.screening')
-        const timetableCells = document.querySelectorAll('#timetable tbody td:not(:first-child)')
-        const movieScreenings = document.querySelectorAll('aside div.screening')
-        let movieSchedules = {}
+    movieScreenings.forEach((movie) => {
+        movieSchedules[movie.id] = 0
+    })
 
-        movieScreenings.forEach((movie) => {
-            movieSchedules[movie.id] = 0
+    table.style = "--cell-width: " + timetableCells[0].offsetWidth + "px;"
+
+    moviesElements.forEach((movie) => {
+        movie.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.id)
+            e.dataTransfer.setData('bool', true)
         })
+    })
 
-        table.style = "--cell-width: " + timetableCells[0].offsetWidth + "px;"
+    timetableCells.forEach((cell) => {
+        cell.addEventListener('drop', (e) => {
+            e.preventDefault()
 
-        moviesElements.forEach((movie) => {
-            movie.addEventListener('dragstart', (e) => {
+            const data = e.dataTransfer.getData('text/plain')
+            let newNode
+
+            if (e.dataTransfer.getData('bool') === 'true') {
+                newNode = document.getElementById(data).cloneNode(true)
+                newNode.id += '_' + movieSchedules[data]
+                movieSchedules[data]++
+            } else
+                newNode = document.querySelector('table #' + data)
+
+            newNode.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('text/plain', e.target.id)
-                e.dataTransfer.setData('bool', true)
-            })
-        })
-
-        timetableCells.forEach((cell) => {
-            cell.addEventListener('drop', (e) => {
-                e.preventDefault()
-
-                const data = e.dataTransfer.getData('text/plain')
-                let newNode
-
-                if (e.dataTransfer.getData('bool') === 'true') {
-                    newNode = document.getElementById(data).cloneNode(true)
-                    newNode.id += '_' + movieSchedules[data]
-                    movieSchedules[data]++
-                } else
-                    newNode = document.querySelector('table #' + data)
-
-                newNode.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.setData('text/plain', e.target.id)
-                    e.dataTransfer.setData('bool', false)
-                })
-
-                e.target.appendChild(newNode)
-                e.target.querySelector('input[type="checkbox"]').checked = true
-
-                if (data.indexOf('_') != -1)
-                    e.target.querySelector('input[type="number"]').value = data.slice(1, data.indexOf('_'))
-                else
-                    e.target.querySelector('input[type="number"]').value = data.slice(1)
+                e.dataTransfer.setData('bool', false)
             })
 
-            cell.addEventListener('dragover', (e) => { e.preventDefault() })
+            e.target.appendChild(newNode)
+            e.target.querySelector('input[type="checkbox"]').checked = true
+
+            if (data.indexOf('_') != -1)
+                e.target.querySelector('input[type="number"]').value = data.slice(1, data.indexOf('_'))
+            else
+                e.target.querySelector('input[type="number"]').value = data.slice(1)
         })
 
-        window.addEventListener('resize', () => {
-            table.style = "--cell-width: " + timetableCells[0].offsetWidth + "px;"
-        })
+        cell.addEventListener('dragover', (e) => { e.preventDefault() })
+    })
+
+    window.addEventListener('resize', () => {
+        table.style = "--cell-width: " + timetableCells[0].offsetWidth + "px;"
     })
 }
 

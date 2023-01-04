@@ -1,7 +1,8 @@
 function addEventListeners() {
     window.addEventListener('load', () => {
         citySelect = document.querySelector('aside select')
-        
+        citySelect.value = city
+
         citySelect.addEventListener('change', () => {
             city = citySelect.value.toUpperCase()
             getScreenings()
@@ -76,12 +77,11 @@ const getScreenings = async () => {
     temp.setMonth(date.split('-')[1] - 1)
     document.querySelector('h3').innerText += ' ' + date.split('-')[2] + ' ' + temp.toLocaleString('pl-PL', { month: 'long' }) + ':'
 
-    for (let index = 0; index < Math.min(s.length, 3); index++) {
+    for (let index = 0; index < s.length; index++) {
         const screening = createElementFromHTML('<a href="zakup.html" class="cta-2 bean"> <p class="hour"></p> <p class="type">2D napisy</p> </a>')
 
-        screening.href = index == 2 && s.length > 3 ? 'film.html?id=' + movie.id : 'zakup.html?movieId=' + movie.id + '&screeningId=' + s[index].screeningId
-        screening.querySelector('p.hour').innerText = (index == 2 && s.length > 3) ? '...' : s[index].startTime.slice(0, 5)
-        screening.querySelector('p.type').innerText = (index == 2 && s.length > 3) ? 'więcej' : s[index].movieType.split('').reverse().join('') + ' ' + s[index].movieSoundType.toLowerCase()
+        screening.querySelector('p.hour').innerText = s[index].startTime.slice(0, 5)
+        screening.querySelector('p.type').innerText = s[index].movieType.split('').reverse().join('') + ' ' + s[index].movieSoundType.toLowerCase()
         screeningsHTML.appendChild(screening)
     }
 }
