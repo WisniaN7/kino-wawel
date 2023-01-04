@@ -4,51 +4,49 @@ function focusListing(id = 0) {
 }
 
 function addEventListeners() {
-    window.addEventListener('load', () => {
-        document.querySelector('main div.lds-ring').remove()
+    document.querySelector('main div.lds-ring').remove()
 
-        addEventListenersForListings()
-        
-        descCheckbox = document.querySelector('#show-descriptions input')
+    addEventListenersForListings()
+    
+    descCheckbox = document.querySelector('#show-descriptions input')
 
-        descCheckbox.addEventListener('change', () => {
-            if (descCheckbox.checked)
-                movieListings.forEach((desc) => { desc.classList.add('description') })
-            else
-                focusListing()
-        })
+    descCheckbox.addEventListener('change', () => {
+        if (descCheckbox.checked)
+            movieListings.forEach((desc) => { desc.classList.add('description') })
+        else
+            focusListing()
+    })
 
-        citySelect = document.querySelector('header select')
+    citySelect = document.querySelector('header select')
 
-        citySelect.addEventListener('change', () => {
-            city = citySelect.value.toUpperCase()
-            getMovies(city, date)
-        })
+    citySelect.addEventListener('change', () => {
+        city = citySelect.value.toUpperCase()
+        getMovies(city, date)
+    })
 
-        dateSelect = document.querySelector('#day-select input')
-        dateLabel = document.querySelector('#day-select div span')
-        dateArrows = document.querySelectorAll('#day-select span.arrow')
+    dateSelect = document.querySelector('#day-select input')
+    dateLabel = document.querySelector('#day-select div span')
+    dateArrows = document.querySelectorAll('#day-select span.arrow')
 
-        dateSelect.value = date
-        dateLabel.innerText = new Date().toLocaleDateString('pl-PL', { weekday: 'long', month: 'numeric', day: 'numeric' })
+    dateSelect.value = date
+    dateLabel.innerText = new Date().toLocaleDateString('pl-PL', { weekday: 'long', month: 'numeric', day: 'numeric' })
 
-        dateArrows.forEach((arrow) => {
-            arrow.addEventListener('click', () => {
-                date = new Date(dateSelect.value)
-                date.setDate(date.getDate() + (arrow.classList.contains('left') ? -1 : 1))
-                dateLabel.innerText = date.toLocaleDateString('pl-PL', { weekday: 'long', month: 'numeric', day: 'numeric' })
-                date = date.toISOString().split('T')[0]
-                dateSelect.value = date
-                getMovies(city, dateSelect.value).then(() => { addEventListenersForListings() })
-            })
-        })
-
-        dateSelect.addEventListener('change', () => {
+    dateArrows.forEach((arrow) => {
+        arrow.addEventListener('click', () => {
             date = new Date(dateSelect.value)
+            date.setDate(date.getDate() + (arrow.classList.contains('left') ? -1 : 1))
             dateLabel.innerText = date.toLocaleDateString('pl-PL', { weekday: 'long', month: 'numeric', day: 'numeric' })
             date = date.toISOString().split('T')[0]
+            dateSelect.value = date
             getMovies(city, date).then(() => { addEventListenersForListings() })
         })
+    })
+
+    dateSelect.addEventListener('change', () => {
+        date = new Date(dateSelect.value)
+        dateLabel.innerText = date.toLocaleDateString('pl-PL', { weekday: 'long', month: 'numeric', day: 'numeric' })
+        date = date.toISOString().split('T')[0]
+        getMovies(city, date).then(() => { addEventListenersForListings() })
     })
 }
 
@@ -123,4 +121,3 @@ let city = 'KRAKOW'
 let date = new Date().toISOString().slice(0, 10)
 
 getMovies(city, date).then(() => { addEventListeners() })
-
