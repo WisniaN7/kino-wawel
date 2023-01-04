@@ -1,7 +1,8 @@
 function addEventListeners() {
     window.addEventListener('load', () => {
         citySelect = document.querySelector('aside select')
-        citySelect.value = city
+        cityToCityValue = { 'KATOWICE': 'Katowice', 'KRAKOW': 'Kraków', 'LUBAN': 'Lubań', 'OPOLE': 'Opole', 'WROCLAW': 'Wrocław' }
+        citySelect.value = cityToCityValue[city]
 
         citySelect.addEventListener('change', () => {
             city = citySelect.value.toUpperCase()
@@ -50,7 +51,6 @@ const getMovie = async () => {
     document.querySelector('main').appendChild(movieHTML)
 }
 
-
 const getScreenings = async () => {
     const screenings = fetch('https://wawel.herokuapp.com/movies/repertoire?city=' + city + '&date=' + date)
         .then((response) => response.json())
@@ -76,6 +76,11 @@ const getScreenings = async () => {
     document.querySelector('h3').innerText += ' ' + date.split('-')[2] + ' ' + temp.toLocaleString('pl-PL', { month: 'long' }) + ':'
 
     for (let index = 0; index < s.length; index++) {
+        let time = new Date(date + 'T' + s[index].startTime)
+
+        if (isItTooLate(time, 15))
+            continue
+
         const screening = createElementFromHTML('<a href="zakup.html" class="cta-2 bean"> <p class="hour"></p> <p class="type">2D napisy</p> </a>')
 
         screening.querySelector('p.hour').innerText = s[index].startTime.slice(0, 5)
