@@ -39,8 +39,6 @@ main article.listing div.rating input {
 }
 
 main article.listing a.btn {
-    width: 200px;
-    height: 40px;
-    transform: scale(0.8);
+    transform: scale(0.85);
     margin-top: 15px;
 }

@@ -365,6 +365,7 @@ h2 span.capital {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px 20px;
 }
 
 .cta-1 {
@@ -497,7 +498,6 @@ body > header nav div.user {
 
 main div.wrapper {
     max-width: 1152px;
-    height: 100%;
     margin: 0 auto;
     padding-top: 50px;
 }
