@@ -144,6 +144,7 @@ section#movie aside div.screenings a p.hour {
 
 section#movie aside div.screenings a p.type {
     font-size: 0.55rem;
+    white-space: nowrap;
 }
 
 section#reviews {

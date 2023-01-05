@@ -12,8 +12,8 @@ function addEventListeners() {
 }
 
 const id = urlParams.get('id')
-let city = urlParams.get('city')
-const date = urlParams.get('date')
+let city = urlParams.get('city') || 'KRAKOW'
+const date = urlParams.get('date') || new Date().toISOString().slice(0, 10)
 
 const movie = fetch('https://wawel.herokuapp.com/movies/' + id)
     .then((response) => response.json())

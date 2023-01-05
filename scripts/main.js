@@ -43,7 +43,7 @@ function createElementFromHTML(htmlString) {
     return div.firstChild
 }
 
-function createSnackbar(text, type = '', time = 'short') {
+function createSnackbar(text, type = 'info', time = 'short') {
     let snackbar = document.getElementById('snackbar')
 
     if (snackbar)
@@ -82,7 +82,15 @@ function handleErrors() {
     else if (error == 9)
         snackbar = createSnackbar('Adres email jest już zajęty.', 'warning', 'short')
     else if (error == 10)
-        snackbar = createSnackbar('Wylogowano pomyślnie', 'success', 'short')
+        snackbar = createSnackbar('Wylogowano pomyślnie.', 'success', 'short')
+    else if (error == 11)
+        snackbar = createSnackbar('Dodanie recenzji przebiegło pomyślnie.', 'success', 'short')
+    else if (error == 12)
+        snackbar = createSnackbar('Aktualizacja recenzji przebiegła pomyślnie.', 'success', 'short')
+    else if (error == 13)
+        snackbar = createSnackbar('Dodanie nie powiodło się.', 'error', 'short')
+    else if (error == 14)
+        snackbar = createSnackbar('Aktualizacja nie powiodło się.', 'error', 'short')
     else
         snackbar = createSnackbar('Unknown status: ' + error + ', with message: ' + message)
 }

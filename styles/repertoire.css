@@ -99,6 +99,7 @@ main article div.screenings a p.hour {
 
 main article div.screenings a p.type {
     font-size: 0.55rem;
+    white-space: nowrap;
 }
 
 main article.description img {
