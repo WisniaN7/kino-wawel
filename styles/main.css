@@ -198,6 +198,7 @@ div#day-select div span {
 }
 
 #snackbar.info::before,
+#snackbar.success::before,
 #snackbar.warning::before,
 #snackbar.error::before {
     width: 1.2rem;
@@ -225,6 +226,12 @@ div#day-select div span {
 #snackbar.info::before {
     content: '?';
     background-color: rgb(0, 119, 255);
+}
+
+#snackbar.success::before {
+    content: '✓';
+    font-size: .7rem;
+    background-color: var(--lime-accent);
 }
 
 #snackbar.show {
@@ -282,6 +289,7 @@ div.user menu {
     opacity: 0;
     transition: opacity 100ms ease-in-out;
     visibility: hidden;
+    cursor: default;
 }
 
 div.user menu.active {
@@ -296,9 +304,14 @@ div.user menu li {
     margin: 0;
 }
 
+div.user menu li p {
+    margin: 0;
+}
+
 div.user menu li a {
     color: var(--lime-accent);
     font-weight: 700;
+    white-space: nowrap;
 }
 
 span.arrow {

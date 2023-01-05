@@ -4,8 +4,6 @@ function focusListing(id = 0) {
 }
 
 function addEventListeners() {
-    document.querySelector('main div.lds-ring').remove()
-
     addEventListenersForListings()
     
     descCheckbox = document.querySelector('#show-descriptions input')
@@ -74,6 +72,15 @@ function addEventListenersForListings() {
 }
 
 const getMovies = async (city, date) => {
+    const lisings = document.querySelectorAll('main div.wrapper article, main div.wrapper h2')
+
+    lisings.forEach((listing) => {
+        listing.remove()
+    })
+
+    const loader = createElementFromHTML('<div class="lds-ring"> <div></div> <div></div> <div></div> <div></div> </div>')
+    document.querySelector('main div.wrapper').appendChild(loader)
+
     const movies = fetch('https://wawel.herokuapp.com/movies/repertoire?city=' + city + '&date=' + date)
         .then((response) => response.json())
         .then((data) => {
@@ -81,12 +88,6 @@ const getMovies = async (city, date) => {
         })
 
     const m = await movies
-
-    const lisings = document.querySelectorAll('main div.wrapper article, main div.wrapper h2')
-
-    lisings.forEach((listing) => {
-        listing.remove()
-    })
 
     m.items.forEach((tuple) => {
         const movie = tuple.movie
@@ -111,11 +112,11 @@ const getMovies = async (city, date) => {
             h2.innerHTML += word.slice(1) + ' '
         })
 
-        listing.querySelector('div.rating p').innerText = movie.rating || 4.32
+        listing.querySelector('div.rating p').innerText = movie.averageRating
 
-        listing.querySelector('p.info').innerText = movie.genre || 'Dramat'
-        listing.querySelector('p.info').innerText += ' | Od lat ' + (movie.minAge || 13)
-        listing.querySelector('p.info').innerText += ' | ' + (movie.duration || 120) + ' min'
+        listing.querySelector('p.info').innerText = movie.genre
+        listing.querySelector('p.info').innerText += ' | Od lat ' + movie.minAge
+        listing.querySelector('p.info').innerText += ' | ' + movie.duration + ' min'
 
         listing.querySelector('p.description').innerText = movie.description
 
@@ -140,6 +141,8 @@ const getMovies = async (city, date) => {
         if (screenings.length + 3 > endIndex)
             document.querySelector('main div.wrapper').appendChild(listing)
     })
+
+    loader.remove()
 
     if (document.querySelectorAll('article').length == 0) {
         const h2 = document.createElement('h2')
