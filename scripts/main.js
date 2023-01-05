@@ -16,7 +16,7 @@ window.addEventListener('load', () => {
             nav.insertBefore(li, nav.children[0])
         }
 
-        menu = createElementFromHTML('<menu> <li><p class="username">admin</p></li> <li><a href="#">Moje bilety</a></li> <li><a href="obejrzane.html">Obejrzane filmy</a></li> <li><a href="#">Wyloguj</a></li> </menu>')
+        menu = createElementFromHTML('<menu> <li><p class="username">admin</p></li> <li><a href="#">Moje bilety</a></li> <li><a href="recenzje.html">Moje recenzje</a></li> <li><a href="obejrzane.html">Obejrzane filmy</a></li> <li><a href="#">Wyloguj</a></li> </menu>')
         
         menu.querySelector('li:last-child a').addEventListener('click', (e) => {
             e.preventDefault()
