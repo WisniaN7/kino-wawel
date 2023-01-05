@@ -1,7 +1,7 @@
 function addEventListeners() {
     window.addEventListener('load', () => {
         citySelect = document.querySelector('aside select')
-        cityToCityValue = { 'KATOWICE': 'Katowice', 'KRAKOW': 'Kraków', 'LUBAN': 'Lubań', 'OPOLE': 'Opole', 'WROCLAW': 'Wrocław' }
+        cityToCityValue = { 'KATOWICE': 'Katowice', 'KRAKOW': 'Krakow', 'LUBAN': 'Luban', 'OPOLE': 'Opole', 'WROCLAW': 'Wroclaw' }
         citySelect.value = cityToCityValue[city]
 
         citySelect.addEventListener('change', () => {
@@ -24,7 +24,7 @@ const movie = fetch('https://wawel.herokuapp.com/movies/' + id)
 const getMovie = async () => {
     const m = await movie
 
-    movieHTML = createElementFromHTML('<section id="movie"> <div> <video src=""></video> </div> <aside> <div class="title"> <h2></h2> <div class="rating"> <p>4.32</p> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"> <polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /> </svg> </div> </div> <p class="info">Komedia | Od lat 13 | 125 min</p> <p class="description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, repellendus modi dolor sequi magni saepe? Facere ipsum exercitationem blanditiis eaque consectetur! Architecto voluptatum repellendus facilis quidem fugit reiciendis maxime reprehenderit. </p> <select name="city"> <option value="Katowice">Katowice</option> <option value="Krakow" selected>Kraków</option> <option value="Luban">Lubań</option> <option value="Opole">Opole</option> <option value="Wroclaw">Wrocław</option> </select> <h3>Seanse na</h3> <div class="screenings"></div> </aside> </section>')
+    movieHTML = createElementFromHTML('<section id="movie"> <div> <video src=""></video> </div> <aside> <div class="title"> <h2></h2> <div class="rating"> <p>4.32</p> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"> <polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /> </svg> </div> </div> <p class="info">Komedia | Od lat 13 | 125 min</p> <p class="description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, repellendus modi dolor sequi magni saepe? Facere ipsum exercitationem blanditiis eaque consectetur! Architecto voluptatum repellendus facilis quidem fugit reiciendis maxime reprehenderit. </p> <select name="city"> <option value="Katowice">Katowice</option> <option value="Krakow" selected>Kraków</option> <option value="Luban">Lubań</option> <option value="Opole">Opole</option> <option value="Wroclaw">Wrocław</option> </select> <h3>Seanse na <span></span></h3> <div class="screenings"></div> </aside> </section>')
 
     movieHTML.querySelector('div').style = "--bg-image: url('../img/bg/" + m.title.replace(/[/\\?%*:|"<>]/g, '').toLowerCase() + ".jpg');"
 
@@ -40,11 +40,11 @@ const getMovie = async () => {
         h2.innerHTML += word.slice(1) + ' '
     })
 
-    movieHTML.querySelector('div.rating p').innerText = m.rating || 4.32
+    movieHTML.querySelector('div.rating p').innerText = m.averageRating
 
-    movieHTML.querySelector('p.info').innerText = m.genre || 'Dramat'
-    movieHTML.querySelector('p.info').innerText += ' | Od lat ' + (m.minAge || 13)
-    movieHTML.querySelector('p.info').innerText += ' | ' + (m.duration || 120) + ' min'
+    movieHTML.querySelector('p.info').innerText = m.genre 
+    movieHTML.querySelector('p.info').innerText += ' | Od lat ' + m.minAge
+    movieHTML.querySelector('p.info').innerText += ' | ' + m.duration + ' min'
 
     movieHTML.querySelector('p.description').innerText = m.description
 
@@ -73,7 +73,7 @@ const getScreenings = async () => {
 
     let temp = new Date(date)
     temp.setMonth(date.split('-')[1] - 1)
-    document.querySelector('h3').innerText += ' ' + date.split('-')[2] + ' ' + temp.toLocaleString('pl-PL', { month: 'long' }) + ':'
+    document.querySelector('h3 span').innerText = ' ' + date.split('-')[2] + ' ' + temp.toLocaleString('pl-PL', { month: 'long' }) + ':'
 
     for (let index = 0; index < s.length; index++) {
         let time = new Date(date + 'T' + s[index].startTime)
@@ -83,6 +83,7 @@ const getScreenings = async () => {
 
         const screening = createElementFromHTML('<a href="zakup.html" class="cta-2 bean"> <p class="hour"></p> <p class="type">2D napisy</p> </a>')
 
+        screening.href = 'zakup.html?screeningId=' + s[index].screeningId
         screening.querySelector('p.hour').innerText = s[index].startTime.slice(0, 5)
         screening.querySelector('p.type').innerText = s[index].movieType.split('').reverse().join('') + ' ' + s[index].movieSoundType.toLowerCase()
         screeningsHTML.appendChild(screening)

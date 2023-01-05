@@ -100,31 +100,41 @@ main article div.info {
     width: calc(45% - 5% - 65px) !important;
 }
 
-main article > p {
+main article p.status {
     width: 15%;
     text-align: center;
+    text-transform: capitalize;
 }
 
-main article > p span {
+main article p.status span {
     color: var(--color);
     font-weight: 900;
     margin-right: 10px;
     animation: blink 1s infinite;
 }
 
-main article > p.pre-premiere span {
+main article p.status.no-screenings span {
+    --color: #ff9a04;
+    animation: none;
+}
+
+main article p.status.pre-premiere span {
     --color: #7e4fc5;
 }
 
-main article > p.playing span {
+main article p.status.premiere span {
+    --color: #01ceff;
+}
+
+main article p.status.playing span {
     --color: var(--lime-accent);
 }
 
-main article > p.not-playing span {
+main article p.status.not-playing span {
     --color: rgb(255, 0, 64);
 }
 
-main article > p.archived span {
+main article p.status.archived span {
     --color: #AAA;
     animation: none;
 }

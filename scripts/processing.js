@@ -38,9 +38,11 @@ xhr.onreadystatechange = () => {
     if (xhr.responseText == 'Pomyślnie zakupiono biliety!')
         window.location.href = 'sukces.html'
     else if (xhr.responseText.startsWith('Miejsce'))
-        window.location.href = 'zakup.html?screeningId=' + screeningId + '&error=1&normal=' + normal + '&half=' + half + '&senior=' + senior + '&seats=' + seats.join('&seats=')
-    else 
-        window.location.href = 'repertuar.html?' + 'error=2' + '&message=' + xhr.responseText
+        window.location.href = 'zakup.html?screeningId=' + screeningId + '&status=1&normal=' + normal + '&half=' + half + '&senior=' + senior + '&seats=' + seats.join('&seats=')
+    else if (xhr.responseText.startsWith('Seans'))
+        window.location.href = 'repertuar.html?' + 'status=2'
+    else
+        window.location.href = 'index.html?' + 'status=0' + '&message=' + xhr.responseText
 }
 
 xhr.send(JSON.stringify(data))
