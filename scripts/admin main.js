@@ -16,7 +16,7 @@ const getMovies = async () => {
     }
 
     m.forEach((movie) => {
-        const listing = createElementFromHTML('<article class="bottom-gradient-border listing description"> <img src="img/posters/black adam.jpg" alt=""> <div href="film.html" class="info"> <div> <h2></h2> </div> <p class="info">Komedia | Od lat 13 | 125 min</p> <p class="description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, repellendus modi dolor sequi magni saepe? Facere ipsum exercitationem blanditiis eaque consectetur! Architecto voluptatum repellendus facilis quidem fugit reiciendis maxime reprehenderit. </p> </div> <p class="status"><span>•</span> Grany</p> <div class="manage"> <a href="edytuj film.html" class="edit btn cta-1">Edytuj</a> <a href="#" class="delete btn cta-2 alert">Usuń</a> </div> </article>')
+        const listing = createElementFromHTML('<article class="bottom-gradient-border listing"> <img src="img/posters/black adam.jpg" alt=""> <div href="film.html" class="info"> <div> <h2></h2> </div> <p class="info">Komedia | Od lat 13 | 125 min</p> <p class="description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, repellendus modi dolor sequi magni saepe? Facere ipsum exercitationem blanditiis eaque consectetur! Architecto voluptatum repellendus facilis quidem fugit reiciendis maxime reprehenderit. </p> </div> <p class="status"><span>•</span> Grany</p> <div class="manage"> <a href="edytuj film.html" class="edit btn cta-1">Edytuj</a> <a href="#" class="edit btn cta-3 archive">Zarchiwizuj</a> <a href="#" class="delete btn cta-2 alert">Usuń</a> </div> </article>')
         
         listing.querySelector('img').src = 'img/posters/' + movie.title.replace(/[/\\?%*:|"<>]/g, '').toLowerCase() + '.jpg'
         
@@ -35,6 +35,9 @@ const getMovies = async () => {
         const status = listing.querySelector('p.status')
         status.innerHTML = '<span>•</span> ' + (movie.status.toLowerCase().replace('_', ' ') || 'Grany')
         status.classList.add(statusToClass[movie.status.toLowerCase()] || 'playing')
+
+        if (movie.status == 'ZARCHIWIZOWANY')
+            listing.querySelector('div.manage a.archive').remove()
         
         const info = listing.querySelector('p.info')
         info.innerText = movie.genre || 'Dramat'

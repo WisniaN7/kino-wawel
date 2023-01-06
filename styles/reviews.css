@@ -6,12 +6,8 @@ main {
     color: #fff;
 }
 
-main div.wrapper > header {
-    margin-bottom: 2rem;
-}
-
 main div.wrapper header h2 {
-    --font-size: 1.5rem;
+    --font-size: 2rem;
 }
 
 main div.wrapper header h2 a {

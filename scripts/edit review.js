@@ -63,9 +63,9 @@ function addEventListeners() {
         xhr.onreadystatechange = () => {
             if (xhr.status === 200) {
                 if (id)
-                    window.location.href = document.referrer + '?status=12'
+                    window.location.href = document.referrer.split('?')[0]  + '?status=12'
                 else
-                    window.location.href = document.referrer + '?status=11'
+                    window.location.href = document.referrer.split('?')[0]  + '?status=11'
             } else {
                 if (id)
                     window.location.href = window.location.href + '?status=14' + '&message=' + xhr.responseText
