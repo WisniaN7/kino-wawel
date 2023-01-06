@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/admin.css">
     <link rel="stylesheet" href="styles/edit movie.css">
     <title>Kino Wawel</title>
-    <base href="index.html">,
+    <base href="index.html">
     <script src="scripts/admin authorization.js"></script>
 </head>
 <body>
@@ -19,13 +19,12 @@
                 <li><a href="repertuar.html">Repertuar</a></li>
                 <li><a href="#">Wydarzenia</a></li>
                 <li><a href="#">Promocje</a></li>
+                <li class="signin">
+                    <a href="logowanie.html">Logowanie</a>
+                    <span>|</span>
+                    <a href="rejestracja.html">Rejestracja</a>
+                </li>
             </ul>
-            <div class="user">
-                <div class="icon-user">
-                    <span class="head"></span>
-                    <span class="body"></span>
-                </div>
-            </div>
         </nav>
     </header>
     <main>
@@ -37,11 +36,11 @@
                     <li id="screeningsBtn">Seanse</li>
                     <li>
                         <ul id="screenings">
-                            <li><a href="edytuj seanse.html">Katowice</a></li>
-                            <li><a href="edytuj seanse.html">Kraków</a></li>
-                            <li><a href="edytuj seanse.html">Lubań</a></li>
-                            <li><a href="edytuj seanse.html">Opole</a></li>
-                            <li><a href="edytuj seanse.html">Wrocław</a></li>
+                            <li><a href="edytuj seanse.html?city=KATOWICE">Katowice</a></li>
+                            <li><a href="edytuj seanse.html?city=KRAKOW">Kraków</a></li>
+                            <li><a href="edytuj seanse.html?city=LUBAN">Lubań</a></li>
+                            <li><a href="edytuj seanse.html?city=OPOLE">Opole</a></li>
+                            <li><a href="edytuj seanse.html?city=WROCLAW">Wrocław</a></li>
                         </ul>
                     </li>
                 </ul>
