@@ -58,6 +58,7 @@ main section form div.short-input div#duration-input {
 
 main section form div.short-input div#duration-input input {
     width: 80%;
+    text-align: center;
 }
 
 main section form div textarea {
@@ -68,22 +69,101 @@ main section form div.file-input {
     grid-column: 3;
 }
 
+main section form div.drag-area {
+    border: 2px dashed var(--lime-accent);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: border 100ms;
+}
+
+main section form div.drag-area.active {
+    border-style: solid;
+}
+
+main section form div.drag-area.filled {
+    border: none !important;
+}
+
+main section form div.drag-area .icon {
+    aspect-ratio: 1/1;
+    position: relative;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, .5);
+    margin-top: -12.5%;
+    transition: border 100ms;
+}
+
+main section form div.drag-area.active .icon {
+    border: 2px solid rgba(255, 255, 255, .75);
+}
+
+main section form div.drag-area .icon::after {
+    content: 'upuść plik lub wybierz z dysku';
+    width: 200%;
+    position: absolute;
+    top: 125%;
+    left: -50%;
+    font-size: .5rem;
+    text-align: center;
+    opacity: .5;
+    transition: border 100ms;
+}
+
+main section form div.drag-area.active .icon::after {
+    opacity: .75;
+}
+
+main section form div.drag-area .icon span {
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgba(255, 255, 255, .5);
+    transform: translate(-50%, -50%);
+}
+
+main section form div.drag-area.active .icon span {
+    border-color:rgba(255, 255, 255, .75);
+}
+
+main section form div.drag-area .icon span:last-child {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+main section form div.drag-area img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
 main section form div.file-input#poster-input {
     grid-row: 1 / 4;
 }
 
-main section form div.file-input input#poster {
+main section form div#poster-input div.drag-area {
     width: 45%;
     aspect-ratio: 297/420;
 }
 
-main section form div.file-input input#trailer {
+main section form div#poster-input div.drag-area .icon {
+    width: 40%;
+}
+
+main section form div#trailer-input div.drag-area {
     width: 65%;
     aspect-ratio: 16/9;
 }
 
+main section form div#trailer-input div.drag-area .icon {
+    height: 40%;
+}
+
 main section form div.file-input p {
-    font-size: .75rem;
     margin: 20px 0 5px 0;
 }
 
