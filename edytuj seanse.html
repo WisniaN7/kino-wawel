@@ -56,6 +56,13 @@
                     </div>
                     <span class="arrow right"></span>
                 </div>
+                <ul id="legend">
+                    <li class="D2">2D</li>
+                    <li class="D3">3D</li>
+                    <li class="subtitled">Napisy</li>
+                    <li class="dubbing">Dubbing</li>
+                    <li class="lector">Lektor</li>
+                </ul>
             </header>
             <section id="timetable" class="bottom-gradient-border">
                 <div class="wrapper">
@@ -78,13 +85,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    
                                 </tbody>
                             </table>
                         </form>
                     </div>
                     <aside>
-                        
+                        <header class="bottom-gradient-border">
+                            <div class="D3">
+                                <span>2D</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="D3" id="D3" hidden>
+                                    <span class="slider round"></span>
+                                </label>
+                                <span>3D</span>
+                            </div>
+                            <select name="sound-type" id="sound-type">
+                                <option value="subtitled" selected>Napisy</option>
+                                <option value="dubbed">Dubbing</option>
+                                <option value="lector">Lektor</option>
+                            </select>
+                        </header>
                     </aside>
                 </div>
             </section>
