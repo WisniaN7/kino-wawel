@@ -1,3 +1,10 @@
+// TODO: Buying tickets when signed in
+
+window.getCookie = function (name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+    if (match) return name == 'user' ? JSON.parse(match[2]) : match[2]
+}
+
 const screeningId = urlParams.get('screeningId')
 const seats = urlParams.getAll('seats')
 let normal = Number(urlParams.get('normal'))
@@ -7,7 +14,12 @@ let senior = Number(urlParams.get('senior'))
 if (normal + half + senior != seats.length)
     history.back()
 
+    
 let data = { screeningId: screeningId }
+
+if (user = getCookie('user'))
+    data.userId = user.userId
+
 data.tickets = []
 
 seats.forEach((seat) => {
@@ -29,13 +41,11 @@ seats.forEach((seat) => {
 })
 
 const xhr = new XMLHttpRequest()
-
 xhr.open('POST', 'https://wawel.herokuapp.com/movies/tickets/buy', true)
-
 xhr.setRequestHeader("content-type", "application/json")
 
 xhr.onreadystatechange = () => {
-    if (xhr.responseText == 'Pomyślnie zakupiono biliety!')
+    if (xhr.responseText.startsWith('Pomyślnie'))
         window.location.href = 'sukces.html'
     else if (xhr.responseText.startsWith('Miejsce'))
         window.location.href = 'zakup.html?screeningId=' + screeningId + '&status=1&normal=' + normal + '&half=' + half + '&senior=' + senior + '&seats=' + seats.join('&seats=')
