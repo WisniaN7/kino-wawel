@@ -23,7 +23,7 @@ window.addEventListener('load', () => {
                 window.location.href = 'index.html?status=7'
                 setCookie('user', xhr.responseText, 7)
             } else {
-                window.location.href = 'login.html?status=4'
+                window.location.href = 'logowanie.html?status=4'
             }
         }
         
