@@ -65,8 +65,7 @@ function addEventListenersForListings() {
             if (isItTooLate(time, 15))
                 e.preventDefault()
 
-            const snackbar = createSnackbar('Termin seansu już minął lub jest niedostępny')
-            snackbar.classList.add('warning')
+            createSnackbar('Termin seansu już minął lub jest niedostępny', 'warning', 'short')
         })
     })
 }
@@ -121,6 +120,7 @@ const getMovies = async (city, date) => {
         listing.querySelector('p.description').innerText = movie.description
 
         let endIndex = 3
+        let counter = 0
         
         for (let index = 0; index < Math.min(screenings.length, endIndex); index++) {
             let time = new Date(date + 'T' + screenings[index].startTime)
@@ -132,10 +132,14 @@ const getMovies = async (city, date) => {
 
             const screening = createElementFromHTML('<a href="zakup.html" class="cta-2 bean"> <p class="hour"></p> <p class="type">2D napisy</p> </a>')
             
-            screening.href = index == 2 && screenings.length > 3 ? 'film.html?id=' + movie.id : 'zakup.html?movieId=' + movie.id + '&screeningId=' + screenings[index].screeningId
-            screening.querySelector('p.hour').innerText = (index == 2 && screenings.length > 3) ? '...' :  screenings[index].startTime.slice(0, 5)
-            screening.querySelector('p.type').innerText = (index == 2 && screenings.length > 3) ? 'więcej' : screenings[index].movieType.split('').reverse().join('') + ' ' + screenings[index].movieSoundType.toLowerCase()
+            const moreScreeningsNeeded = index == endIndex - 1 && counter < screenings.length - 1
+            console.log(moreScreeningsNeeded);
+            screening.href = moreScreeningsNeeded ? 'film.html?id=' + movie.id : 'zakup.html?movieId=' + movie.id + '&screeningId=' + screenings[index].screeningId
+            screening.querySelector('p.hour').innerText = moreScreeningsNeeded ? '...' :  screenings[index].startTime.slice(0, 5)
+            screening.querySelector('p.type').innerText = moreScreeningsNeeded ? 'więcej' : screenings[index].movieType.split('').reverse().join('') + ' ' + screenings[index].movieSoundType.toLowerCase()
+            
             listing.querySelector('div.screenings').appendChild(screening)
+            counter++
         }
 
         if (screenings.length + 3 > endIndex)

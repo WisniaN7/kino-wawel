@@ -46,13 +46,15 @@ function updateSchedule() {
 
     repertoire.screenings = screenings
 
+    changesSaved = false
+    
     const xhr = new XMLHttpRequest()
     xhr.open('POST', 'https://wawel.herokuapp.com/movies/repertoire/edit', true)
     xhr.setRequestHeader("content-type", "application/json")
-
+    
     xhr.onreadystatechange = () => {
         if (xhr.status == 200) {
-            console.log('Zaktualizowano repertuar')
+            changesSaved = true
         } else {
             createSnackbar('Wystąpił błąd podczas aktualizowania danych', 'error', 'long')
             console.error(xhr.responseText)
@@ -96,32 +98,9 @@ function createTimetable(tbody) {
 
         tbody.appendChild(tr)
     }
-}
 
-function timeToRow(time) {
-    const hours = time.split(':')[0]
-    const minutes = time.split(':')[1]
-    return 2 * (hours - 10) + (minutes / 30)
-}
-
-function addEventListeners() {
-    const moviesElements = document.querySelectorAll('#timetable aside div.screening')
-    const timetableCells = document.querySelectorAll('#timetable tbody td:not(:first-child)')
-    const movieScreenings = document.querySelectorAll('aside div.screening')
-    let movieSchedules = {}
-
-    movieScreenings.forEach((movie) => {
-        movieSchedules[movie.id] = 0
-    })
-
+    const timetableCells = tbody.querySelectorAll('td:not(:first-child)')
     table.style = "--cell-width: " + timetableCells[0].offsetWidth + "px;"
-
-    moviesElements.forEach((movie) => {
-        movie.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('text/plain', e.target.id)
-            e.dataTransfer.setData('bool', true)
-        })
-    })
 
     timetableCells.forEach((cell) => {
         cell.addEventListener('drop', (e) => {
@@ -136,7 +115,7 @@ function addEventListeners() {
                 const movieDiv = newNode.querySelector('div.movie')
                 movieDiv.innerText = movieDiv.getAttribute('data-title')
                 movieSchedules[data]++
-            } else 
+            } else
                 newNode = document.querySelector('table #' + data)
 
             newNode.addEventListener('dragstart', (e) => {
@@ -151,6 +130,30 @@ function addEventListeners() {
         })
 
         cell.addEventListener('dragover', (e) => { e.preventDefault() })
+    })
+}
+
+function timeToRow(time) {
+    const hours = time.split(':')[0]
+    const minutes = time.split(':')[1]
+    return 2 * (hours - 10) + (minutes / 30)
+}
+
+function addEventListeners() {
+    const moviesElements = document.querySelectorAll('#timetable aside div.screening')
+    const movieScreenings = document.querySelectorAll('aside div.screening')
+    movieSchedules = {}
+
+    movieScreenings.forEach((movie) => {
+        movieSchedules[movie.id] = 0
+    })
+
+
+    moviesElements.forEach((movie) => {
+        movie.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.id)
+            e.dataTransfer.setData('bool', true)
+        })
     })
 
     const aside = document.querySelector('#timetable aside')
@@ -179,6 +182,8 @@ function addEventListeners() {
         const cell = document.querySelector('table #' + data)
 
         if (cell.id.indexOf('n') == -1) {
+            changesSaved = false
+
             const xhr = new XMLHttpRequest()
             const id = cell.id.slice(cell.id.indexOf('_') + 1)
 
@@ -187,7 +192,7 @@ function addEventListeners() {
 
             xhr.onreadystatechange = () => {
                 if (xhr.status == 200) {
-                    console.log('Zaktualizowano repertuar')
+                    changesSaved = true
                 } else {
                     createSnackbar('Wystąpił błąd podczas aktualizowania danych', 'error', 'long')
                     console.error(xhr.responseText)
@@ -380,9 +385,18 @@ const getRepertoire = async (city, date) => {
     })
 }
 
+let changesSaved = true
 let date = new Date().toISOString().slice(0, 10)
 const table = document.querySelector('#timetable table')
 const tbody = table.querySelector('tbody')
+let movieSchedules
 
 const city = urlParams.get('city')
 getMovies().then(() => createTimetable(tbody) ).then(() => getRepertoire(city, date) ).then(() => addEventListeners() )
+
+window.addEventListener("beforeunload", (e) => {
+    if (!changesSaved) {
+        e.preventDefault()
+        e.returnValue = ""
+    }
+})
