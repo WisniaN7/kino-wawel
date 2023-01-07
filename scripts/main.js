@@ -5,7 +5,6 @@ const urlParams = new URLSearchParams(queryString);
 const error = urlParams.get('status')
 const message = urlParams.get('message')
 
-
 window.getCookie = function (name) {
     var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
     if (match) return name == 'user' ? JSON.parse(match[2]) : match[2]

@@ -133,7 +133,6 @@ const getMovies = async (city, date) => {
             const screening = createElementFromHTML('<a href="zakup.html" class="cta-2 bean"> <p class="hour"></p> <p class="type">2D napisy</p> </a>')
             
             const moreScreeningsNeeded = index == endIndex - 1 && counter < screenings.length - 1
-            console.log(moreScreeningsNeeded);
             screening.href = moreScreeningsNeeded ? 'film.html?id=' + movie.id : 'zakup.html?movieId=' + movie.id + '&screeningId=' + screenings[index].screeningId
             screening.querySelector('p.hour').innerText = moreScreeningsNeeded ? '...' :  screenings[index].startTime.slice(0, 5)
             screening.querySelector('p.type').innerText = moreScreeningsNeeded ? 'więcej' : screenings[index].movieType.split('').reverse().join('') + ' ' + screenings[index].movieSoundType.toLowerCase()

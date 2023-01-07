@@ -1,3 +1,4 @@
+// TODO: Check whether is it not too late to buy tickets
 // TODO: Discount codes
 
 const screeningId = urlParams.get('screeningId')
@@ -132,16 +133,16 @@ function addEventListeners() {
     })
 
     const submit = document.querySelector('button[type="submit"]')
-    console.log(submit);
 
     submit.addEventListener('click', (e) => {
         if (!ticketsSelector.classList.contains('correct')) {
             e.preventDefault()
             ticketsSelector.classList.add('incorrect')
         } 
-
-        // TODO: check whether is it not too late to buy tickets
     })
+
+    if (user = getCookie('user'))
+        document.querySelector('input[type="email"]').value = user.email
 }
 
 getSeats().then(() => { addEventListeners() })

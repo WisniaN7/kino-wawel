@@ -1,5 +1,5 @@
 function cycleMovie(direction = 1) {
-    if (!canCycle) return
+    if (!canCycle || !document.hasFocus()) return
 
     canCycle = false
     setTimeout(() => canCycle = true, 1000)
@@ -14,7 +14,8 @@ function cycleMovie(direction = 1) {
     })
 
     clearInterval(interval)
-    interval = setInterval(() => cycleMovie(-1), 10000)
+
+    interval = setInterval(() => cycleMovie(-1) , 10000)
 }
 
 function addEventListeners() {
@@ -24,6 +25,8 @@ function addEventListeners() {
     
     arrows[0].addEventListener('click', () => cycleMovie(1))
     arrows[1].addEventListener('click', () => cycleMovie(-1))
+
+    cycleMovie(1) // Hack: refresh images
 }
 
 const movies = fetch('https://wawel.herokuapp.com/movies')
