@@ -1,5 +1,5 @@
 Zadanie 3
-Ostatnio byłeś/byłaś w Kinie Wawel na filmie "Listy do M. 5". Zaloguj się do serwisu (jeśli już nie jesteś zalogowany/a), a następnie oceń i napisz recenzję tego filmu.
+Ostatnio byłeś/byłaś w Kinie Wawel na filmie "Listy do M. 5" (lub "Avatar: Istota Wody" dla user2, user3, user5). Zaloguj się do serwisu (jeśli już nie jesteś zalogowany/a), a następnie oceń i napisz recenzję tego filmu.
 
 Dane logowania:
 Loginy: [user, user2, user3, user4, user5]
