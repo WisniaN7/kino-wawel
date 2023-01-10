@@ -2,5 +2,5 @@ Zadanie 3
 Ostatnio byłeś/byłaś w Kinie Wawel na filmu "Listy do M. 5". Zaloguj się do serwisu (jeśli już nie jesteś zalogowany/a), a następnie oceń i napisz recenzję tego filmu.
 
 Dane logowania:
-Login: user 
+Loginy: [user, user2, user3, user4, user5]
 Hasło: user 
