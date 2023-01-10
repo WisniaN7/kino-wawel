@@ -1,0 +1,18 @@
+Zadanie 4
+Dodaj nowy film do bazy kina. 
+
+Dane logowania administratora:
+Login: admin
+Hasło: admin
+
+Dane filmu:
+Tytuł: Pan Zabawka
+Gatunek: Komedia
+Kategoria wiekowa: 7+
+Czas trwania: 112 min
+*Opis: Alexander jest synem miliardera , który ma prawie wszystko co może wymarzyć sobie dziecko. Jego pokój to multimedialne cudo techniki, które za jednym kliknięciem zamienia się w wypełnioną gwiazdami i planetami przestrzeń kosmiczną, a prywatna sala kinowa czy salon gier są tylko kilka kroków dalej. Jednak relacja chłopca ze swoim ojcem jest daleka od ideału, zwłaszcza, że od wielu lat mężczyzna samotnie wychowuje dziecko. Pewnego dnia w firmie miliardera zostaje zatrudniony Samy – sympatyczny pracownik o niezwykle beztroskim i wesołym usposobieniu, który wspólnie ze swoją żoną spodziewa się wkrótce swojego pierwszego dziecka. Alexander namawia ojca, aby ten z okazji urodzin podarował mu nietypowy prezent. Prezentem tym jest Samy, który dostaje nowe zadanie służbowe – ma spędzać czas z rozkapryszonym synem miliardera. Początki będą trudne, ale już wkrótce Alexander przekona się, że pieniądze i przedmioty w życiu to nie wszystko. Najważniejsza jest szczerość, przyjaźń i beztroska radość - a tego wszystkiego Samy ma pod dostatkiem!
+Plakat: https://github.com/WisniaN7/kino-wawel/blob/master/zadania/Poster.jpeg
+Obraz tła: https://github.com/WisniaN7/kino-wawel/blob/master/zadania/bgImg.jpg
+Link do zwiastunu: https://www.youtube.com/watch?v=Zv4Z4TbemUo
+
+*Lub cokolwiek, jeśli nie chce ci się kopiować
