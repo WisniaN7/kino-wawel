@@ -1,0 +1,7 @@
+Zadanie 1
+Naszła cię ochota na pójście do kina. Zaloguj się do serwisu, przeglądnij ofertę Kina Wawel i kup bilet na wybrany przez siebie seans, a następnie znajdź go na swoim profilu.
+
+Dane do logowania:
+Login: user
+Hasło: user
+*Adres e-mail: user@gmail.com 
