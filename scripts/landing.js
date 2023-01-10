@@ -1,3 +1,5 @@
+// Skip movies withou screening or do sth
+
 function cycleMovie(direction = 1) {
     if (!canCycle || !document.hasFocus()) return
 

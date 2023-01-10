@@ -29,24 +29,22 @@ window.addEventListener('load', () => {
         } 
 
         const credentials = { username: username, email: email.toLowerCase(), password: password }
+
         const xhr = new XMLHttpRequest()
-
         xhr.open('POST', 'https://wawel.herokuapp.com/auth/signup', true)
-
         xhr.setRequestHeader("content-type", "application/json")
 
         xhr.onreadystatechange = () => {
-            console.log(xhr.status, xhr.responseText);
+            if (xhr.readyState != xhr.DONE) return
 
-            if (xhr.status == 200) {
+            if (xhr.status == 200)
                 window.location.href = 'login.html?status=6'
-            } else if (xhr.responseText.startsWith('Username')) {
+            else if (xhr.responseText.startsWith('Username'))
                 window.location.href = 'rejestracja.html?status=8&message' + xhr.responseText + '&response=' + xhr.status + '&username=' + username + '&email=' + email 
-            } else if (xhr.responseText.startsWith('Email')) {
+            else if (xhr.responseText.startsWith('Email'))
                 window.location.href = 'rejestracja.html?status=9&message' + xhr.responseText + '&response=' + xhr.status + '&username=' + username + '&email=' + email 
-            } else {
+            else
                 window.location.href = 'rejestracja.html?status=0&message' + xhr.responseText + '&response=' + xhr.status + '&username=' + username + '&email=' + email 
-            }
         }
 
         xhr.send(JSON.stringify(credentials))

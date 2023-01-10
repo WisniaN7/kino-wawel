@@ -1,3 +1,5 @@
+// TODO: Load images
+
 function readFileAsync(file) {
     return new Promise((resolve, reject) => {
         let reader = new FileReader();
@@ -156,6 +158,8 @@ function addEventListeners() {
         xhr.setRequestHeader("content-type", "application/json")
 
         xhr.onreadystatechange = () => {
+            if (xhr.readyState != xhr.DONE) return
+
             if (xhr.status == 200) {
                 if (id)
                     window.location.href = 'administracja.html?status=16'

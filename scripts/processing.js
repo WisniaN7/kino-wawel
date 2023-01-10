@@ -46,6 +46,8 @@ xhr.open('POST', 'https://wawel.herokuapp.com/movies/tickets/buy', true)
 xhr.setRequestHeader("content-type", "application/json")
 
 xhr.onreadystatechange = () => {
+    if (xhr.readyState != xhr.DONE) return
+
     if (xhr.responseText.startsWith('Pomyślnie'))
         window.location.href = 'sukces.html'
     else if (xhr.responseText.startsWith('Miejsce'))

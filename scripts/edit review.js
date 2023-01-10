@@ -61,6 +61,8 @@ function addEventListeners() {
         xhr.setRequestHeader("content-type", "application/json")
 
         xhr.onreadystatechange = () => {
+            if (xhr.readyState != xhr.DONE) return
+
             if (xhr.status === 200) {
                 if (id)
                     window.location.href = document.referrer.split('?')[0]  + '?status=12'

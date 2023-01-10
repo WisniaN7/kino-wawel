@@ -12,13 +12,15 @@ window.addEventListener('load', () => {
             return
         
         const credentials = { usernameOrEmail: usernameOrEmail, password: password }
+        console.log(credentials);
+
         const xhr = new XMLHttpRequest()
-        
         xhr.open('POST', 'https://wawel.herokuapp.com/auth/signin', true)
-        
         xhr.setRequestHeader("content-type", "application/json")
         
         xhr.onreadystatechange = () => {
+            if (xhr.readyState != xhr.DONE) return
+
             if (xhr.status == 200) {
                 window.location.href = 'index.html?status=7'
                 setCookie('user', xhr.responseText, 7)

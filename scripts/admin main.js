@@ -15,6 +15,8 @@ function addEventListeners() {
             xhr.setRequestHeader("content-type", "application/json")
 
             xhr.onreadystatechange = () => {
+                if (xhr.readyState != xhr.DONE) return
+
                 if (xhr.status == 200) {
                     console.log(btn.parentElement);
                     const status = btn.parentElement.previousElementSibling

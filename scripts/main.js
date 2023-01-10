@@ -13,11 +13,11 @@ window.getCookie = function (name) {
 window.setCookie = function (name, value, days) {
     var d = new Date
     d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days)
-    document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString()
+    document.cookie = name + '=' + value + ';path=/;expires=' + d.toGMTString()
 }
 
 window.deleteCookie = function (name) {
-    document.cookie = name + "=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT"
+    document.cookie = name + '=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT'
 }
 
 if (getCookie('user')) {
