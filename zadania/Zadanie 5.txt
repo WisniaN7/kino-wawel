@@ -1,0 +1,6 @@
+Zadanie 5
+Ustal seanse dla filmu "Kot w Butach: Ostatnie Życzenie" dla dowolnego miasta, w dowolny dzień, ale w różnych formatach (2D/3D, napisy/dubbing/lektor). Spróbuj usunąć jeden z seansów. Czy oznaczenia seansów są wystarczająco zrozumiałe i jednoznaczne?
+
+Dane logowania administratora:
+Login: admin
+Hasło: admin 
