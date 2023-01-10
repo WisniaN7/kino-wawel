@@ -1,6 +1,6 @@
 main {
     width: 100vw;
-    height: calc(100vh - var(--header-height));
+    min-height: calc(100vh - var(--header-height));
     display: flex;
     margin-top: var(--header-height);
     font-family: 'Montserrat', sans-serif;
@@ -14,7 +14,7 @@ main header > * {
 main > aside {
     width: 30%;
     min-width: 400px;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     align-items: center;
     background-color: #333;
@@ -78,7 +78,7 @@ main > section {
     max-width: calc(100% - 550px);
     position: relative;
     height: 100%;
-    padding: 0 100px;
+    padding: 0 100px 50px 100px;
 }
 
 main > section header {

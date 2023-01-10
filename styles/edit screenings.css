@@ -132,6 +132,7 @@ main > section #timetable div.wrapper aside {
     transition: 100ms;
     border-radius: 20px;
     padding: 0 20px 20px 20px;
+    overflow-y: scroll;
 }
 
 main > section #timetable div.wrapper header {

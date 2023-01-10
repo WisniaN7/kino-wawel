@@ -54,15 +54,12 @@ function addEventListeners() {
 
     const fileInputs = document.querySelectorAll('.file-input .drag-area')
 
-    console.log(fileInputs);
-
     fileInputs.forEach((input) => {
         const fileInput = input.querySelector('input')
 
         input.addEventListener('click', () => {
             fileInput.click()
         })
-
         
         input.addEventListener('change', async () => {
             const img = new Image()
@@ -140,18 +137,22 @@ function addEventListeners() {
             minAge: document.querySelector('input[name="PG"]:checked').id.slice(1),
             duration: document.querySelector('#duration').value,
             posterSource: posterLink, 
-            bgImageSource: bgImageLink,
+            bigImageSource: bgImageLink,
             trailerSource: document.querySelector('#YTlink').value,
             description: document.querySelector('#description').value
         }
-        
-        if (id)
-            data.movieId = id
-        
-        console.log(data);
 
+        let path = 'https://wawel.herokuapp.com/movies'
+        
+        if (id) {
+            data.movieId = id
+            path += '/edit'
+        }        
+
+        console.log(path, data)
+        
         const xhr = new XMLHttpRequest()
-        xhr.open('POST', 'https://wawel.herokuapp.com/movies/edit', true)
+        xhr.open('POST', path, true)
         xhr.setRequestHeader("content-type", "application/json")
 
         xhr.onreadystatechange = () => {

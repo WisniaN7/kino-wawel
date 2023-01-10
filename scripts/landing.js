@@ -38,18 +38,26 @@ const movies = fetch('https://wawel.herokuapp.com/movies')
 const getMovies = async () => {
     const m = await movies
 
-    const positions = ['left', 'center', 'right']
+    console.log(m);
 
-    for (let i = 0; i < 3; i++) {
+    let heroMoviesIndexes = []
+
+    for (let i = m.length - 1; i >= 0 && heroMoviesIndexes.length < 3; i--)
+        if (m[i].status != 'ZARCHWWIZOWANY' || true) heroMoviesIndexes.push(i)
+
+    const positions = ['left', 'center', 'right']
+    let pos = 0
+
+    heroMoviesIndexes.forEach((i) => {
         const movieDiv = document.createElement('div')
         movieDiv.classList.add('movie')
-        movieDiv.classList.add(positions[i])
+        movieDiv.classList.add(positions[pos++])
 
         const titleDiv = document.createElement('div')
         titleDiv.classList.add('title')
         movieDiv.appendChild(titleDiv)
 
-        const title =   document.createElement('h2')
+        const title = document.createElement('h2')
         title.innerText = m[i].title
         titleDiv.appendChild(title)
 
@@ -60,7 +68,7 @@ const getMovies = async () => {
         buyTicketBtn.href = 'film.html?id=' + m[i].id
         buyTicketBtn.innerText = 'Kup bilet'
         buttonsDiv.appendChild(buyTicketBtn)
-        
+
         const trailerBtn = document.createElement('a')
         trailerBtn.href = m[i].trailerSource
         trailerBtn.innerText = 'Obejrzyj zwiastun'
@@ -71,7 +79,7 @@ const getMovies = async () => {
         movieDiv.appendChild(img)
 
         document.querySelector('main').appendChild(movieDiv)
-    }
+    })
 }
 
 getMovies().then(() => addEventListeners())

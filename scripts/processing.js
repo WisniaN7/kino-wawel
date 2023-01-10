@@ -1,4 +1,5 @@
-// TODO: Buying tickets when signed in
+const queryString = window.location.search
+const urlParams = new URLSearchParams(queryString);
 
 window.getCookie = function (name) {
     var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
