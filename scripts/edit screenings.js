@@ -87,13 +87,8 @@ function createTimetable(tbody) {
                 checkbox.type = 'checkbox'
                 checkbox.name = 'screening'
                 checkbox.value = '{ time: ' + time + ', hall: ' + j + ' }'
-
-                // const input = document.createElement('input')
-                // input.type = 'number'
-                // input.name = '{ time: ' + time + ', hall: ' + j + ' }'
-
+                
                 td.appendChild(checkbox)
-                // td.appendChild(input)
                 tr.appendChild(td)
             }
         }
@@ -107,9 +102,7 @@ function createTimetable(tbody) {
     timetableCells.forEach((cell) => {
         cell.addEventListener('drop', (e) => {
             e.preventDefault()
-
             const data = e.dataTransfer.getData('text/plain')
-            let newNode
 
             if (e.dataTransfer.getData('bool') === 'true') {
                 newNode = document.getElementById(data).cloneNode(true)
@@ -118,13 +111,33 @@ function createTimetable(tbody) {
                 movieDiv.innerText = movieDiv.getAttribute('data-title')
                 movieSchedules[data]++
             } else
-                newNode = document.querySelector('table #' + data)
+            newNode = document.querySelector('table #' + data)
+
+            const cellsOccupied = Math.ceil(newNode.getAttribute('data-duration') / 30)
+            const col = parseInt(cell.getAttribute('data-col'))
+            const row = parseInt(cell.getAttribute('data-row'))
+            
+            for (let i = 0; i < cellsOccupied - 1; i++) {
+                const cell = document.querySelector('table tr:nth-of-type(' + parseInt(row + i) + ') td:nth-of-type(' + parseInt(col + 1) + ')')
+                
+                if (cell.querySelector('input').checked) {
+                    const collision = cell.querySelector('div.screening')
+                    collision.classList.remove('collide')
+                    collision.classList.add('collide')
+                    setTimeout(() => collision.classList.remove('collide'), 3000)
+
+                    createSnackbar('Dodanie seansu niemożliwe. Film kolidowałby z innym.', 'error', 'short')
+                    movieSchedules[data]--
+                    return
+                }
+            }
+
 
             newNode.addEventListener('dragstart', (e) => {
                 e.dataTransfer.setData('text/plain', e.target.id)
                 e.dataTransfer.setData('bool', false)
             })
-
+            
             e.target.appendChild(newNode)
             e.target.querySelector('input[type="checkbox"]').checked = true
 
@@ -233,8 +246,10 @@ function addEventListeners() {
         })
     })
     
+    const timetableCell = tbody.querySelector('td:not(:first-child)')
+
     window.addEventListener('resize', () => {
-        table.style = "--cell-width: " + timetableCells[0].offsetWidth + "px;"
+        table.style = "--cell-width: " + timetableCell.offsetWidth + "px;"
     })
 
     const dateSelect = document.querySelector('#day-select input')
@@ -285,6 +300,7 @@ const getMovies = async () => {
         movie.draggable = true
         movie.classList.add('screening', 'subtitled')
         movie.style = "--duration: " + movieData.duration + ";"
+        movie.setAttribute('data-duration', movieData.duration)
         movie.id = 'm' + movieData.id
 
         const title = document.createElement('p')
@@ -330,6 +346,7 @@ const getRepertoire = async (city, date) => {
             movie.draggable = true
             movie.classList.add('screening')
             movie.style = "--duration: " + screeningData.movie.duration + ";"
+            movie.setAttribute('data-duration', screeningData.movie.duration)
             movie.id = 'm' + screeningData.movie.id + '_' + screening.screeningId
 
             movie.addEventListener('dragstart', (e) => {

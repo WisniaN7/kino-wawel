@@ -141,14 +141,6 @@ main > section #timetable div.wrapper #table table td input {
     display: none;
 }
 
-main>section #timetable div.wrapper #table #check-mark,
-main>section #timetable div.wrapper #table div.lds-ring {
-    position: sticky;
-    top: calc(100% - 55px);
-    left: calc(100% - 55px);
-    transform: scale(0.2);
-}
-
 main > section #timetable div.wrapper aside {
     width: 25%;
     transition: 100ms;
@@ -157,7 +149,7 @@ main > section #timetable div.wrapper aside {
     overflow-y: scroll;
 }
 
-main > section #timetable div.wrapper header {
+main > section #timetable div.wrapper aside header {
     width: calc(100% - 20px);
     height: fit-content;
     flex-direction: column;
@@ -167,31 +159,31 @@ main > section #timetable div.wrapper header {
     margin-bottom: 10px;
 }
 
-main > section #timetable div.wrapper header div {
+main > section #timetable div.wrapper aside header > div {
     width: 100%;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-main > section #timetable div.wrapper header div label.switch {
+main > section #timetable div.wrapper aside header div label.switch {
     transform: scale(.7);
 }
 
-main > section #timetable div.wrapper header select#sound-type  {
+main > section #timetable div.wrapper aside header select#sound-type  {
     width: 100%;
     margin-bottom: 15px;
 }
 
-main > section #timetable div.wrapper header select#sound-type option {
+main > section #timetable div.wrapper aside header select#sound-type option {
     color: #222;
 }
 
-main > section #timetable div.wrapper aside.dragging {
+main > section #timetable div.wrapper aside aside.dragging {
     background-color: #333;
 }
 
-main > section #timetable div.wrapper aside.dragging::after {
+main > section #timetable div.wrapper aside aside.dragging::after {
     content: 'Upuść, aby usunąć';
     width: 50%;
     display: block;
@@ -208,6 +200,10 @@ div.screening {
     margin: 5px 0;
     overflow: hidden;
     cursor: grab;
+}
+
+div.screening.collide {
+    animation: outline-blink 1s infinite;
 }
 
 div.screening.subtitled {
@@ -332,4 +328,18 @@ div.screening:hover div.movie {
 table div.screening div.cleanup,
 div.screening:hover div.cleanup {
     height: calc(var(--time-scale) - 2.5px);
+}
+
+@keyframes outline-blink {
+    0% {
+        outline: 2px solid rgba(255, 0, 0, 1);
+    }
+
+    50% {
+        outline: 2px solid rgba(255, 0, 0, 1);
+    }
+
+    100% {
+        outline: 2px solid rgba(255, 0, 0, 0);
+    }
 }
