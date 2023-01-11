@@ -1,5 +1,3 @@
-// TODO: Fix overlapping screenings
-
 function updateSchedule() {
     const repertoire = { 
         city: city, 
@@ -87,7 +85,7 @@ function createTimetable(tbody) {
                 checkbox.type = 'checkbox'
                 checkbox.name = 'screening'
                 checkbox.value = '{ time: ' + time + ', hall: ' + j + ' }'
-                
+
                 td.appendChild(checkbox)
                 tr.appendChild(td)
             }

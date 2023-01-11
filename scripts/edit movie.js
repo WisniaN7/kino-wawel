@@ -1,5 +1,3 @@
-// TODO: Load images
-
 function readFileAsync(file) {
     return new Promise((resolve, reject) => {
         let reader = new FileReader();

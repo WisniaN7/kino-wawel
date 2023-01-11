@@ -1,4 +1,4 @@
-// Skip movies withou screening or do sth
+// Skip movies without screening or do sth
 
 function cycleMovie(direction = 1) {
     if (!canCycle || !document.hasFocus()) return
@@ -66,12 +66,16 @@ const getMovies = async () => {
         const buttonsDiv = document.createElement('div')
         titleDiv.appendChild(buttonsDiv)
 
-        const buyTicketBtn = document.createElement('a')
-        buyTicketBtn.href = 'film.html?id=' + m[i].id
-        buyTicketBtn.innerText = 'Kup bilet'
-        buttonsDiv.appendChild(buyTicketBtn)
-
+        if (m[i].status == 'GRANY') {
+            const buyTicketBtn = document.createElement('a')
+            buyTicketBtn.classList.add('cta-1')
+            buyTicketBtn.href = 'film.html?id=' + m[i].id
+            buyTicketBtn.innerText = 'Kup bilet'
+            buttonsDiv.appendChild(buyTicketBtn)
+        }
+        
         const trailerBtn = document.createElement('a')
+        trailerBtn.classList.add('cta-2')
         trailerBtn.href = m[i].trailerSource
         trailerBtn.innerText = 'Obejrzyj zwiastun'
         buttonsDiv.appendChild(trailerBtn)
