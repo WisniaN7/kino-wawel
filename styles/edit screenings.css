@@ -1,3 +1,11 @@
+main {
+    height: calc(100vh - var(--header-height));
+}
+
+main > section {
+    padding-bottom: 0
+}
+
 main > section header {
     width: 80%;
     padding: 0 10%;
@@ -62,10 +70,15 @@ main > section #timetable {
     --time-scale: 40px;
 }
 
+main > section #timetable {
+    height: calc(100% - 275px);
+    padding-bottom: 50px;
+    --time-scale: 40px;
+}
+
 main > section #timetable div.wrapper {
     width: 85%;
     height: calc(100% - 50px);
-    position: relative;
     display: flex;
     justify-content: space-between;
 }
@@ -73,7 +86,8 @@ main > section #timetable div.wrapper {
 main > section #timetable div.wrapper #table {
     width: 65%;
     height: 100%;
-    overflow: auto;
+    /* position: relative; */
+    overflow-y: auto;
     margin-bottom: 50px;
 }
 
@@ -125,6 +139,14 @@ main > section #timetable div.wrapper #table table td:first-child {
 
 main > section #timetable div.wrapper #table table td input {
     display: none;
+}
+
+main>section #timetable div.wrapper #table #check-mark,
+main>section #timetable div.wrapper #table div.lds-ring {
+    position: sticky;
+    top: calc(100% - 55px);
+    left: calc(100% - 55px);
+    transform: scale(0.2);
 }
 
 main > section #timetable div.wrapper aside {
