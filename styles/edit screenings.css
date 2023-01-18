@@ -9,6 +9,7 @@ main > section {
 main > section header {
     width: 80%;
     padding: 0 10%;
+    margin-top: 50px;
 }
 
 main > section header > * {
@@ -65,20 +66,14 @@ main > section header ul#legend li.lector {
 }
 
 main > section #timetable {
-    height: calc(100% - 275px);
-    padding-bottom: 50px;
-    --time-scale: 40px;
-}
-
-main > section #timetable {
-    height: calc(100% - 275px);
-    padding-bottom: 50px;
+    height: calc(100% - 200px);
+    padding-bottom: 25px;
     --time-scale: 40px;
 }
 
 main > section #timetable div.wrapper {
     width: 85%;
-    height: calc(100% - 50px);
+    height: calc(100% - 75px);
     display: flex;
     justify-content: space-between;
 }
@@ -113,6 +108,7 @@ main > section #timetable div.wrapper #table table thead {
 
 main > section #timetable div.wrapper #table table thead tr {
     border-bottom: 1px solid rgba(255, 255, 255, .25);
+    white-space: nowrap;
 }
 
 main > section #timetable div.wrapper #table table tr:nth-child(2n) {

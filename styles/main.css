@@ -600,7 +600,7 @@ body > header nav ul li a.active {
 main div.wrapper {
     max-width: 1152px;
     margin: 0 auto;
-    padding-top: 50px;
+    padding: 50px 0;
 }
 
 article.listing {

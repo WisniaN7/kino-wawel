@@ -40,11 +40,13 @@ window.addEventListener('load', () => {
             if (xhr.status == 200)
                 window.location.href = 'login.html?status=6'
             else if (xhr.responseText.startsWith('Username'))
-                window.location.href = 'rejestracja.html?status=8&message' + xhr.responseText + '&response=' + xhr.status + '&username=' + username + '&email=' + email 
+                createSnackbar('Podany login jest już zajęty', 'error', 'short')
             else if (xhr.responseText.startsWith('Email'))
-                window.location.href = 'rejestracja.html?status=9&message' + xhr.responseText + '&response=' + xhr.status + '&username=' + username + '&email=' + email 
-            else
-                window.location.href = 'rejestracja.html?status=0&message' + xhr.responseText + '&response=' + xhr.status + '&username=' + username + '&email=' + email 
+                createSnackbar('Podany adres e-mail jest już zajęty', 'error', 'short')
+            else {
+                createSnackbar('Wystąpił nieznany błąd', 'error', 'short')
+                console.error('Server response:', xhr.responseText)
+            }
         }
 
         xhr.send(JSON.stringify(credentials))

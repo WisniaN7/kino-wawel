@@ -28,6 +28,7 @@ main article.listing div.rating div.stars {
     height: 20px;
     width: 140px;
     display: flex;
+    justify-content: space-between;
 }
 
 main article.listing div.rating div.stars svg {

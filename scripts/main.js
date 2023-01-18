@@ -32,6 +32,10 @@ window.addEventListener('load', () => {
         if (isAdmin(user)) {
             const nav = document.querySelector('header nav ul')
             const li = createElementFromHTML('<li><a href="administracja.html">Administracja</a></li>')
+
+            if (window.location.href.includes('administracja.html'))
+                li.classList.add('active')
+
             nav.insertBefore(li, nav.children[0])
         }
 

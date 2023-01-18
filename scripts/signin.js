@@ -25,7 +25,7 @@ window.addEventListener('load', () => {
                 window.location.href = 'index.html?status=7'
                 setCookie('user', xhr.responseText, 7)
             } else {
-                window.location.href = 'logowanie.html?status=4'
+                createSnackbar('Niepoprawny login lub hasło', 'error', 'short')
             }
         }
         
