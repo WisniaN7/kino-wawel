@@ -17,9 +17,17 @@ function addEventListeners() {
 
     citySelect = document.querySelector('header select')
 
-    citySelect.addEventListener('change', () => {
+    citySelect.addEventListener('change', async () => {
+        if (blockChange) {
+            citySelect.value = citySelect.getAttribute('data-value')
+            return
+        } 
+
+        citySelect.setAttribute('data-value', citySelect.value)
         city = citySelect.value.toUpperCase()
-        getMovies(city, date)
+        await getMovies(city, date)
+
+        blockChange = false
     })
 
     dateSelect = document.querySelector('#day-select input')
@@ -30,13 +38,18 @@ function addEventListeners() {
     dateLabel.innerText = new Date().toLocaleDateString('pl-PL', { weekday: 'long', month: 'numeric', day: 'numeric' })
 
     dateArrows.forEach((arrow) => {
-        arrow.addEventListener('click', () => {
+        arrow.addEventListener('click', async () => {
+            if (blockChange) return 
+
+            blockChange = true
             date = new Date(dateSelect.value)
             date.setDate(date.getDate() + (arrow.classList.contains('left') ? -1 : 1))
             dateLabel.innerText = date.toLocaleDateString('pl-PL', { weekday: 'long', month: 'numeric', day: 'numeric' })
             date = date.toISOString().split('T')[0]
             dateSelect.value = date
-            getMovies(city, date).then(() => { addEventListenersForListings() })
+
+            await getMovies(city, date).then(() => { addEventListenersForListings() })
+            blockChange = false
         })
     })
 
@@ -111,7 +124,7 @@ const getMovies = async (city, date) => {
             h2.innerHTML += word.slice(1) + ' '
         })
 
-        listing.querySelector('div.rating p').innerText = movie.averageRating
+        listing.querySelector('div.rating p').innerText = movie.averageRating || 0
 
         listing.querySelector('p.info').innerText = movie.genre
         listing.querySelector('p.info').innerText += ' | Od lat ' + movie.minAge
@@ -156,5 +169,6 @@ const getMovies = async (city, date) => {
 
 let city = 'KRAKOW'
 let date = new Date().toISOString().slice(0, 10)
+let blockChange = false
 
 getMovies(city, date).then(() => { addEventListeners() })
