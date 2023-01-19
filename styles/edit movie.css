@@ -72,11 +72,13 @@ main section form div.file-input {
 main section form div.drag-area {
     border: 2px dashed var(--lime-accent);
     border-radius: 20px;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     cursor: pointer;
+    box-sizing: border-box;
     transition: border 100ms;
 }
 
@@ -90,14 +92,14 @@ main section form div.drag-area.filled {
 
 main section form div.drag-area .icon {
     aspect-ratio: 1/1;
-    position: relative;
+    position: absolute;
     border-radius: 50%;
     border: 2px dashed rgba(255, 255, 255, .5);
     margin-top: -12.5%;
     transition: border 100ms;
 }
 
-main section form div.drag-area.active .icon {
+main section form div.drag-area:hover .icon {
     border: 2px solid rgba(255, 255, 255, .75);
 }
 
@@ -114,7 +116,7 @@ main section form div.drag-area .icon::after {
 }
 
 main section form div.drag-area.active .icon::after {
-    opacity: .75;
+    opacity: 1;
 }
 
 main section form div.drag-area .icon span {

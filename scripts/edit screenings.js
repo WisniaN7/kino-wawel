@@ -205,7 +205,7 @@ function addEventListeners() {
 
             xhr.onreadystatechange = () => {
                 if (xhr.readyState != xhr.DONE) return
-
+                
                 if (xhr.status == 200) {
                     changesSaved = true
                 } else {

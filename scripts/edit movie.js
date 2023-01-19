@@ -112,8 +112,12 @@ function addEventListeners() {
         const inputs = document.querySelectorAll('input:not(:checked), textarea, select')
 
         for (let i = 0; i < inputs.length; i++)
-            if (inputs[i].value === '')
+            if (inputs[i].value == '') {
+                if (inputs[i].getAttribute('data-img'))
+                    continue
+
                 return
+            }
 
         if (!document.querySelector('input:checked'))
             return
@@ -128,8 +132,15 @@ function addEventListeners() {
         let posterLink = ''
         let bgImageLink = ''
 
-        await readFileAsync(poster.files[0]).then((result) => { posterLink = result })
-        await readFileAsync(bgImage.files[0]).then((result) => { bgImageLink = result })
+        if (poster.files[0])
+            await readFileAsync(poster.files[0]).then((result) => { posterLink = result })
+        else
+            posterLink = poster.getAttribute('data-img')
+        
+        if (bgImage.files[0])
+            await readFileAsync(bgImage.files[0]).then((result) => { bgImageLink = result })
+        else
+            bgImageLink = bgImage.getAttribute('data-img')
         
         let data = {
             title: document.querySelector('#title').value,
@@ -201,6 +212,20 @@ const getMovie = async () => {
     movieHTML.querySelector('#a' + m.minAge).checked = true
     movieHTML.querySelector('#duration').value = m.duration
     movieHTML.querySelector('#description').value = m.description
+
+    posterImg = new Image()
+    posterImg.src = m.posterSource || 'img/posters/' + m.title.replace(/[/\\?%*:|"<>]/g, '').toLowerCase() + '.jpg'
+    posterDragArea = movieHTML.querySelector('#poster-input div.drag-area')
+    posterDragArea.appendChild(posterImg)
+    posterDragArea.querySelector('input').setAttribute('data-img', posterImg.src)
+    posterDragArea.classList.add('active')
+
+    backgroundImg = new Image()
+    backgroundImg.src = m.bigImageSource || 'img/posters/' + m.title.replace(/[/\\?%*:|"<>]/g, '').toLowerCase() + '.jpg'
+    bgDragArea = movieHTML.querySelector('#trailer-input div.drag-area')
+    bgDragArea.appendChild(backgroundImg)
+    bgDragArea.querySelector('input').setAttribute('data-img', backgroundImg.src)
+    bgDragArea.classList.add('active')
 
     movieHTML.querySelector('#YTlink').value = m.trailerSource
 }

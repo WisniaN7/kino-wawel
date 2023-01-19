@@ -113,6 +113,7 @@ main article p.status span {
 main article p.status.no-screenings span {
     --color: #ff9a04;
     animation: none;
+    text-shadow: 0 0px 4px var(--color);
 }
 
 main article p.status.pre-premiere span {
