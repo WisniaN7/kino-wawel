@@ -7,7 +7,11 @@ const reviews = fetch('https://wawel.herokuapp.com/movies/users/' + user.userId)
 const getReviews = async () => {
     const r = await reviews
 
-    console.log(r)
+    if (r.reviews.length == 0) {
+        const h2 = document.createElement('h2')
+        h2.innerText = 'Nie dodano jeszcze żadnych recenzji.'
+        document.querySelector('main div.wrapper').appendChild(h2)
+    }
 
     await r.reviews.forEach(async (review) => {
         console.log(review);

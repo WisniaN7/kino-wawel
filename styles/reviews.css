@@ -52,3 +52,8 @@ main div.wrapper article div.body header div.stars {
 main div.wrapper article div.body header div.stars svg {
     margin-left: 5px;
 }
+
+main div.wrapper > h2 {
+    text-align: center;
+    margin-top: 100px;
+}

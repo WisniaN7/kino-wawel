@@ -43,3 +43,8 @@ main article div.tickets a.btn {
     width: fit-content;
     margin: 0 auto;
 }
+
+main div.wrapper > h2 {
+    text-align: center;
+    margin-top: 100px;
+}

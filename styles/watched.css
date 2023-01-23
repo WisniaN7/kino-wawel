@@ -43,3 +43,8 @@ main article.listing a.btn {
     transform: scale(0.85);
     margin-top: 15px;
 }
+
+main div.wrapper > h2 {
+    text-align: center;
+    margin-top: 100px;
+}

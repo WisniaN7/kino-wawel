@@ -9,6 +9,12 @@ const tickets = fetch('https://wawel.herokuapp.com/movies/users/' + user.userId)
 const getTickets = async () => {
     const t = await tickets
 
+    if (t.tickets.length == 0) {
+        const h2 = document.createElement('h2')
+        h2.innerText = 'Historia biletów jest pusta.'
+        document.querySelector('main div.wrapper').appendChild(h2)
+    }
+
     t.tickets.forEach((screening) => {
         console.log(screening);
 
