@@ -9,6 +9,8 @@ function addEventListeners() {
             getScreenings()
         })
     })
+
+    document.querySelector('div.lds-ring').remove()
 }
 
 const id = urlParams.get('id')

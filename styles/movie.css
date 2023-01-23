@@ -27,9 +27,8 @@ section#movie > div video {
 
 section#movie aside {
     width: 35%;
-    height: 100%;
-    padding-left: 25%;
-    padding-right: 10%;
+    height: calc(100% - 50px);
+    padding: 25px 10% 25px 25%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -93,6 +92,7 @@ section#movie aside p.info {
 
 section#movie aside p.description {
     margin-top: 25px;
+    overflow-y: scroll;
 }
 
 section#movie aside select {
@@ -199,4 +199,19 @@ section#reviews article > div div.rating svg {
     width: 1.2rem;
     height: 1.2rem;
     margin-left: 10px;
+}
+
+@media only screen and (max-width: 1366px) {
+    section#movie aside div.title h2 {
+        --font-size: 1.75rem;
+    }
+
+    section#movie aside div.rating {
+        font-size: 1.75rem;
+    }
+
+    section#movie aside div.rating svg {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
 }
