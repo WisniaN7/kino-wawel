@@ -2,7 +2,8 @@ main section form {
     width: 100%;
     height: calc(85% - 1.8rem - 100px);
     display: grid;
-    column-gap: 75px;
+    -moz-column-gap: 75px;
+         column-gap: 75px;
     grid-template-rows: 1fr 1fr 1fr 3fr .5fr;
     grid-template-columns: 1fr 1fr 1fr;
     position: relative;
@@ -139,7 +140,8 @@ main section form div.drag-area .icon span:last-child {
 main section form div.drag-area img {
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
     border-radius: 18px;
 }
 

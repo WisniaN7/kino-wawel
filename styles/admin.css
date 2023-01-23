@@ -107,12 +107,14 @@ main article p.status span {
     color: var(--color);
     font-weight: 900;
     margin-right: 10px;
-    animation: blink 1s infinite;
+    -webkit-animation: blink 1s infinite;
+            animation: blink 1s infinite;
 }
 
 main article p.status.no-screenings span {
     --color: #ff9a04;
-    animation: none;
+    -webkit-animation: none;
+            animation: none;
     text-shadow: 0 0px 4px var(--color);
 }
 
@@ -134,7 +136,8 @@ main article p.status.not-playing span {
 
 main article p.status.archived span {
     --color: #AAA;
-    animation: none;
+    -webkit-animation: none;
+            animation: none;
 }
 
 main article div.manage {
@@ -166,6 +169,18 @@ main article div.manage a.archive {
 main section > h2 {
     --font-size: 1.8rem;
     margin: 75px 0 25px 0;
+}
+
+@-webkit-keyframes blink {
+    from {
+        opacity: 1;
+        text-shadow: 0 0px 4px var(--color);
+    }
+    
+    to {
+        opacity: .5;
+        text-shadow: 0 0px 0px var(--color);
+    }
 }
 
 @keyframes blink {

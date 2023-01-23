@@ -100,6 +100,7 @@ main > section #timetable div.wrapper #table table tr {
 }
 
 main > section #timetable div.wrapper #table table thead {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     background-color: #222;
@@ -147,6 +148,8 @@ main > section #timetable div.wrapper aside {
 
 main > section #timetable div.wrapper aside header {
     width: calc(100% - 20px);
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
     flex-direction: column;
     align-items: flex-start;
@@ -195,11 +198,13 @@ div.screening {
     border-radius: 10px;
     margin: 5px 0;
     overflow: hidden;
+    cursor: -webkit-grab;
     cursor: grab;
 }
 
 div.screening.collide {
-    animation: outline-blink 1s infinite;
+    -webkit-animation: outline-blink 1s infinite;
+            animation: outline-blink 1s infinite;
 }
 
 div.screening.subtitled {
@@ -324,6 +329,20 @@ div.screening:hover div.movie {
 table div.screening div.cleanup,
 div.screening:hover div.cleanup {
     height: calc(var(--time-scale) - 2.5px);
+}
+
+@-webkit-keyframes outline-blink {
+    0% {
+        outline: 2px solid rgba(255, 0, 0, 1);
+    }
+
+    50% {
+        outline: 2px solid rgba(255, 0, 0, 1);
+    }
+
+    100% {
+        outline: 2px solid rgba(255, 0, 0, 0);
+    }
 }
 
 @keyframes outline-blink {

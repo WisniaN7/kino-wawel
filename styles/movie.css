@@ -17,7 +17,8 @@ section#movie > div {
     background-position: center;
     background-size: cover;
     z-index: 1;
-    filter: brightness(0.5);
+    -webkit-filter: brightness(0.5);
+            filter: brightness(0.5);
 }
 
 section#movie > div video {

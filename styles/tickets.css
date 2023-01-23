@@ -40,6 +40,8 @@ main article div.tickets div.types p {
 }
 
 main article div.tickets a.btn {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     margin: 0 auto;
 }

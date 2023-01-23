@@ -114,6 +114,8 @@ main form section fieldset input::before {
 main form aside {
     width: calc(30% - 120px);
     min-height: calc(100% - 50px);
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
     background-color: #333;
     text-align: right;
@@ -266,7 +268,8 @@ main form aside div#inputs div button.error {
     animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
     -webkit-animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
     transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
     perspective: 1000px;
 }
 
@@ -307,6 +310,29 @@ main form aside div#buttons * {
     }
 }
 
+@-webkit-keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-0.5px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(1px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(2px, 0, 0);
+    }
+}
+
 @keyframes shake {
     10%,
     90% {
@@ -327,6 +353,16 @@ main form aside div#buttons * {
     40%,
     60% {
         transform: translate3d(2px, 0, 0);
+    }
+}
+
+@-webkit-keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
 

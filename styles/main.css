@@ -46,7 +46,9 @@ a {
 }
 
 input[type="checkbox"] {
-    appearance: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
     margin: 0;
 
     font: inherit;
@@ -69,7 +71,8 @@ input[type="checkbox"]::before {
     content: "";
     width: 0.65em;
     height: 0.65em;
-    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
     transform: scale(0);
     transform-origin: center;
     transition: 120ms transform ease-in-out;
@@ -92,7 +95,9 @@ textarea {
 }
 
 input[type="radio"] {
-    appearance: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
     border-radius: 1000px;
     padding: 4px;
     cursor: pointer;
@@ -127,20 +132,24 @@ input[type="file"] {
     margin: 8px;
     border: 8px solid var(--lime-accent);
     border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    -webkit-animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: var(--lime-accent) transparent transparent transparent;
 }
 
 .lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
+    -webkit-animation-delay: -0.45s;
+            animation-delay: -0.45s;
 }
 
 .lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
+    -webkit-animation-delay: -0.3s;
+            animation-delay: -0.3s;
 }
 
 .lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
+    -webkit-animation-delay: -0.15s;
+            animation-delay: -0.15s;
 }
 
 div#day-select {
@@ -370,6 +379,8 @@ h2 span.capital {
 }
 
 .cta-1, .cta-2, .cta-3, .btn {
+    min-width: -webkit-fit-content;
+    min-width: -moz-fit-content;
     min-width: fit-content;
     display: flex;
     align-items: center;
@@ -463,7 +474,6 @@ svg.star.full polygon {
     right: 0;
     bottom: 0;
     background-color: #ccc;
-    -webkit-transition: .4s;
     transition: .4s;
 }
 
@@ -475,7 +485,6 @@ svg.star.full polygon {
     left: 4px;
     bottom: 4px;
     background-color: white;
-    -webkit-transition: .4s;
     transition: .4s;
 }
 
@@ -488,8 +497,6 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
     transform: translateX(26px);
 }
 
@@ -771,6 +778,16 @@ article.description > .info p.description {
         display: block;
         text-align: right;
         padding: 15px 25px;
+    }
+}
+
+@-webkit-keyframes lds-ring {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }
 
