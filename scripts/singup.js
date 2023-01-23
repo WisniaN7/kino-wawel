@@ -38,7 +38,7 @@ window.addEventListener('load', () => {
             if (xhr.readyState != xhr.DONE) return
 
             if (xhr.status == 200)
-                window.location.href = 'login.html?status=6'
+                window.location.href = 'logowanie.html?status=6'
             else if (xhr.responseText.startsWith('Username'))
                 createSnackbar('Podany login jest już zajęty', 'error', 'short')
             else if (xhr.responseText.startsWith('Email'))

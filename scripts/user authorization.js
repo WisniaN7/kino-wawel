@@ -3,7 +3,11 @@ window.getCookie = function (name) {
     if (match) return name == 'user' ? JSON.parse(match[2]) : match[2]
 }
 
+const status = new URLSearchParams(window.location.search).get('status')
 const user = getCookie('user')
 
 if (!user)
-    window.location.href = 'index.html'
+    if (!status)
+        window.location.href = 'index.html'
+    else
+        window.location.href = 'index.html?status=' + status
