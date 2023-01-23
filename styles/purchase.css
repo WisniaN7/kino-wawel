@@ -256,6 +256,25 @@ main form aside div#inputs div button {
     color: var(--lime-accent);
     background: none;
     cursor: pointer;
+    transition: 300ms;
+}
+
+main form aside div#inputs div button.error {
+    border-color: #f00;
+    color: #f00;
+    transition: none;
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    -webkit-animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+main form aside div#inputs div button.correct span {
+    display: block;
+    transform: scale(1.75);
+    animation: fade-in 300ms ease-out forwards;
+    -webkit-animation: fade-in 300ms ease-out forwards;
 }
 
 main form aside div#summary,
@@ -280,4 +299,43 @@ main form aside div#buttons * {
     width: 49%;
     height: 100%;
     font-size: 1.3rem;
+}
+
+@media only screen and (max-width: 1366px) {
+    main form aside div#summary {
+        font-size: 1.5rem;
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-0.5px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(1px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(2px, 0, 0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
