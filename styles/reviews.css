@@ -7,6 +7,7 @@ main {
 }
 
 main div.wrapper header h2 {
+    width: 100%;
     --font-size: 2rem;
 }
 
@@ -44,6 +45,7 @@ main div.wrapper article div.body header h3 a {
 }
 
 main div.wrapper article div.body header div.stars {
+    width: 10rem;
     height: 1rem;
     display: flex;
     margin-left: 20px;
