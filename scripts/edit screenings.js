@@ -109,7 +109,7 @@ function createTimetable(tbody) {
                 movieDiv.innerText = movieDiv.getAttribute('data-title')
                 movieSchedules[data]++
             } else
-            newNode = document.querySelector('table #' + data)
+                newNode = document.querySelector('table #' + data)
 
             const cellsOccupied = Math.ceil(newNode.getAttribute('data-duration') / 30)
             const col = parseInt(cell.getAttribute('data-col'))
@@ -130,8 +130,8 @@ function createTimetable(tbody) {
                 }
             }
 
-
             newNode.addEventListener('dragstart', (e) => {
+                newNode.parentElement.querySelector('input').checked = false
                 e.dataTransfer.setData('text/plain', e.target.id)
                 e.dataTransfer.setData('bool', false)
             })
@@ -160,7 +160,6 @@ function addEventListeners() {
     movieScreenings.forEach((movie) => {
         movieSchedules[movie.id] = 0
     })
-
 
     moviesElements.forEach((movie) => {
         movie.addEventListener('dragstart', (e) => {
@@ -348,6 +347,7 @@ const getRepertoire = async (city, date) => {
             movie.id = 'm' + screeningData.movie.id + '_' + screening.screeningId
 
             movie.addEventListener('dragstart', (e) => {
+                movie.parentElement.querySelector('input').checked = false
                 e.dataTransfer.setData('text/plain', e.target.id)
                 e.dataTransfer.setData('bool', false)
             })
