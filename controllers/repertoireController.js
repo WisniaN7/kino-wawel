@@ -1,41 +1,5 @@
 const db = require('../controllers/database');
 
-function createSeats() {
-    const seats = []
-    let row = []
-
-    for (let i = 0; i < 13; i++)
-        row.push('FREE')
-
-    for (let i = 0; i < 5; i++)
-        row.push('NULL')
-
-    for (let i = 0; i < 8; i++)
-        seats.push(row)
-
-    row = []
-
-    for (let i = 0; i < 13; i++)
-        row.push('FREE')
-
-    for (let i = 0; i < 3; i++)
-        row.push('NULL')
-
-    row.push('FREE')
-
-    for (let i = 0; i < 3; i++)
-        seats.push(row)
-
-    row = []
-
-    for (let i = 0; i < 18; i++)
-        row.push('FREE')
-
-    seats.push(row)
-
-    return seats
-}
-
 async function getRepertoire(city, date) {
     const connection = await db.createConnection()
 
@@ -82,8 +46,6 @@ async function randomFillDatabase() {
     const cinemaHalls = [3, 2, 4, 1, 4]
     const soundTypes = ['Dubbing', 'Napisy']
 
-    const seats = createSeats()
-
     let i = 0
 
     while (date < endDate) {
@@ -98,7 +60,7 @@ async function randomFillDatabase() {
                     let movie = Math.floor(Math.random() * movies) + 1
                     let soundType = soundTypes[Math.floor(Math.random() * 2)]
 
-                    let sql = "INSERT INTO `screenings` VALUES (NULL, " + movie + ", " + cinema + ", " + hall + ", '" + date.toISOString().split('T')[0] + "', '" + time.toISOString().split('T')[1].split('.')[0] + "', '" + Math.floor(Math.random() * 2) + "', '" + soundType + "', '" + JSON.stringify(seats) + "' )"
+                    let sql = "INSERT INTO `screenings` VALUES (NULL, " + movie + ", " + cinema + ", " + hall + ", '" + date.toISOString().split('T')[0] + "', '" + time.toISOString().split('T')[1].split('.')[0] + "', '" + Math.floor(Math.random() * 2) + "', '" + soundType + "')"
                     await connection.execute(sql)
 
                     time.setTime(time.getTime() + (movieDurations[movie] * 30 * 60 * 1000))

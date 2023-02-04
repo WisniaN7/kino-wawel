@@ -10,16 +10,16 @@
     </header>
     <main>
         <span class="arrow left"></span>
-        <% for(let i = 0; i < data.length; i++) { %>
+        <% for(const movie of data) { %>
         <div class="movie">
             <div class="title">
-                <h2><%= data[i].title %></h2>
+                <h2><%= movie.title %></h2>
                 <div>
                     <a href="" class="cta-1">Kup bilet</a>
-                    <a href= <%= data[i].trailer %> class="cta-2">Obejrzyj zwiastun</a>
+                    <a href= <%= movie.trailer %> class="cta-2">Obejrzyj zwiastun</a>
                 </div>
             </div>
-            <img src= <%= ('images/bg/' + data[i].title.replace( /\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1)) + '.jpg').replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/.]/g, '') %> alt= <%= data[i].title.replaceAll(' ', '_') %>>
+            <img src= <%= ('images/bg/' + movie.title.replace( /\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1)) + '.jpg').replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/.]/g, '') %> alt= <%= movie.title.replaceAll(' ', '_') %>>
         </div>
         <% } %>
         <span class="arrow right"></span>

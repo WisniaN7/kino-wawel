@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="stylesheets/success.css">
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <h2><span class="capital">Z</span>akup biletów przebiegł pomyślnie</h2>
+        <p>Potwierdzenie transakcji oraz bilet zostały wysłane na <%= email %>. Możesz również pobrać bilety klikając przycisk poniżej.</p>
+        <a class="cta-1" href="files/bilet.txt" download>Pobierz bilet</a>
+    </main>
+    <script src="javascripts/main.js"></script>
+    <script src="javascripts/repertoire.js"></script>
+</body>
+</html>

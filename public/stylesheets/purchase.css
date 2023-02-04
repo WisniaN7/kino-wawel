@@ -111,6 +111,10 @@ main form section fieldset input::before {
     display: none;
 }
 
+main form section fieldset span {
+    text-align: center;
+}
+
 main form aside {
     width: calc(30% - 120px);
     min-height: calc(100% - 50px);
@@ -219,7 +223,7 @@ main form aside div#tickets div.ticket-type div.counter div#validation input[typ
 
 main form aside div#inputs {
     width: 100%;
-    margin-top: 45%;
+    margin-top: 35%;
 }
 
 main form aside div#inputs input,

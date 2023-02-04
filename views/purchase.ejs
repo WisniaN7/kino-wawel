@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="stylesheets/purchase.css">
+</head>
+    <body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <form action= <%= 'przetwarzanie/' + screening %> method="POST">
+            <section id="hall">
+                <h2><span class="capital">W</span>ybór <span class="capital">M</span>iejsc</h2>
+                <div id="legend">
+                    <div>
+                        <span>Wybrane miejsca</span>
+                        <div class="seat chosen"></div>
+                    </div>
+                    <div>
+                        <span>Wolne miejsca</span>
+                        <div class="seat free"></div>
+                    </div>
+                    <div>
+                        <span>Zajęte miejsca</span>
+                        <div class="seat taken"></div>
+                    </div>
+                </div>
+                <div id="screen"></div>
+                <fieldset id="seats">
+                    <% let row = 1 %>
+                    <% for (; row < 8; row++) { %>
+                        <span> <%= String.fromCharCode(64 + row) %> </span>
+
+                        <% for (let j = 1; j <= 13; j++) { %> 
+                            <input type="checkbox" name="seats" class= <%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %> <%= 'value=' + String.fromCharCode(64 + row) + '|' + j %> >
+                        <% } %>
+
+                        <% for (let j = 1; j <= 5; j++) { %> 
+                            <input type="checkbox" name="seats" disabled>
+                        <% } %>
+                    <% } %>
+                    
+                    <% for (; row < 11; row++) { %>
+                        <span> <%= String.fromCharCode(64 + row) %> </span>
+
+                        <% for (let j = 1; j <= 13; j++) { %> 
+                            <input type="checkbox" name="seats" class= <%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %> <%= 'value=' + String.fromCharCode(64 + row) + '|' + j %> >
+                        <% } %>
+                        
+                        <% for (let j = 1; j <= 3; j++) { %>
+                            <input type="checkbox" name="seats" disabled>
+                        <% } %>
+                            
+                        <% for (let j = 1; j <= 2; j++) { %> 
+                            <input type="checkbox" name="seats" class= <%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %> <%= 'value=' + String.fromCharCode(64 + row) + '|' + j %> >
+                        <% } %>
+                    <% } %>
+
+                    <span> <%= String.fromCharCode(64 + row) %> </span>
+
+                    <% for (let j = 1; j <= 18; j++) { %> 
+                        <input type="checkbox" name="seats" class= <%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %> <%= 'value=' + String.fromCharCode(64 + row) + '|' + j %> >
+                    <% } %>
+
+                    <% for (let i = 0; i <= 18; i++) { %> 
+                        <span> <%= i != 0 ? i : '' %> </span>
+                    <% } %>
+                </fieldset>
+            </section>
+            <aside>
+                <h2><span class="capital">T</span>woje <span class="capital">B</span>ilety</h2>
+                <div id="tickets" data-chosen="0" data-required="0">
+                    <% for (const [i, ticket] of ticketTypes.entries()) { %>
+                        <div class="ticket-type">
+                            <div class="counter">
+                                <div class="minus">
+                                    <span></span>
+                                </div>
+                                <div <%= i + 1 == ticketTypes.length ? 'id=validation' : ''  %> >    
+                                    <span class="ticket-counter" data-price= <%= ticket.price %> >0</span>
+                                    <input type="number" name= <%= ticket.ticket_type_id %> value="0">
+                                    <%- i + 1 == ticketTypes.length ? '<input type="radio" name="validation" required>' : '' %>
+                                </div>
+                                <div class="plus">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <p><%= ticket.ticket_type %> <span class="price"> <%= ticket.price %> </span>,-</p>
+                        </div>
+                    <% } %>
+                </div>
+                <div id="inputs">
+                    <input type="email" name="email" placeholder="Wprowadź adres e-mail" required>
+                    <div>
+                        <input type="text" name="discount" placeholder="Kod rabatowy">
+                        <button><span>&#8594;</span></button>
+                    </div>
+                </div>
+                <div id="summary">
+                    <h3>Do zapłaty: </h3>
+                    <p><span>0</span> zł</p>
+                </div>
+                <div id="buttons">
+                    <a href="repertuar" class="cta-3 btn">Anuluj</a>
+                    <button type="submit" class="cta-1">Zapłać</button>
+                </div>
+            </aside>
+        </form>
+    </main>
+    <script src="javascripts/main.js"></script>
+    <script src="javascripts/purchase.js"></script>
+</body>
+</html>

@@ -63,8 +63,6 @@ function addEventListeners() {
     const validateEvent = new Event('validate')
     const ticketValidator = ticketsSelector.querySelector('#validation input[type="radio"]')
     
-    document.querySelector('input[type="hidden"]').value = screeningId
-    
     ticketsSelector.addEventListener('validate', () => {
         if (ticketsSelector.getAttribute('data-required') == ticketsSelector.getAttribute('data-chosen') && ticketsSelector.getAttribute('data-chosen') != 0)
             ticketsSelector.classList.add('correct')
