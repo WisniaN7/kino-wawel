@@ -1,0 +1,377 @@
+main {
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+main form h2 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+main form h2 span.capital {
+    font-size: 2rem;
+}
+
+main form section {
+    width: calc(70% - 200px);
+    height: calc(100% - 100px);
+    padding: 50px 100px;
+    position: relative;
+}
+
+main form section div#legend {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    top: 45%;
+    right: 100px;
+}
+
+main form section div#legend > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+main form section div#legend > div div.seat {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+main form section div#legend > div div.seat.chosen {
+    background-color: var(--lime-accent);
+}
+
+main form section div#legend > div div.seat.free {
+    background-color: #fff;
+}
+
+main form section div#legend > div div.seat.taken {
+    border: 2px solid #fff;
+}
+
+main form section div#legend > div span {
+    font-size: .8rem;
+}
+
+main form section div#screen {
+    width: 40%;
+    height: 125px;
+    transform: perspective(1000px) rotateX(-45deg);
+    background: linear-gradient(0deg, #CCC 0%, #fff 100%);
+    box-shadow: 0 0 60px 5px rgba(255, 255, 255, .75);
+    margin: 50px auto 75px auto;
+}
+
+main form section fieldset {
+    width: calc(25px * 19);
+    border: none;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-columns: repeat(19, 1fr);
+    gap: 3px;
+    margin: auto;
+}
+
+main form section fieldset input {
+    width: 25px !important;
+    background-color: #fff;
+}
+
+main form section fieldset input:disabled:not(.taken) {
+    visibility: hidden;
+}
+
+main form section fieldset input.taken {
+    background-color: transparent;
+    cursor: unset;
+}
+
+main form section fieldset input:checked {
+    background-color: var(--lime-accent);
+    border-color: var(--lime-accent);
+}
+
+main form section fieldset input::before {
+    display: none;
+}
+
+main form aside {
+    width: calc(30% - 120px);
+    min-height: calc(100% - 50px);
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    background-color: #333;
+    text-align: right;
+    padding: 25px 60px;
+}
+
+main form aside div#tickets {
+    margin-top: 40px;
+    position: relative;
+}
+
+main form aside div#tickets::after {
+    content: 'Wybrane miejsca: ' attr(data-chosen) '/' attr(data-required);
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: 300ms;
+}
+
+main form aside div#tickets.chosen::after {
+    color: rgba(128, 128, 128);
+    opacity: 1;
+}
+
+main form aside div#tickets.correct::after {
+    color: var(--lime-accent-half-transparent);
+}
+
+main form aside div#tickets.incorrect::after {
+    color: #f00 !important;
+}
+
+main form aside div#tickets div.ticket-type {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 0;
+}
+
+main form aside div#tickets div.ticket-type p {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+main form aside div#tickets div.ticket-type div.counter {
+    display: flex;
+    align-items: center;
+}
+
+main form aside div#tickets div.ticket-type div.counter div:nth-child(2) {
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+main form aside div#tickets div.ticket-type div.counter div span {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+
+main form aside div#tickets div.ticket-type div.counter div.plus,
+main form aside div#tickets div.ticket-type div.counter div.minus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 15px;
+    position: relative;
+}
+
+main form aside div#tickets div.ticket-type div.counter div.plus span,
+main form aside div#tickets div.ticket-type div.counter div.minus span {
+    width: 7px;
+    height: 2px;
+    background: var(--lime-accent);
+    position: absolute;
+}
+
+main form aside div#tickets div.ticket-type div.counter div.plus span:last-of-type {
+    transform: rotate(90deg);
+}
+
+main form aside div#tickets div.ticket-type div.counter div#validation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+main form aside div#tickets div.ticket-type div.counter div input[type="number"] {
+    display: none;
+}
+
+main form aside div#tickets div.ticket-type div.counter div#validation input[type="radio"] {
+    position: absolute;
+    top: 75%;
+    opacity: 0;
+    margin: 0;
+}
+
+main form aside div#inputs {
+    width: 100%;
+    margin-top: 45%;
+}
+
+main form aside div#inputs input,
+main form aside div#inputs button {
+    height: 50px;
+    background: none;
+    border: 3px solid #fff;
+    padding: 5px 20px;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    transition: background-color 100ms;
+}
+
+main form aside div#inputs button:hover {
+    background-color: rgba(255, 255, 255, .05);
+}
+
+main form aside div#inputs > input {
+    width: 100%;
+}
+
+main form aside div#inputs div {
+    margin-top: 20px;
+}
+
+main form aside div#inputs div input {
+    width: 75%;
+}
+
+main form aside div#inputs div button {
+    width: calc(25% - 15px);
+    margin: 0;
+    padding: 5px 0;
+    margin-left: 10px;
+    border: 3px solid var(--lime-accent);
+    color: var(--lime-accent);
+    background: none;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+main form aside div#inputs div button.error {
+    border-color: #f00;
+    color: #f00;
+    transition: none;
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    -webkit-animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+main form aside div#inputs div button.correct span {
+    display: block;
+    transform: scale(1.75);
+    animation: fade-in 300ms ease-out forwards;
+    -webkit-animation: fade-in 300ms ease-out forwards;
+}
+
+main form aside div#summary,
+main form aside div#buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+main form aside div#summary {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+main form aside div#buttons {
+    height: 50px;
+}
+
+main form aside div#buttons * {
+    width: 49%;
+    height: 100%;
+    font-size: 1.3rem;
+}
+
+@media only screen and (max-width: 1366px) {
+    main form aside div#summary {
+        font-size: 1.5rem;
+    }
+}
+
+@-webkit-keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-0.5px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(1px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(2px, 0, 0);
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-0.5px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(1px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-2px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(2px, 0, 0);
+    }
+}
+
+@-webkit-keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

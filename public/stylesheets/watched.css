@@ -1,0 +1,50 @@
+main {
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main header h2 {
+    --font-size: 2rem;
+}
+
+main article.listing div.rating {
+    width: 30%;
+    height: 100%;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main article.listing div.rating div.p {
+    font-weight: 200;
+}
+
+main article.listing div.rating div.stars {
+    height: 20px;
+    width: 140px;
+    display: flex;
+    justify-content: space-between;
+}
+
+main article.listing div.rating div.stars svg {
+    cursor: pointer;
+}
+
+main article.listing div.rating input {
+    display: none;
+}
+
+main article.listing a.btn {
+    transform: scale(0.85);
+    margin-top: 15px;
+}
+
+main div.wrapper > h2 {
+    text-align: center;
+    margin-top: 100px;
+}

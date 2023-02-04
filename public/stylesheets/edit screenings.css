@@ -1,0 +1,360 @@
+main {
+    height: calc(100vh - var(--header-height));
+}
+
+main > section {
+    padding-bottom: 0
+}
+
+main > section header {
+    width: 80%;
+    padding: 0 10%;
+    margin-top: 50px;
+}
+
+main > section header > * {
+    margin: 0;
+}
+
+main > section header ul#legend {
+    list-style: none;
+    display: grid;
+}
+
+main > section header ul#legend li {
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+main > section header ul#legend li::before {
+    content: '';
+    width: .9rem;
+    aspect-ratio: 1 / 1;
+    margin-right: 10px;
+}
+
+main > section header ul#legend li.D2::before {
+    background-color: #fff;
+}
+
+main > section header ul#legend li.D3::before {
+    background: repeating-linear-gradient(45deg, #fff, #fff 3.25px, #444 3.25px, #444 6.5px);
+}
+
+main > section header ul#legend li.subtitled::before {
+    background-color: #d91e4d;
+}
+
+main > section header ul#legend li.dubbing::before {
+    background-color: #d9711e;
+}
+
+main > section header ul#legend li.lector::before {
+    background-color: #9a53c9;
+}
+
+main > section header ul#legend li.D2,
+main > section header ul#legend li.D3 {
+    grid-row: 1;
+}
+
+main > section header ul#legend li.subtitled,
+main > section header ul#legend li.dubbing,
+main > section header ul#legend li.lector {
+    grid-row: 2;
+}
+
+main > section #timetable {
+    height: calc(100% - 200px);
+    padding-bottom: 25px;
+    --time-scale: 40px;
+}
+
+main > section #timetable div.wrapper {
+    width: 85%;
+    height: calc(100% - 75px);
+    display: flex;
+    justify-content: space-between;
+}
+
+main > section #timetable div.wrapper #table {
+    width: 65%;
+    height: 100%;
+    /* position: relative; */
+    overflow-y: auto;
+    margin-bottom: 50px;
+}
+
+main > section #timetable div.wrapper #table table {
+    width: 95%;
+    table-layout: fixed;
+    border-spacing: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .25);
+    border-right: 1px solid rgba(255, 255, 255, .25);
+}
+
+main > section #timetable div.wrapper #table table tr {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+main > section #timetable div.wrapper #table table thead {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #222;
+    z-index: 15;
+}
+
+main > section #timetable div.wrapper #table table thead tr {
+    border-bottom: 1px solid rgba(255, 255, 255, .25);
+    white-space: nowrap;
+}
+
+main > section #timetable div.wrapper #table table tr:nth-child(2n) {
+    background-color: #2D2D2D;
+}
+
+main > section #timetable div.wrapper #table table th,  
+main > section #timetable div.wrapper #table table td {
+    position: relative;
+    display: block;
+    border-top: 1px solid rgba(255, 255, 255, .25);
+    border-left: 1px solid rgba(255, 255, 255, .25);
+    padding: 10px 15px;
+    overflow: visible;
+}
+
+main > section #timetable div.wrapper #table table td.filled {
+    padding: 10px 5px;
+}
+
+main > section #timetable div.wrapper #table table td:first-child {
+    text-align: right;
+}
+
+main > section #timetable div.wrapper #table table td input {
+    display: none;
+}
+
+main > section #timetable div.wrapper aside {
+    width: 25%;
+    transition: 100ms;
+    border-radius: 20px;
+    padding: 0 20px 20px 20px;
+    overflow-y: scroll;
+}
+
+main > section #timetable div.wrapper aside header {
+    width: calc(100% - 20px);
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+main > section #timetable div.wrapper aside header > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+main > section #timetable div.wrapper aside header div label.switch {
+    transform: scale(.7);
+}
+
+main > section #timetable div.wrapper aside header select#sound-type  {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+main > section #timetable div.wrapper aside header select#sound-type option {
+    color: #222;
+}
+
+main > section #timetable div.wrapper aside aside.dragging {
+    background-color: #333;
+}
+
+main > section #timetable div.wrapper aside aside.dragging::after {
+    content: 'Upuść, aby usunąć';
+    width: 50%;
+    display: block;
+    opacity: .5;
+    font-size: .8rem;
+    text-align: center;
+    margin: 50px auto;
+}
+
+div.screening {
+    width: 100%;
+    font-size: .9rem;
+    border-radius: 10px;
+    margin: 5px 0;
+    overflow: hidden;
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+div.screening.collide {
+    -webkit-animation: outline-blink 1s infinite;
+            animation: outline-blink 1s infinite;
+}
+
+div.screening.subtitled {
+    background-color: #d91e4d;
+}
+
+div.screening.dubbed {
+    background-color: #d9711e;
+}
+
+div.screening.lector {
+    background-color: #9a53c9;
+}
+
+div.screening.subtitled.D3 {
+    background: repeating-linear-gradient(45deg, #d91e4d, #d91e4d 10px, #c51b45 10px, #c51b45 20px);
+}
+
+div.screening.dubbed.D3 {
+    background: repeating-linear-gradient(45deg, #d9711e, #d9711e 10px, #d9821e 10px, #d9821e 20px);
+}
+
+div.screening.lector.D3 {
+    background: repeating-linear-gradient(45deg, #9a53c9, #9a53c9 10px, #8244ac 10px, #8244ac 20px);
+}
+
+table div.screening {
+    width: calc(var(--cell-width) - 10px);
+    position: absolute;
+    top: 0;
+    left: 5px;
+    z-index: 10;
+}
+
+div.screening p {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    justify-content: space-between;
+    padding: 10px 10%;
+    transition: opacity 100ms;
+    margin: 0;
+}
+
+div.screening:hover p {
+    height: 0;
+    opacity: 0;
+}
+
+table div.screening p {
+    height: 0;
+    opacity: 0;
+}
+
+div.screening p span {
+    width: 40%;
+    text-align: right;
+}
+
+table div.screening p span {
+    display: none;
+}
+
+table div.screening div,
+div.screening div {
+    width: 80%;
+    padding: 0 10%;
+}
+
+div.screening div {
+    height: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    /* transition: 100ms; */
+}
+
+div.screening div.ads {
+    background-color: #efbd1c;
+}
+
+div.screening.subtitled div.movie {
+    background-color: #d91e4d;
+}
+
+div.screening.dubbed div.movie {
+    background-color: #d9711e;
+}
+
+div.screening.lector div.movie {
+    background-color: #9a53c9;
+}
+
+div.screening.subtitled.D3 div.movie {
+    background: repeating-linear-gradient(45deg, #d91e4d, #d91e4d 10px, #c51b45 10px, #c51b45 20px );
+}
+
+div.screening.dubbed.D3 div.movie {
+    background: repeating-linear-gradient(45deg, #d9711e, #d9711e 10px, #d9821e 10px, #d9821e 20px );
+}
+
+div.screening.lector.D3 div.movie {
+    background: repeating-linear-gradient(45deg, #9a53c9, #9a53c9 10px, #8244ac 10px, #8244ac 20px );
+}
+
+div.screening div.cleanup {
+    background-color: #555;
+}
+
+table div.screening div.ads,
+div.screening:hover div.ads {
+    height: calc(var(--time-scale) - 2.5px);
+    margin-top: -20px;
+}
+
+table div.screening div.movie,
+div.screening:hover div.movie {
+    height: calc(var(--duration) / 60 * var(--time-scale));
+}
+
+table div.screening div.cleanup,
+div.screening:hover div.cleanup {
+    height: calc(var(--time-scale) - 2.5px);
+}
+
+@-webkit-keyframes outline-blink {
+    0% {
+        outline: 2px solid rgba(255, 0, 0, 1);
+    }
+
+    50% {
+        outline: 2px solid rgba(255, 0, 0, 1);
+    }
+
+    100% {
+        outline: 2px solid rgba(255, 0, 0, 0);
+    }
+}
+
+@keyframes outline-blink {
+    0% {
+        outline: 2px solid rgba(255, 0, 0, 1);
+    }
+
+    50% {
+        outline: 2px solid rgba(255, 0, 0, 1);
+    }
+
+    100% {
+        outline: 2px solid rgba(255, 0, 0, 0);
+    }
+}

@@ -1,0 +1,61 @@
+main {
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main div.wrapper header h2 {
+    width: 100%;
+    --font-size: 2rem;
+}
+
+main div.wrapper header h2 a {
+    color: #fff;
+}
+
+main div.wrapper article {
+    margin-bottom: 1rem;
+}
+
+main div.wrapper article div.body {
+    width: 80%;
+    margin: 0 auto;
+}
+
+main div.wrapper article div.body > * {
+    width: calc(100% - 50px);
+    padding: 0 25px;
+}
+
+main div.wrapper article div.body header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main div.wrapper article div.body header > div {
+    display: flex;
+    align-items: center;
+}
+
+main div.wrapper article div.body header h3 a {
+    color: #fff;
+}
+
+main div.wrapper article div.body header div.stars {
+    width: 10rem;
+    height: 1rem;
+    display: flex;
+    margin-left: 20px;
+}
+
+main div.wrapper article div.body header div.stars svg {
+    margin-left: 5px;
+}
+
+main div.wrapper > h2 {
+    text-align: center;
+    margin-top: 100px;
+}

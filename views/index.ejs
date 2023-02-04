@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head')  %> 
+    <link rel="stylesheet" href="stylesheets/landing.css">
+</head>
+<body>
+    <header>
+        <%- include('../partials/header')  %> 
+    </header>
+    <main>
+        <span class="arrow left"></span>
+        <% for(let i = 0; i < data.length; i++) { %>
+        <div class="movie">
+            <div class="title">
+                <h2><%= data[i].title %></h2>
+                <div>
+                    <a href="" class="cta-1">Kup bilet</a>
+                    <a href= <%= data[i].trailer %> class="cta-2">Obejrzyj zwiastun</a>
+                </div>
+            </div>
+            <img src= <%= ('images/bg/' + data[i].title.replace( /\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1)) + '.jpg').replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/.]/g, '') %> alt= <%= data[i].title.replaceAll(' ', '_') %>>
+        </div>
+        <% } %>
+        <span class="arrow right"></span>
+    </main>
+    <script src="javascripts/main.js"></script>
+    <script src="javascripts/landing.js"></script>
+</body>
+</html>

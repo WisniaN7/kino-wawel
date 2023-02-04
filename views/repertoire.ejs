@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="stylesheets/repertoire.css">
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <div class="wrapper">
+            <header class="bottom-gradient-border">
+                <select name="city">
+                    <option value="Katowice">Katowice</option>
+                    <option value="Krakow" selected>Kraków</option>
+                    <option value="Luban">Lubań</option>
+                    <option value="Opole">Opole</option>
+                    <option value="Wroclaw">Wrocław</option>
+                </select>
+                <div id="day-select">
+                    <span class="arrow left"></span>
+                    <div>
+                        <span>Czwartek 11.09</span>
+                        <input type="date">
+                    </div>
+                    <span class="arrow right"></span>
+                </div>
+                <div id="show-descriptions">
+                    <label for="">Rozwiń opisy</label>
+                    <input type="checkbox">
+                </div>
+            </header>
+        </div>
+    </main>
+    <script src="javascripts/main.js"></script>
+    <script src="javascripts/repertoire.js"></script>
+</body>
+</html>

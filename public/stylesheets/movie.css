@@ -1,0 +1,218 @@
+main {
+    height: 100vh;
+    width: 100vw;
+    margin-top: var(--header-height);
+}
+
+section#movie {
+    position: relative;
+    height: calc(100vh - var(--header-height));
+}
+
+section#movie > div {
+    height: 100%;
+    position: absolute;
+    background-color: rgba(255, 0, 0, .1);
+    background: var(--bg-image);
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+    -webkit-filter: brightness(0.5);
+            filter: brightness(0.5);
+}
+
+section#movie > div video {
+    height: 100%;
+    aspect-ratio: 16/9;
+}
+
+section#movie aside {
+    width: 35%;
+    height: calc(100% - 50px);
+    padding: 25px 10% 25px 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #222;
+    z-index: 10;
+    mask-image: linear-gradient(to right, transparent, black 25%);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 25%);
+    transform: skew(-5deg);
+}
+
+section#movie aside::after {
+    content: '';
+    width: 200px;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+
+section#movie aside > * {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+section#movie aside div.title {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+section#movie aside div.title h2 {
+    --font-size: 2.5rem;
+    margin: 0;
+}
+
+section#movie aside div.rating {
+    margin-left: 50px;
+    display: flex;
+    align-items: baseline;
+    font-size: 2.5rem;
+}
+
+section#movie aside div.rating p {
+    margin: 0;
+}
+
+section#movie aside div.rating svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-left: 10px;
+}
+
+section#movie aside p.info {
+    opacity: .5;
+    margin-top: 5px;
+}
+
+section#movie aside p.description {
+    margin-top: 25px;
+    overflow-y: scroll;
+}
+
+section#movie aside select {
+    margin-top: 50px;
+    box-sizing: border-box;
+}
+
+section#movie aside select option {
+    color: black;
+}
+
+section#movie aside h3 {
+    margin-top: 25px;
+    font-weight: 300;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, .25);
+}
+
+section#movie aside div.screenings {
+    width: 100%;
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    transform: skew(5deg)
+}
+
+section#movie aside div.screenings a {
+    width: 80px;
+    height: 55px;
+    flex-direction: column;
+    margin: 10px 15px;
+    transition: background-color .2s ease-in-out;
+    transform: scale(1.1);
+}
+
+section#movie aside div.screenings a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+section#movie aside div.screenings a * {
+    margin: 0;
+    text-align: center;
+    color: #fff;
+}
+
+section#movie aside div.screenings a p.hour {
+    font-weight: 400;
+    font-size: 0.95rem;
+}
+
+section#movie aside div.screenings a p.type {
+    font-size: 0.55rem;
+    white-space: nowrap;
+}
+
+section#reviews {
+    max-width: 1000px;
+    width: 70%;
+    min-height: 50vh;
+    margin: auto;
+    margin-top: 100px;
+}
+
+section#reviews h2 {
+    width: 100%;
+    padding-bottom: 15px;
+    --font-size: 2.5rem;
+}
+
+section#reviews article {
+    padding-bottom: 100px;
+}
+
+section#reviews article > div {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+section#reviews article > div div.user {
+    height: 40px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+section#reviews article > div div.user img {
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+}
+
+section#reviews article > div p.username {
+    margin-left: 20px;
+    font-weight: 600;
+}
+
+section#reviews article > div div.rating {
+    margin-left: 75px;
+    display: flex;
+    justify-content: baseline;
+}
+
+section#reviews article > div div.rating svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 1366px) {
+    section#movie aside div.title h2 {
+        --font-size: 1.75rem;
+    }
+
+    section#movie aside div.rating {
+        font-size: 1.75rem;
+    }
+
+    section#movie aside div.rating svg {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+}

@@ -1,0 +1,196 @@
+main {
+    width: 100vw;
+    min-height: calc(100vh - var(--header-height));
+    display: flex;
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main header > * {
+    margin: 0 75px;
+}
+
+main > aside {
+    width: 30%;
+    min-width: 400px;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: #333;
+}
+
+main > aside * {
+    color: #fff;
+}
+
+main > aside div.wrapper {
+    width: calc(100% - 200px);
+    height: 80%;
+    padding: 15px 50px;
+}
+
+main > aside div.wrapper h2 {
+    --font-size: 1.8rem;
+}
+
+main > aside div.wrapper ul {
+    list-style: none;
+}
+
+main > aside div.wrapper ul li {
+    cursor: pointer;
+}
+
+main > aside div.wrapper > ul {
+    margin-top: 50px;
+}
+
+main > aside div.wrapper > ul > li {
+    font-size: 1.3rem;
+    margin: 30px 0;
+    cursor: pointer;
+}
+
+main > aside div.wrapper > ul > li ul {
+    font-size: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: 300ms;
+}
+main > aside div.wrapper > ul > li ul.active {
+    max-height: calc(1rem * 5 + 15px * 4 + 30px);
+}
+
+main > aside div.wrapper > ul > li ul li {
+    margin-top: 15px;
+    opacity: .5;
+    transition: 150ms;
+}
+
+main > aside div.wrapper > ul > li ul li.active,
+main > aside div.wrapper > ul > li ul li:hover {
+    opacity: 1;
+}
+
+main > section {
+    width: calc(70% - 200px);
+    max-width: calc(100% - 550px);
+    position: relative;
+    height: 100%;
+    padding: 0 100px 50px 100px;
+}
+
+main > section header {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 75px;
+}
+
+main > section header h2 {
+    --font-size: 1.5rem;
+}
+
+main article div.info {
+    width: calc(45% - 5% - 65px) !important;
+}
+
+main article p.status {
+    width: 15%;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+main article p.status span {
+    color: var(--color);
+    font-weight: 900;
+    margin-right: 10px;
+    -webkit-animation: blink 1s infinite;
+            animation: blink 1s infinite;
+}
+
+main article p.status.no-screenings span {
+    --color: #ff9a04;
+    -webkit-animation: none;
+            animation: none;
+    text-shadow: 0 0px 4px var(--color);
+}
+
+main article p.status.pre-premiere span {
+    --color: #7e4fc5;
+}
+
+main article p.status.premiere span {
+    --color: #01ceff;
+}
+
+main article p.status.playing span {
+    --color: var(--lime-accent);
+}
+
+main article p.status.not-playing span {
+    --color: rgb(255, 0, 64);
+}
+
+main article p.status.archived span {
+    --color: #AAA;
+    -webkit-animation: none;
+            animation: none;
+}
+
+main article div.manage {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+main article div.manage div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+main article div.manage a {
+    width: 40%;
+    height: 35px;
+    box-sizing: border-box;
+    margin: 5px auto
+}
+
+main article div.manage a.archive {
+    color: #AAA;
+    border-color: #AAA;
+}
+
+main section > h2 {
+    --font-size: 1.8rem;
+    margin: 75px 0 25px 0;
+}
+
+@-webkit-keyframes blink {
+    from {
+        opacity: 1;
+        text-shadow: 0 0px 4px var(--color);
+    }
+    
+    to {
+        opacity: .5;
+        text-shadow: 0 0px 0px var(--color);
+    }
+}
+
+@keyframes blink {
+    from {
+        opacity: 1;
+        text-shadow: 0 0px 4px var(--color);
+    }
+    
+    to {
+        opacity: .5;
+        text-shadow: 0 0px 0px var(--color);
+    }
+}

@@ -1,0 +1,32 @@
+main {
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main header h2 {
+    --font-size: 2rem;
+}
+
+main article.listing {
+    width: calc(100% - 100px);
+    padding: 0 50px;
+}
+
+main article.listing div iframe {
+    height: 90%;
+}
+
+main article.listing div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: 50px;
+}
+
+main article.listing a {
+    color: #fff;
+}

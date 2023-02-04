@@ -1,0 +1,99 @@
+main {
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main div.wrapper  {
+    display: flex;
+    justify-content: space-between;
+}
+
+main div.wrapper > * {
+    margin-top: 50px;
+}
+
+main div.wrapper section {
+    width: 60%;
+}
+
+main div.wrapper section h2 {
+    --font-size: 2rem;
+    margin: 0;
+}
+
+main div.wrapper section div.rating {
+    display: flex;
+    align-items: baseline;
+}
+
+main div.wrapper section div.rating p {
+    font-size: 1.5rem;
+    margin: .75rem 0;
+}
+
+main div.wrapper section div.rating div.stars {
+    height: 1.5rem;
+    position: relative;
+    display: flex;
+    margin-left: 10px;
+}
+
+main div.wrapper section div.rating div.stars svg {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+main div.wrapper section div.rating div.stars input {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%);
+    opacity: 0;
+}
+
+main div.wrapper section label {
+    display: block;
+    font-size: 1.5rem;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+main div.wrapper section textarea {
+    width: 100%;
+    resize: none;
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+main div.wrapper section div.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+main div.wrapper section div.buttons > * {
+    margin-left: 10px;
+}
+
+main div.wrapper aside {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+main div.wrapper aside img {
+    width: 175px;
+    aspect-ratio: 297/420;
+    border-radius: 10px;
+    transition: 300ms;
+    margin-bottom: 30px;
+}
+
+main div.wrapper aside p {
+    font-size: .9rem;
+    text-align: right;
+}

@@ -1,0 +1,52 @@
+main {
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    margin-top: var(--header-height);
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+main header h2 {
+    --font-size: 2rem;
+}
+
+main article a.info p.date {
+    margin-top: 15px;
+    color: var(--lime-accent);
+}
+
+main article a.info p.date.expired {
+    color: #f00;
+}
+
+main article div.tickets {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main article div.tickets div.types {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+main article div.tickets div.types p {
+    text-align: center;
+    line-height: 2rem;
+}
+
+main article div.tickets a.btn {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+main div.wrapper > h2 {
+    text-align: center;
+    margin-top: 100px;
+}

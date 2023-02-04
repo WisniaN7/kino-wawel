@@ -1,0 +1,187 @@
+main section form {
+    width: 100%;
+    height: calc(85% - 1.8rem - 100px);
+    display: grid;
+    -moz-column-gap: 75px;
+         column-gap: 75px;
+    grid-template-rows: 1fr 1fr 1fr 3fr .5fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    position: relative;
+}
+
+main section form>div {
+    display: flex;
+    flex-direction: column;
+}
+
+main section form label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+main section form div.long-input {
+    grid-column: 1 / 3;
+}
+
+main section form div.short-input {
+    grid-row: 3;
+}
+
+main section form div.short-input:first-of-type {
+    grid-column: 1;
+}
+
+main section form div.short-input:last-of-type {
+    grid-column: 2;
+}
+
+main section form div.long-input select option {
+    color: #222;
+}
+
+main section form div.long-input select option#current {
+    display: none;
+}
+
+main section form div.short-input div.radio-group {
+    display: flex;
+}
+
+main section form div.short-input div.radio-group label {
+    margin-right: 20px;
+}
+
+main section form div.short-input div#duration-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main section form div.short-input div#duration-input input {
+    width: 80%;
+    text-align: center;
+}
+
+main section form div textarea {
+    resize: vertical;
+}
+
+main section form div.file-input {
+    grid-column: 3;
+}
+
+main section form div.drag-area {
+    border: 2px dashed var(--lime-accent);
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border 100ms;
+}
+
+main section form div.drag-area.active {
+    border-style: solid;
+}
+
+main section form div.drag-area.filled {
+    border: none !important;
+}
+
+main section form div.drag-area .icon {
+    aspect-ratio: 1/1;
+    position: absolute;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, .5);
+    margin-top: -12.5%;
+    transition: border 100ms;
+}
+
+main section form div.drag-area:hover .icon {
+    border: 2px solid rgba(255, 255, 255, .75);
+}
+
+main section form div.drag-area .icon::after {
+    content: 'upuść plik lub wybierz z dysku';
+    width: 200%;
+    position: absolute;
+    top: 125%;
+    left: -50%;
+    font-size: .5rem;
+    text-align: center;
+    opacity: .5;
+    transition: border 100ms;
+}
+
+main section form div.drag-area.active .icon::after {
+    opacity: 1;
+}
+
+main section form div.drag-area .icon span {
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgba(255, 255, 255, .5);
+    transform: translate(-50%, -50%);
+}
+
+main section form div.drag-area.active .icon span {
+    border-color:rgba(255, 255, 255, .75);
+}
+
+main section form div.drag-area .icon span:last-child {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+main section form div.drag-area img {
+    height: 100%;
+    width: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    border-radius: 18px;
+}
+
+main section form div.file-input#poster-input {
+    grid-row: 1 / 4;
+}
+
+main section form div#poster-input div.drag-area {
+    width: 45%;
+    aspect-ratio: 297/420;
+}
+
+main section form div#poster-input div.drag-area .icon {
+    width: 40%;
+}
+
+main section form div#trailer-input div.drag-area {
+    width: 65%;
+    aspect-ratio: 16/9;
+}
+
+main section form div#trailer-input div.drag-area .icon {
+    height: 40%;
+}
+
+main section form div.file-input p {
+    margin: 20px 0 5px 0;
+}
+
+main section form div#submit {
+    width: 100%;
+    height: 100%;
+    grid-column: 2;
+    position: relative;
+}
+
+main section form div#submit button.cta-1 {
+    width: 150px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    font-size: 1.2rem;
+}
