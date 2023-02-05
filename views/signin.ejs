@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="stylesheets/signin.css">
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <section>
+            <h2><span class="capital">L</span>ogowanie</h2>
+            <form action="signin" method="post">
+                <div>
+                    <label for="login">Login lub E-mail</label>
+                    <input type="text" name="login" id="login" required>
+                </div>
+                <div>
+                    <label for="password">Hasło</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <button type="submit" class="cta-1">Zaloguj</button>
+            </form>
+            <a href="rejestracja.html">Nie masz konta? Załóż je <span>tutaj!</span></a>
+        </section>
+    </main>
+    <script src="javascripts/main.js"></script>
+    <!-- <script src="javascripts/signin.js"></script> -->
+</body>
+</html>

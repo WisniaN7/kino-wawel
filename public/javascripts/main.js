@@ -25,38 +25,9 @@ if (getCookie('user')) {
 }
 
 window.addEventListener('load', () => {
-    const user = getCookie('user')
-    let menu
-
-    if (user) {
-        if (isAdmin(user)) {
-            const nav = document.querySelector('header nav ul')
-            const li = createElementFromHTML('<li><a href="administracja.html">Administracja</a></li>')
-
-            if (window.location.href.includes('administracja.html'))
-                li.classList.add('active')
-
-            nav.insertBefore(li, nav.children[0])
-        }
-
-        menu = createElementFromHTML('<div class="user"> <div class="icon-user"> <span class="head"></span> <span class="body"></span> </div> <menu> <li><p class="username">admin</p></li> <li><a href="moje bilety.html">Moje bilety</a></li> <li><a href="moje recenzje.html">Moje recenzje</a></li> <li><a href="obejrzane.html">Obejrzane filmy</a></li> <li><a href="#">Wyloguj</a></li> </menu></div>')
-        
-        menu.querySelector('p.username').innerText = user.username
-
-        menu.querySelector('li:last-child a').addEventListener('click', (e) => {
-            e.preventDefault()
-            deleteCookie('user')
-            window.location.href = window.location.href.split('?')[0] + '?status=10'
-        })
-        
-        const nav = document.querySelector('header nav')
-        nav.appendChild(menu)
-        nav.querySelector('li:last-child').remove()
-
-        document.querySelector('header div.user div.icon-user').addEventListener('click', function() {
-            document.querySelector('header div.user menu').classList.toggle('active')
-        })
-    }
+    document.querySelector('header div.user div.icon-user')?.addEventListener('click', function() {
+        document.querySelector('header div.user menu').classList.toggle('active')
+    })
 
     handleErrors()
 })
@@ -87,40 +58,38 @@ function createSnackbar(text, type = 'info', time = 'short') {
 function handleErrors() {
     if (!error) return 
 
-    let snackbar
-
     if (error == 1)
-        snackbar = createSnackbar('Conajmniej jedno z wybranych miejsc nie jest już dostępne. Wybierz inne miejsca.', 'error', 'long')
+        createSnackbar('Conajmniej jedno z wybranych miejsc nie jest już dostępne. Wybierz inne miejsca.', 'error', 'long')
     else if (error == 2)
-        snackbar = createSnackbar('Seans już się rozpoczął. Sprzedaż biletów jest zablokowana.', 'error', 'long')
+        createSnackbar('Seans już się rozpoczął. Sprzedaż biletów jest zablokowana.', 'error', 'long')
     else if (error == 4)
-        snackbar = createSnackbar('Wprowadzone dane są niepoprawne.', 'error')
+        createSnackbar('Wprowadzone dane są niepoprawne.', 'error')
     else if (error == 5)
-        snackbar = createSnackbar('Użytkownik już zalogowany. Wyloguj się, aby zalogować się na nowe konto.', 'info', 'long')
+        createSnackbar('Użytkownik już zalogowany. Wyloguj się, aby zalogować się na nowe konto.', 'info', 'long')
     else if (error == 6)
-        snackbar = createSnackbar('Rejestracja przebiegła pomyślnie, możesz się zalogować.', 'success', 'short')
+        createSnackbar('Rejestracja przebiegła pomyślnie, możesz się zalogować.', 'success', 'short')
     else if (error == 7)
-        snackbar = createSnackbar('Użytownik zalogowany.', 'success', 'short')
+        createSnackbar('Użytownik zalogowany.', 'success', 'short')
     else if (error == 8)
-        snackbar = createSnackbar('Login jest już zajęty.', 'warning', 'short')
+        createSnackbar('Login jest już zajęty.', 'warning', 'short')
     else if (error == 9)
-        snackbar = createSnackbar('Adres email jest już zajęty.', 'warning', 'short')
+        createSnackbar('Adres email jest już zajęty.', 'warning', 'short')
     else if (error == 10)
-        snackbar = createSnackbar('Wylogowano pomyślnie.', 'success', 'short')
+        createSnackbar('Wylogowano pomyślnie.', 'success', 'short')
     else if (error == 11)
-        snackbar = createSnackbar('Dodanie recenzji przebiegło pomyślnie.', 'success', 'short')
+        createSnackbar('Dodanie recenzji przebiegło pomyślnie.', 'success', 'short')
     else if (error == 12)
-        snackbar = createSnackbar('Aktualizacja recenzji przebiegła pomyślnie.', 'success', 'short')
+        createSnackbar('Aktualizacja recenzji przebiegła pomyślnie.', 'success', 'short')
     else if (error == 13)
-        snackbar = createSnackbar('Dodanie nie powiodło się.', 'error', 'short')
+        createSnackbar('Dodanie nie powiodło się.', 'error', 'short')
     else if (error == 14)
-        snackbar = createSnackbar('Aktualizacja nie powiodło się.', 'error', 'short')
+        createSnackbar('Aktualizacja nie powiodło się.', 'error', 'short')
     else if (error == 15)
-        snackbar = createSnackbar('Dodanie filmu powiodło się.', 'success', 'short')
+        createSnackbar('Dodanie filmu powiodło się.', 'success', 'short')
     else if (error == 16)
-        snackbar = createSnackbar('Edycja filmu powiodła się.', 'success', 'short')
+        createSnackbar('Edycja filmu powiodła się.', 'success', 'short')
     else
-        snackbar = createSnackbar('Unknown status: ' + error + ', with message: ' + message)
+        createSnackbar('Unknown status: ' + error + ', with message: ' + message)
 }
 
 function isItTooLate(time, timeOffset) {

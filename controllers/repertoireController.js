@@ -1,14 +1,16 @@
-const db = require('../controllers/database');
+const db = require('./database');
 
 async function getRepertoire(city, date) {
     const connection = await db.createConnection()
 
     let data = []
 
-    let movies = await connection.execute('SELECT movie_id, title, rating, age_rating, duration, description FROM screenings NATURAL JOIN movies NATURAL JOIN cinemas WHERE city = "' + city + '" AND date = "' + date + '" GROUP BY movie_id;')
+    let sql = 'SELECT movie_id, title, rating, age_rating, duration, description FROM screenings NATURAL JOIN movies NATURAL JOIN cinemas WHERE city = ? AND date = ? GROUP BY movie_id;'
+    let movies = await connection.query(sql, [city, date])
     
     for (let movie of movies[0]) {
-        let genresQuery = await connection.execute('SELECT genre FROM genres NATURAL JOIN movie_genres WHERE movie_id = ' + movie.movie_id + ';')
+        sql = 'SELECT genre FROM genres NATURAL JOIN movie_genres WHERE movie_id = ?;'
+        let genresQuery = await connection.query(sql, movie.movie_id)
         let genres = []
         
         genresQuery[0].forEach(genre => {
@@ -19,7 +21,8 @@ async function getRepertoire(city, date) {
         let entry = { movie: movie, screenings: [] }
         entry.movie.genres = genres.join(', ')
 
-        let screenings = await connection.execute('SELECT screening_id, time, is_3D, sound_type FROM screenings NATURAL JOIN cinemas NATURAL JOIN movies WHERE city = "' + city + '" AND date = "' + date + '" AND movie_id = ' + movie.movie_id + ';')
+        sql = 'SELECT screening_id, time, is_3D, sound_type FROM screenings NATURAL JOIN cinemas NATURAL JOIN movies WHERE city = ? AND date = ? AND movie_id = ?;'
+        let screenings = await connection.execute(sql, [city, date, movie.movie_id])
         
         for (let screening of screenings[0])
             entry.screenings.push(screening)

@@ -1,12 +1,21 @@
-var express = require('express')
-var router = express.Router()
+let express = require('express')
+let router = express.Router()
 
 const db = require('../controllers/database')
+const indexController = require('../controllers/indexController')
 
 router.get('/', async (req, res, next) => {
-    const connection = await db.createConnection()
-    let movies = await connection.execute('SELECT * FROM movies ORDER BY movie_id DESC LIMIT 3;')
-    res.render('index', { data: movies[0], title: 'Kino Wawel' })
+    const movies = await indexController.getHeroMovies()
+    res.render('index', { movies: movies, user: req.session.user, title: 'Kino Wawel' })
+})
+
+router.get('/wydarzenia', (req, res, next) => {
+    res.render('events', { user: req.session.user, title: 'Kino Wawel' })
+})
+
+router.get('/kontakt', async (req, res, next) => {
+    const cinemas = await indexController.getCinemas()
+    res.render('contact', { cinemas: cinemas, user: req.session.user, title: 'Kino Wawel' })
 })
 
 module.exports = router

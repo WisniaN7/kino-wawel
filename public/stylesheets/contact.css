@@ -19,12 +19,20 @@ main article.listing div iframe {
     height: 90%;
 }
 
+main article.listing h2 {
+    margin-bottom: 1.1rem;
+}
+
 main article.listing div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     margin-left: 50px;
+}
+
+main article.listing p {
+    margin: 5px 0;
 }
 
 main article.listing a {

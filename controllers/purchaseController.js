@@ -1,18 +1,22 @@
-const db = require('../controllers/database');
+// TODO: Discounts
+
+const db = require('./database');
 
 async function getTickets(id) {
     const connection = await db.createConnection()
-    const tickets = await connection.execute('SELECT seat_row, seat_number FROM tickets WHERE screening_id = ' + id + ' ORDER BY seat_row, seat_number;')
+    const sql = 'SELECT seat_row, seat_number FROM tickets WHERE screening_id = ? ORDER BY seat_row, seat_number;'
+    const tickets = await connection.query(sql, id)
     return tickets[0]
 }
 
 async function getTicketTypes() {
     const connection = await db.createConnection()
-    const ticketTypes = await connection.execute('SELECT * FROM ticket_types ORDER BY price DESC;')
+    const sql = 'SELECT * FROM ticket_types ORDER BY price DESC;'
+    const ticketTypes = await connection.execute(sql)
     return ticketTypes[0]
 }
 
-async function buyTickets(screening, seats, ticketsCounts) {
+async function buyTickets(screening, seats, ticketsCounts, userId = null) {
     const connection = await db.createConnection()
 
     let sql = 'INSERT INTO tickets VALUES '
@@ -24,7 +28,7 @@ async function buyTickets(screening, seats, ticketsCounts) {
             index++
         }
 
-        sql += '(' + ['null', 'null', screening, seat.split('|')[0].charCodeAt(0) - 64, seat.split('|')[1], index].join(', ') + ')' + (i + 1 != seats.length ? ', ' : ';')
+        sql += '(' + ['null', userId, screening, seat.split('|')[0].charCodeAt(0) - 64, seat.split('|')[1], index].join(', ') + ')' + (i + 1 != seats.length ? ', ' : ';')
         ticketsCounts[0]--
     }
 

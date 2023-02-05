@@ -9,7 +9,7 @@
         <%- include('../partials/header') %>
     </header>
     <main>
-        <form action= <%= 'przetwarzanie/' + screening %> method="POST">
+        <form action= <%= 'zakup/' + screening %> method="POST">
             <section id="hall">
                 <h2><span class="capital">W</span>ybór <span class="capital">M</span>iejsc</h2>
                 <div id="legend">
@@ -92,7 +92,7 @@
                     <% } %>
                 </div>
                 <div id="inputs">
-                    <input type="email" name="email" placeholder="Wprowadź adres e-mail" required>
+                    <input type="email" name="email" placeholder="Wprowadź adres e-mail" <%= user?.email ? 'value=' + user.email : '' %> required>
                     <div>
                         <input type="text" name="discount" placeholder="Kod rabatowy">
                         <button><span>&#8594;</span></button>
