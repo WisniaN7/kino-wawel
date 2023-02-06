@@ -9,7 +9,7 @@
         <%- include('../partials/header') %>
     </header>
     <main>
-        <form action= <%= 'zakup/' + screening %> method="POST">
+        <form action="<%= 'zakup/' + screening %>" method="POST">
             <section id="hall">
                 <h2><span class="capital">W</span>ybór <span class="capital">M</span>iejsc</h2>
                 <div id="legend">
@@ -30,10 +30,10 @@
                 <fieldset id="seats">
                     <% let row = 1 %>
                     <% for (; row < 8; row++) { %>
-                        <span> <%= String.fromCharCode(64 + row) %> </span>
+                        <span><%= String.fromCharCode(64 + row) %></span>
 
                         <% for (let j = 1; j <= 13; j++) { %> 
-                            <input type="checkbox" name="seats" class= <%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %> <%= 'value=' + String.fromCharCode(64 + row) + '|' + j %> >
+                            <input type="checkbox" name="seats" class="<%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %>" value="<%= String.fromCharCode(64 + row) + '|' + j %>" >
                         <% } %>
 
                         <% for (let j = 1; j <= 5; j++) { %> 
@@ -45,7 +45,7 @@
                         <span> <%= String.fromCharCode(64 + row) %> </span>
 
                         <% for (let j = 1; j <= 13; j++) { %> 
-                            <input type="checkbox" name="seats" class= <%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %> <%= 'value=' + String.fromCharCode(64 + row) + '|' + j %> >
+                            <input type="checkbox" name="seats" class="<%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %>" value="<%= String.fromCharCode(64 + row) + '|' + j %>" >
                         <% } %>
                         
                         <% for (let j = 1; j <= 3; j++) { %>
@@ -53,14 +53,14 @@
                         <% } %>
                             
                         <% for (let j = 1; j <= 2; j++) { %> 
-                            <input type="checkbox" name="seats" class= <%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %> <%= 'value=' + String.fromCharCode(64 + row) + '|' + j %> >
+                            <input type="checkbox" name="seats" class="<%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %>" value="<%= String.fromCharCode(64 + row) + '|' + j %>" >
                         <% } %>
                     <% } %>
 
                     <span> <%= String.fromCharCode(64 + row) %> </span>
 
                     <% for (let j = 1; j <= 18; j++) { %> 
-                        <input type="checkbox" name="seats" class= <%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %> <%= 'value=' + String.fromCharCode(64 + row) + '|' + j %> >
+                        <input type="checkbox" name="seats" class="<%= tickets.find(e => e.seat_row == row && e.seat_number == j) ? 'taken' : 'free' %>" value="<%= String.fromCharCode(64 + row) + '|' + j %>" >
                     <% } %>
 
                     <% for (let i = 0; i <= 18; i++) { %> 
@@ -87,7 +87,7 @@
                                     <span></span>
                                 </div>
                             </div>
-                            <p><%= ticket.ticket_type %> <span class="price"> <%= ticket.price %> </span>,-</p>
+                            <p><%= ticket.ticket_type %> <span class="price"><%= ticket.price %></span>,-</p>
                         </div>
                     <% } %>
                 </div>
@@ -110,6 +110,5 @@
         </form>
     </main>
     <script src="javascripts/main.js"></script>
-    <script src="javascripts/purchase.js"></script>
 </body>
 </html>

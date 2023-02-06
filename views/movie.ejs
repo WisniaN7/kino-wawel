@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="stylesheets/movie.css">
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    </header>
+    <main>
+        <section id="movie">
+            <div style="--bg-image: url('../images/background/<%= movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg')" >
+                <video src=""></video>
+            </div>
+            <aside>
+                <div class="title">
+                    <h2><%= movie.title %></h2>
+                    <div class="rating">
+                        <p><%= Math.round(movie.rating * 100) / 100 %></p>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"><polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /></svg>
+                    </div>
+                </div>
+                <p class="info"><%= movie.genre %> | Od lat <%= movie.age_rating %> | <%= movie.duration %> min</p>
+                <p class="description"><%= movie.description %></p>
+                <select name="city">
+                    <% for (const cinema of cinemas) { %>
+                        <option value="<%= cinema.city %>"><%= cinema.city %></option>
+                    <% } %> 
+                </select>
+                <h3>Seanse na <%= new Date(date).toLocaleDateString() %></h3>
+                <div class="screenings">
+
+                </div>
+            </aside>
+        </section>
+        <section id="reviews">
+            <h2><span class="capital">R</span>ecenzje użytkowników</h2>
+            <% for (const review of reviews) { %>
+                <article>
+                    <div class="bottom-gradient-border">
+                        <div class="user">
+                            <div class="icon-user">
+                                <span class="head"></span>
+                                <span class="body"></span>
+                            </div>
+                        </div>
+                        <p class="username"> <%= review.username %> </p>
+                        <div class="rating">
+                            <% for (let i = 0; i < 5; i++) { %>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star <%= i < review.rating ? 'full' : '' %>"><polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /></svg>
+                            <% } %> 
+                        </div>
+                    </div>
+                    <p class="description"> <%= review.review %> </p>
+                </article>
+            <% } %>
+        </section>
+    </main>
+    <script src="javascripts/main.js"></script>
+    <script src="javascripts/movie.js"></script>
+</body>
+</html>

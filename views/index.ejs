@@ -10,16 +10,20 @@
     </header>
     <main>
         <span class="arrow left"></span>
-        <% for(const [i, movie] of movies.entries()) { %>
-            <div class="movie">
+        <%
+        const positions = ['left', 'center', 'right'];
+        
+        for(const [i, movie] of movies.entries()) { 
+        %>
+            <div class="movie <%= positions[i] %>">
                 <div class="title">
                     <h2><%= movie.title %></h2>
                     <div>
-                        <a href="" class="cta-1">Kup bilet</a>
-                        <a href= <%= movie.trailer %> class="cta-2">Obejrzyj zwiastun</a>
+                        <a href="film/<%= movie.movie_id %>/Kraków/<%= new Date().toISOString().slice(0, 10) %>/<%= movie.title %>" class="cta-1">Kup bilet</a>
+                        <a href="<%= movie.trailer %>" class="cta-2">Obejrzyj zwiastun</a>
                     </div>
                 </div>
-                <img src= <%= ('images/bg/' + movie.title.replace( /\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1)) + '.jpg').replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/.]/g, '') %> alt= <%= movie.title.replaceAll(' ', '_') %> <%= i != 0 ? 'loading' : '' %>>
+                <img src="images/background/<%= movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= movie.title %>" <%= i != 0 ? 'loading' : '' %>>
             </div>
         <% } %>
         <span class="arrow right"></span>

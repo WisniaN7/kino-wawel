@@ -5,25 +5,6 @@ const urlParams = new URLSearchParams(queryString);
 const error = urlParams.get('status')
 const message = urlParams.get('message')
 
-window.getCookie = function (name) {
-    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
-    if (match) return name == 'user' ? JSON.parse(match[2]) : match[2]
-}
-
-window.setCookie = function (name, value, days) {
-    var d = new Date
-    d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days)
-    document.cookie = name + '=' + value + ';path=/;expires=' + d.toGMTString()
-}
-
-window.deleteCookie = function (name) {
-    document.cookie = name + '=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT'
-}
-
-if (getCookie('user')) {
-    setCookie('user', JSON.stringify(getCookie('user')), 7)
-}
-
 window.addEventListener('load', () => {
     document.querySelector('header div.user div.icon-user')?.addEventListener('click', function() {
         document.querySelector('header div.user menu').classList.toggle('active')
@@ -96,12 +77,4 @@ function isItTooLate(time, timeOffset) {
     const currentTime = new Date()
     const date = new Date(currentTime.setMinutes(currentTime.getMinutes() + timeOffset))
     return time < date
-}
-
-function isAdmin(user) {
-    for (let i = 0; i < user.roles.length; i++)
-        if (user.roles[i].name == 'role_admin')
-            return true
-
-    return false
 }

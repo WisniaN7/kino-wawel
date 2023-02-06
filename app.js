@@ -1,3 +1,5 @@
+// TODO: try to change away from async/await to PromisePool
+
 const createError = require('http-errors')
 const express = require('express')
 const session = require('express-session');
@@ -8,6 +10,8 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const repertoireRouter = require('./routes/repertoire')
 const purchaseRouter = require('./routes/purchase')
+const movieRouter = require('./routes/movie')
+const userRouter = require('./routes/user')
 const authRouter = require('./routes/auth')
 
 const app = express()
@@ -31,15 +35,17 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', indexRouter)
 app.use('/repertuar', repertoireRouter)
 app.use('/zakup', purchaseRouter)
+app.use('/film', movieRouter)
+app.use('/', userRouter)
 app.use('/', authRouter)
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     next(createError(404))
 })
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message
     res.locals.error = req.app.get('env') === 'development' ? err : {}

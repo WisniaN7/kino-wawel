@@ -1,6 +1,3 @@
-// TODO: Check whether is it not too late to buy tickets
-// TODO: Discount codes
-
 function calcTotal() {
     const tickets = document.querySelectorAll('.ticket-type .ticket-counter')
     let total = 0
@@ -8,56 +5,7 @@ function calcTotal() {
     return total
 }
 
-const screeningId = urlParams.get('screeningId')
-
-const seats = fetch('https://wawel.herokuapp.com/movies/screening/' + screeningId)
-    .then((response) => response.json())
-    .then((data) => {
-        return data
-    })
-
-const getSeats = async () => {
-    const s = await seats
-
-    const fieldset = document.querySelector('#seats')
-    let rowCounter = 0
-
-    s.seats.forEach((row) => {
-        const rowLabel = document.createElement('span')
-        rowLabel.innerText = rowCounter++
-        fieldset.appendChild(rowLabel)
-
-        let colCounter = 0
-
-        row.forEach((seatType) => {
-            const input = document.createElement('input')
-            input.type = 'checkbox'
-            input.name = 'seats'
-            input.value = rowLabel.innerText + '|' + (colCounter++)
-
-            switch (seatType) {
-                case 'WOLNE':
-                    input.classList.add('free')
-                    break
-                case 'ZAJETE':
-                    input.classList.add('taken')
-                    input.disabled = true
-                    break
-                case 'NIE_ISTNIEJE':
-                    input.disabled = true
-                    break
-                default:
-                    input.style.background = 'red'
-                    input.style.border = 'red'
-                    break
-            }
-            
-            fieldset.appendChild(input)
-        })
-    })
-}
-
-function addEventListeners() {
+window.addEventListener('load', () => {
     const totalDisplay = document.querySelector('#summary span')
     const ticketsSelector = document.querySelector('#tickets')
     const validateEvent = new Event('validate')
@@ -174,8 +122,4 @@ function addEventListeners() {
 
     if (user = getCookie('user'))
         document.querySelector('input[type="email"]').value = user.email
-}
-
-// getSeats().then(() => { addEventListeners() })
-
-addEventListeners()
+})

@@ -93,7 +93,7 @@ section#movie aside p.info {
 
 section#movie aside p.description {
     margin-top: 25px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 section#movie aside select {

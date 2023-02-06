@@ -95,9 +95,6 @@ const getMovies = async (city, date) => {
 
     const movies = fetch('/repertuar/' + city + '/' + date)
         .then((response) => response.json())
-        .then((data) => {
-            return data
-        })
 
     const m = await movies
 
@@ -114,8 +111,8 @@ const getMovies = async (city, date) => {
 
         const listing = createElementFromHTML('<article class="bottom-gradient-border listing"> <img src="img/Black Adam.jpg" alt=""> <a href="film.html" class="info"> <div> <h2></h2> <div class="rating"> <p>4.32</p> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star"><polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35"/></svg> </div> </div> <p class="info">Komedia | Od lat 13 | 125 min</p> <p class="description"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, repellendus modi dolor sequi magni saepe? Facere ipsum exercitationem blanditiis eaque consectetur! Architecto voluptatum repellendus facilis quidem fugit reiciendis maxime reprehenderit. </p> </a> <div class="screenings"></div> </article>')
 
-        listing.querySelector('img').src = 'images/posters/' + (movie.title.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1)) + '.jpg').replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/.]/g, '')
-        listing.querySelector('a').href = 'film/' + movie.title
+        listing.querySelector('img').src = 'images/posters/' + movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') + '.jpg'
+        listing.querySelector('a').href = 'film/' + movie.movie_id + '/' + city + '/' + date + '/' + movie.title 
 
         const h2 = listing.querySelector('h2')
         const titleSplit = movie.title.split(' ')
@@ -129,7 +126,7 @@ const getMovies = async (city, date) => {
             h2.innerHTML += word.slice(1) + ' '
         })
 
-        listing.querySelector('div.rating p').innerText = movie.averageRating || 0
+        listing.querySelector('div.rating p').innerText = Math.round(movie.rating * 100) / 100
 
         listing.querySelector('p.info').innerText = movie.genres
         listing.querySelector('p.info').innerText += ' | Od lat ' + movie.age_rating 

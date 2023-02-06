@@ -4,7 +4,7 @@ let router = express.Router();
 const repertoireController = require('../controllers/repertoireController')
 
 router.get('/', (req, res, next) => {
-    res.render('repertoire', { user: req.session.user, title: 'Kino Wawel' })
+    res.render('repertoire', { user: req.session.user })
 })
 
 router.get('/:city/:date', async (req, res, next) => {

@@ -1,6 +1,6 @@
 // TODO: Discounts
 
-const db = require('./database');
+const db = require('./database')
 
 async function getTickets(id) {
     const connection = await db.createConnection()

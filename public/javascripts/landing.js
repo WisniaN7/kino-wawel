@@ -21,12 +21,6 @@ function cycleMovie(direction = 1) {
 }
 
 window.addEventListener('load', () => {
-    const positions = ['left', 'center', 'right']
-    const heroMovies = document.querySelectorAll('.movie')
-
-    for (let i = 0; i < positions.length; i++)
-        heroMovies[i].classList.add(positions[i])
-    
     const arrows = document.querySelectorAll('span.arrow')
     interval = setInterval(() => cycleMovie(-1), 10000)
     canCycle = true
@@ -34,5 +28,5 @@ window.addEventListener('load', () => {
     arrows[0].addEventListener('click', () => cycleMovie(1))
     arrows[1].addEventListener('click', () => cycleMovie(-1))
 
-    cycleMovie(1) // Hack: refresh images
+    cycleMovie(-1) // Hack: refresh images
 })

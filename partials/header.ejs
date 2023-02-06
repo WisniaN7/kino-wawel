@@ -1,4 +1,4 @@
-<h1><a href="http://127.0.0.1:3000/"><%= title %></a></h1>
+<h1><a href="http://127.0.0.1:3000/">Kino Wawel</a></h1>
 <div class="burger-menu">
     <div class="line">
         <span class="left"></span>
@@ -37,9 +37,9 @@
             </div>
             <menu>
                 <li><p class="username"> <%= user.username %> </p></li>
-                <li><a href="moje bilety">Moje bilety</a></li>
-                <li><a href="moje recenzje">Moje recenzje</a></li>
-                <li><a href="obejrzane">Obejrzane filmy</a></li>
+                <li><a href= <%= user.username + '/bilety' %> >Moje bilety</a></li>
+                <li><a href= <%= user.username + '/recenzje' %> >Moje recenzje</a></li>
+                <li><a href= <%= user.username + '/obejrzane' %> >Obejrzane filmy</a></li>
                 <li><a href="wyloguj">Wyloguj</a></li>
             </menu>
         </div>

@@ -6,7 +6,7 @@ const purchaseController = require('../controllers/purchaseController')
 router.get('/*/:screening', async (req, res, next) => {
     const ticketTypes = await purchaseController.getTicketTypes()
     const tickets = await purchaseController.getTickets(req.params.screening)
-    res.render('purchase', { user: req.session.user, screening: req.params.screening, tickets: tickets, ticketTypes: ticketTypes, title: 'Kino Wawel' })
+    res.render('purchase', { user: req.session.user, screening: req.params.screening, tickets: tickets, ticketTypes: ticketTypes })
 })
 
 router.post('/:screening', async (req, res, next) => {
@@ -15,8 +15,8 @@ router.post('/:screening', async (req, res, next) => {
     if (ticketsCounts.reduce((partialSum, a) => partialSum + a, 0) != req.body.seats.length)
         res.status(400) // TODO: failure page
 
-    await purchaseController.buyTickets(req.params.screening, req.body.seats, ticketsCounts, req.session.user.id)
-    res.render('success', { user: req.session.user, email: req.body.email, title: 'Kino Wawel' })
+    await purchaseController.buyTickets(req.params.screening, req.body.seats, ticketsCounts, req.session.user.user_id)
+    res.render('success', { user: req.session.user, email: req.body.email })
 })
 
 module.exports = router
