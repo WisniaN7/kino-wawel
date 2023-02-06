@@ -12,6 +12,7 @@ const repertoireRouter = require('./routes/repertoire')
 const purchaseRouter = require('./routes/purchase')
 const movieRouter = require('./routes/movie')
 const userRouter = require('./routes/user')
+const adminRouter = require('./routes/admin')
 const authRouter = require('./routes/auth')
 
 const app = express()
@@ -37,6 +38,7 @@ app.use('/repertuar', repertoireRouter)
 app.use('/zakup', purchaseRouter)
 app.use('/film', movieRouter)
 app.use('/', userRouter)
+app.use('/administracja', adminRouter)
 app.use('/', authRouter)
 
 // catch 404 and forward to error handler

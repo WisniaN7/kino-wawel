@@ -59,7 +59,7 @@ main > aside div.wrapper > ul > li ul {
     transition: 300ms;
 }
 main > aside div.wrapper > ul > li ul.active {
-    max-height: calc(1rem * 5 + 15px * 4 + 30px);
+    max-height: calc(1rem * var(--cities) + 15px * 4 + 30px);
 }
 
 main > aside div.wrapper > ul > li ul li {

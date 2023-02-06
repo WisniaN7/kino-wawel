@@ -10,11 +10,10 @@ async function getRepertoire(city, date) {
     
     for (let movie of movies) {
         sql = 'SELECT genre FROM genres NATURAL JOIN movie_genres WHERE movie_id = ? ORDER BY genre;'
-        let genresQuery = await connection.query(sql, movie.movie_id)
-        
-        let genres = [genresQuery[0][0].genre, genresQuery[0][1].genre]
+        let [genres] = await connection.query(sql, movie.movie_id)
+        movie.genres = genres.map(genre => genre.genre).join(', ')
+
         let entry = { movie: movie, screenings: [] }
-        entry.movie.genres = genres.join(', ')
 
         sql = 'SELECT screening_id, time, is_3D, sound_type FROM screenings NATURAL JOIN cinemas NATURAL JOIN movies WHERE city = ? AND date = ? AND movie_id = ?;'
         let [screenings] = await connection.query(sql, [city, date, movie.movie_id])

@@ -67,14 +67,9 @@ async function getWatched(userId) {
 
         occurances.push(watched.movie_id)
 
-        sql = 'SELECT genre FROM movies NATURAL JOIN movie_genres NATURAL JOIN genres WHERE movie_id = ?;'
+        sql = 'SELECT genre FROM movies NATURAL JOIN movie_genres NATURAL JOIN genres WHERE movie_id = ? ORDER BY genre;'
         const [genres] = await connection.query(sql, watched.movie_id)
-        let genresString = []
-
-        for (const genre of genres)
-            genresString.push(genre.genre)
-
-        watched.genre = genresString.sort().join(', ')
+        watched.genres = genres.map(genre => genre.genre).join(', ')
 
         sql = 'SELECT review_id, rating, review FROM reviews WHERE user_id = ? AND movie_id = ?;'
         const [rating] = await connection.query(sql, [userId, watched.movie_id])

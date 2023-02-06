@@ -13,6 +13,9 @@ router.get('/:city/:date', async (req, res, next) => {
 })
 
 router.get('/fill', async (req, res, next) => {
+    if (req.session.user && req.session.user.role != 'admin')
+        res.redirect(req.headers.referer || '/') // TODO: Redirect to 404 page
+
     await repertoireController.randomFillDatabase()
     res.redirect('/')
 })
