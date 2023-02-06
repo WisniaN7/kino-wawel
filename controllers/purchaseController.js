@@ -5,15 +5,15 @@ const db = require('./database')
 async function getTickets(id) {
     const connection = await db.createConnection()
     const sql = 'SELECT seat_row, seat_number FROM tickets WHERE screening_id = ? ORDER BY seat_row, seat_number;'
-    const tickets = await connection.query(sql, id)
-    return tickets[0]
+    const [tickets] = await connection.query(sql, id)
+    return tickets
 }
 
 async function getTicketTypes() {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM ticket_types ORDER BY price DESC;'
-    const ticketTypes = await connection.execute(sql)
-    return ticketTypes[0]
+    const [ticketTypes] = await connection.execute(sql)
+    return ticketTypes
 }
 
 async function buyTickets(screening, seats, ticketsCounts, userId = null) {
