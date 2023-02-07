@@ -34,11 +34,13 @@ window.addEventListener('load', () => {
 
             const input = prompt('Czy na pewno chcesz usunąć ten film? Ta akcja jest nieodwracalna i silnie destruktywna. Ta opcja powinna być używana tylko jeśli film został dodany przez przypadek lub komunizm powrócił i partia nakłada ciężką cenzurę. W celu usunięcia filmu wpisz jego tytuł:')
 
-            if (input != btn.dataset.title)
+            if (input.trim().toLowerCase() != btn.dataset.title.trim().toLowerCase()) {
+                createSnackbar('Wprowadzono nieprawidłowy tytuł', 'error')
                 return
+            }
 
             fetch('/administracja/delete', {
-                method: 'POST',
+                method: 'DELETE',
                 body: JSON.stringify({ movie_id: btn.dataset.movie }),
                 headers: {
                     'Content-Type': 'application/json'

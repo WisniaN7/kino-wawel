@@ -21,7 +21,7 @@
                         <img src="images/posters/<%= movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= movie.title %>" >
                         <a href="film/<%= movie.movie_id %>/Kraków/<%= new Date().toISOString().slice(0, 10) %>/<%= movie.title %>" class="info">
                             <div>
-                                <h2><%= movie.title %> </h2>
+                                <h2><%- capitalizeTitle(movie.title) %></h2>
                             </div>
                             <p class="info"><%= movie.genres %> | Od lat <%= movie.age_rating %> | <%= movie.duration %> min</p>
                             <p class="description"><%= movie.description %> </p>

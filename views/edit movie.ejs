@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="stylesheets/admin.css">
+    <link rel="stylesheet" href="stylesheets/edit movie.css">
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <aside>
+            <%- include('../partials/admin') %>
+        </aside>
+        <section>
+            <h2><span class="capital">E</span>dytuj film</h2>
+            <form action="/administracja/<%= movie ? 'edit' : 'add' %>" method="POST">
+                <input type="hidden" name="movie" value="<%= movie ? movie.movie_id : 'NULL' %>">
+                <div class="long-input">
+                    <label for="title">Tytuł</label>
+                    <input type="text" name="title" id="title" placeholder="Nowy Film" value="<%= movie ? movie.title : '' %>" required>
+                </div>
+                <div class="file-input" id="poster-input">
+                    <label for="poster">Plakat</label>
+                    <div class="drag-area <%= movie ? 'filled' : '' %>">
+                        <div class="icon">
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <input type="file" id="poster" name="poster" hidden>
+                        <% if (movie) { %>
+                            <img src="images/posters/<%= movie.title %>.jpg" alt="plakat">
+                        <% } %>
+                    </div>
+                </div>
+                <div class="long-input">
+                    <label for="genere-list">Gatunek</label>
+                    <select id="genere-list" name="genres" required>
+                        <option id="current" selected><%= movie?.genre %></option>
+                        <option></option>
+                        <% for (const genre of genres) { %>
+                            <option value="<%= genre.genre %>"><%= genre.genre %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <div class="double-input">
+                    <div class="short-input" id="age-rating">
+                        <label for="PG">Kategoria wiekowa</label>
+                        <div class="radio-group">
+                            <div>
+                                <input type="radio" id="a3" name="PG" value="3" required <%= movie?.age_rating == 3 ? 'checked' : '' %>>
+                                <label for="a3">3+</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="a7" name="PG" value="7" required <%= movie?.age_rating == 7 ? 'checked' : '' %>>
+                                <label for="a7">7+</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="a12" name="PG" value="12" required <%= movie?.age_rating == 12 ? 'checked' : '' %>>
+                                <label for="a12">12+</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="a16" name="PG" value="16" required <%= movie?.age_rating == 16 ? 'checked' : '' %>>
+                                <label for="a16">16+</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="a18" name="PG" value="18" required <%= movie?.age_rating == 18 ? 'checked' : '' %>>
+                                <label for="a18">18+</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="short-input" id="duration">
+                        <label for="duration">Czas trwania</label>
+                        <div id="duration-input">
+                            <input type="number" name="duration" id="duration" required min="0" value="<%= movie?.duration %>">
+                            <span>min.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="long-input high-input">
+                    <label for="description">Opis</label>
+                    <textarea name="description" id="description" required rows="12" maxlength="1024"><%= movie?.description %></textarea>
+                    </div>
+                <div class="file-input" id="trailer-input">
+                    <label for="poster">Obraz tła</label>
+                    <div class="drag-area <%= movie ? 'filled' : '' %>">
+                        <div class="icon">
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <input type="file" id="bgImage" name="bgImage" hidden>
+                        <% if (movie) { %>
+                            <img src="images/background/<%= movie.title %>.jpg" alt="tło">
+                        <% } %>
+                    </div>
+                    <p>Link do zwiastunu:</p>
+                    <input type="text" name="trailer" id="YTlink" required value="<%= movie?.trailer %>">
+                </div>
+                <div id="submit">
+                    <button type="submit" class="cta-1">Zapisz</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="javascripts/main.js"></script>
+    <script src="javascripts/admin.js"></script>
+    <script src="javascripts/edit movie.js"></script>
+</body>
+</html>

@@ -3,6 +3,7 @@
 const createError = require('http-errors')
 const express = require('express')
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
@@ -43,7 +44,7 @@ app.use('/', authRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-    next(createError(404))
+    next(createError(404), { user: req.session.user })
 })
 
 // error handler
@@ -54,7 +55,13 @@ app.use((err, req, res, next) => {
 
     // render the error page
     res.status(err.status || 500)
-    res.render('error')
+    res.render('error', { user: req.session.user })
 })
+
+app.locals.capitalizeTitle = (title) => {
+    const words = title.split(' ');
+    const capitalizedWords = words.map(word => '<span class="capital">' + word[0] + '</span>' + word.slice(1));
+    return capitalizedWords.join(' ');
+}
 
 module.exports = app

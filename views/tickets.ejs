@@ -19,10 +19,10 @@
                 <% for (const ticket of tickets) { %>
                     <% const expired = new Date() > new Date(ticket.date.toISOString().slice(0, 10) + 'T' + ticket.time) %> 
                     <article class="bottom-gradient-border listing description">
-                        <img src="images/posters/<%= ticket.movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= ticket.movie.title %>" >
-                        <a href="film/<%= ticket.movie.movie_id %>/<%= ticket.city %>/<%= ticket.date.toISOString().slice(0, 10) %>/<%= ticket.movie.title %>" class="info">
+                        <img src="images/posters/<%= ticket.movie.  .replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= ticket.movie.  %>" >
+                        <a href="film/<%= ticket.movie.movie_id %>/<%= ticket.city %>/<%= ticket.date.toISOString().slice(0, 10) %>/<%= ticket.movie.    %>" class="info">
                             <div>
-                                <h2><%= ticket.movie.title %></h2>
+                                <h2><%- capitalize  (ticket.movie.   ) %></h2>
                             </div>
                             <p class="info"><%= ticket.movie.genre %> | Od lat <%= ticket.movie.age_rating %> | <%= ticket.movie.duration %> min</p>
                             <p class="date <%= expired ? 'expired' : '' %> "><%= ticket.city %> <%= ticket.date.toLocaleDateString() %> <%= ticket.time.slice(0, 5) %></p>

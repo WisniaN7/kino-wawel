@@ -2,14 +2,16 @@ main section form {
     width: 100%;
     height: calc(85% - 1.8rem - 100px);
     display: grid;
+    column-gap: 75px;
     -moz-column-gap: 75px;
-         column-gap: 75px;
+    row-gap: 10px;
+    -moz-row-gap: 10px;
     grid-template-rows: 1fr 1fr 1fr 3fr .5fr;
     grid-template-columns: 1fr 1fr 1fr;
     position: relative;
 }
 
-main section form>div {
+main section form > div {
     display: flex;
     flex-direction: column;
 }
@@ -23,16 +25,13 @@ main section form div.long-input {
     grid-column: 1 / 3;
 }
 
-main section form div.short-input {
+main section form div.double-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    grid-column: 1 / 3;
     grid-row: 3;
-}
-
-main section form div.short-input:first-of-type {
-    grid-column: 1;
-}
-
-main section form div.short-input:last-of-type {
-    grid-column: 2;
 }
 
 main section form div.long-input select option {
@@ -43,8 +42,16 @@ main section form div.long-input select option#current {
     display: none;
 }
 
-main section form div.short-input div.radio-group {
+main section form div.short-input {
+    height: 100%;
     display: flex;
+    flex-direction: column;
+}
+
+main section form div.short-input div.radio-group {
+    height: 2rem;
+    display: flex;
+    align-items: center;
 }
 
 main section form div.short-input div.radio-group label {
@@ -58,6 +65,7 @@ main section form div.short-input div#duration-input {
 }
 
 main section form div.short-input div#duration-input input {
+    height: 2rem;
     width: 80%;
     text-align: center;
 }
@@ -130,7 +138,7 @@ main section form div.drag-area .icon span {
 }
 
 main section form div.drag-area.active .icon span {
-    border-color:rgba(255, 255, 255, .75);
+    border-color: rgba(255, 255, 255, .75);
 }
 
 main section form div.drag-area .icon span:last-child {
@@ -141,7 +149,7 @@ main section form div.drag-area img {
     height: 100%;
     width: 100%;
     -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
     border-radius: 18px;
 }
 

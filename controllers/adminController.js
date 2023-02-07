@@ -61,8 +61,43 @@ const deleteMovie = async (movie_id) => {
     await connection.query(sql, movie_id)
 }
 
+const addMovie = async (title, age_rating, duration, trailer, description, genres) => {
+    const connection = await db.createConnection()
+    let sql = 'INSERT INTO movies VALUES (NULL, ?, ?, ?, ?, ?, 0);'
+    const [movieId] = await connection.query(sql, [title, age_rating, duration, trailer, description])
+
+    for (const genre of genres) {
+        sql = 'INSERT INTO movie_genres (movie_id, genre_id) VALUES (?, (SELECT genre_id FROM genres WHERE genre = ?));'
+        await connection.query(sql, [movieId.insertId, genre])
+    }
+}
+
+const editMovie = async (movieId, title, age_rating, duration, description, trailer, genres) => {
+    const connection = await db.createConnection()
+    let sql = 'UPDATE movies SET title = ?, age_rating = ?, duration = ?, description = ?, trailer = ? WHERE movie_id = ?;'
+    await connection.query(sql, [title, age_rating, duration, description, trailer, movieId])
+
+    sql = 'DELETE FROM movie_genres WHERE movie_id = ?;'
+    await connection.query(sql, movieId)
+
+    for (const genre of genres) {
+        sql = 'INSERT INTO movie_genres (movie_id, genre_id) VALUES (?, (SELECT genre_id FROM genres WHERE genre = ?));'
+        await connection.query(sql, [movieId, genre])
+    }
+}
+
+const getGenres = async () => {
+    const connection = await db.createConnection()
+    const sql = 'SELECT * FROM genres;'
+    const [genres] = await connection.query(sql)
+    return genres
+}
+
 module.exports = {
     getMovies,
     archiveMovie,
     deleteMovie,
+    addMovie,
+    editMovie,
+    getGenres,
 }

@@ -3,8 +3,11 @@ const db = require('./database')
 async function getMovie(id) {
     const connection = await db.createConnection()
 
-    sql = 'SELECT title, age_rating, duration, description, genre FROM movies NATURAL JOIN movie_genres NATURAL JOIN genres WHERE movie_id = ? ORDER BY genre;'
+    sql = 'SELECT * FROM movies NATURAL JOIN movie_genres NATURAL JOIN genres WHERE movie_id = ? ORDER BY genre;'
     const [movie] = await connection.query(sql, id)
+
+    if (movie.length == 0)
+        return null
     
     let genres = []
     
