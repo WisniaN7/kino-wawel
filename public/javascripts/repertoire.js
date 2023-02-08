@@ -98,8 +98,6 @@ const getMovies = async (city, date) => {
 
     const m = await movies
 
-    console.log(m)
-
     m.forEach((tuple) => {
         const movie = tuple.movie
         const screenings = tuple.screenings

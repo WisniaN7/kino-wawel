@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
             if (!confirm('Czy na pewno chcesz zarchiwizować ten film? Ta akcja jest nieodwracalna.'))
                 return
 
-            fetch('/administracja/archive', {
+            fetch('/administracja/movies/archive', {
                 method: 'POST',
                 body: JSON.stringify({ movie_id: btn.dataset.movie }),
                 headers: {
@@ -39,7 +39,7 @@ window.addEventListener('load', () => {
                 return
             }
 
-            fetch('/administracja/delete', {
+            fetch('/administracja/movies/delete', {
                 method: 'DELETE',
                 body: JSON.stringify({ movie_id: btn.dataset.movie }),
                 headers: {

@@ -6,7 +6,7 @@
         <li>
             <ul id="screenings" style="--cities: <%= cinemas.length %>;">
                 <% for (const cinema of cinemas) { %> 
-                    <li><a href="seanse/<%= cinema.city %>"><%= cinema.city %></a></li>
+                    <li id="c<%= cinema.cinema_id %>"><a href="/administracja/seanse/<%= cinema.cinema_id %>/<%= cinema.city %>"><%= cinema.city %></a></li>
                 <% } %>
             </ul>
         </li>

@@ -1,77 +1,66 @@
-function updateSchedule() {
-    const repertoire = { 
-        city: city, 
-        date: date,
-    }
-    
-    let screenings = []
-    const checkboxes = document.querySelectorAll('input[name="screening"]:checked')
+// TODO: Remove error when screening is moved in the same place
 
-    checkboxes.forEach((checkbox) => {
-        let screening = {
-            screenName: 'SALA',
-            movieId: '',
-            startTime: '',
-            movieType: '',
-            movieSoundType: ''
-        }
+const urlParts = window.location.href.split('/')
+const city = urlParts[urlParts.length - 1]
+const cityId = urlParts[urlParts.length - 2]
+let date = new Date().toISOString().slice(0, 10)
+let D3 = false
+let soundType = 'Napisy'
 
-        const cell = checkbox.parentElement
-        const movie = cell.querySelector('div.screening')
-
-        if (movie.id.indexOf('n') == -1) {
-            screening.screeningId = movie.id.slice(movie.id.indexOf('_') + 1)
-            screening.movieId = movie.id.slice(1, movie.id.indexOf('_'))
+const addScreening = async (movieId, cinemaId, hall, time) => fetch('/administracja/screenings/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ movie_id: movieId, cinema_id: cinemaId, hall: hall, time: time, date: date, is_3D: D3, sound_type: soundType })
+    })
+    .then((res) => {
+        if (res.status == 200) {
+            changesSaved = true
+            return res.json()
         } else {
-            screening.movieId = movie.id.slice(1, movie.id.indexOf('n'))
+            createSnackbar('Wystąpił błąd podczas dodawania seansu', 'error', 'long')
         }
-        
-        screening.screenName += cell.getAttribute('data-col')
-        
-        let time = cell.parentElement.querySelector('td:first-child').innerText
+    }).then((data) => data.screening_id)
 
-        if (time.split(':')[0].length == 1)
-            time = '0' + time
-
-        time = time + ':00'
-
-        screening.startTime = time
-        screening.movieType = movie.classList.contains('D3') ? 'D3' : 'D2'
-        screening.movieSoundType = movie.classList.contains('subtitled') ? 'NAPISY' : movie.classList.contains('dubbed') ? 'DUBBING' : 'LEKTOR'
-
-        screenings.push(screening)
+const editScreening = (screeningId, hall, time) => fetch('/administracja/screenings/edit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ screening_id: screeningId, hall: hall, time: time })
+    })
+    .then((res) => {
+        if (res.status == 200)
+            changesSaved = true
+        else
+            createSnackbar('Wystąpił błąd podczas aktualizowania danych', 'error', 'long')
     })
 
-    repertoire.screenings = screenings
-
-    changesSaved = false
-    
-    const xhr = new XMLHttpRequest()
-    xhr.open('POST', 'https://wawel.herokuapp.com/movies/repertoire/edit', true)
-    xhr.setRequestHeader("content-type", "application/json")
-    
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState != xhr.DONE) return
-
-        if (xhr.status == 200) {
+const deleteScreening = (screeningId) => fetch('/administracja/screenings/', {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: screeningId })
+    })
+    .then((res) => {
+        if (res.status == 200)
             changesSaved = true
-        } else {
+        else
             createSnackbar('Wystąpił błąd podczas aktualizowania danych', 'error', 'long')
-            console.error(xhr.responseText)
-        }
-    }
-
-    xhr.send(JSON.stringify(repertoire))
-}
+    })
 
 function createTimetable(tbody) {
     tbody.innerHTML = ''
 
-    for (let i = 20; i < 48; i++) {
+    const columns = document.querySelectorAll('thead th')
+
+    for (let i = 18; i < 48; i++) {
         let time = i % 2 == 0 ? i / 2 + ':00' : (i + 1) / 2 - 1 + ':30'
         const tr = document.createElement('tr')
 
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < columns.length; j++) {
             if (j == 0) {
                 const td = document.createElement('td')
                 td.innerText = time
@@ -95,23 +84,15 @@ function createTimetable(tbody) {
     }
 
     const timetableCells = tbody.querySelectorAll('td:not(:first-child)')
-    table.style = "--cell-width: " + timetableCells[0].offsetWidth + "px;"
+    table.style.setProperty('--cell-width', timetableCells[0].offsetWidth + 'px')
 
     timetableCells.forEach((cell) => {
-        cell.addEventListener('drop', (e) => {
+        cell.addEventListener('drop', async (e) => {
             e.preventDefault()
-            const data = e.dataTransfer.getData('text/plain')
+            const data = e.dataTransfer.getData('id')
+            const movie = document.querySelector('#' + data)
 
-            if (e.dataTransfer.getData('bool') === 'true') {
-                newNode = document.getElementById(data).cloneNode(true)
-                newNode.id += 'n_' + movieSchedules[data]
-                const movieDiv = newNode.querySelector('div.movie')
-                movieDiv.innerText = movieDiv.getAttribute('data-title')
-                movieSchedules[data]++
-            } else
-                newNode = document.querySelector('table #' + data)
-
-            const cellsOccupied = Math.ceil(newNode.getAttribute('data-duration') / 30)
+            const cellsOccupied = Math.ceil(movie.getAttribute('data-duration') / 30)
             const col = parseInt(cell.getAttribute('data-col'))
             const row = parseInt(cell.getAttribute('data-row'))
             
@@ -125,21 +106,32 @@ function createTimetable(tbody) {
                     setTimeout(() => collision.classList.remove('collide'), 3000)
 
                     createSnackbar('Dodanie seansu niemożliwe. Film kolidowałby z innym.', 'error', 'short')
-                    movieSchedules[data]--
                     return
                 }
             }
 
+            const newNode = movie.cloneNode(true)
+
+            if (movie.id.includes('_')) {
+                const screeningId = movie.id.split('_')[1]
+                await editScreening(screeningId, col, cell.parentElement.querySelector('td:first-child').innerText)
+                movie.remove()  
+            } else {
+                const id = await addScreening(movie.id.slice(1), cityId, col, cell.parentElement.querySelector('td:first-child').innerText)
+                newNode.id +='_' + id
+                const movieSection = newNode.querySelector('div.movie')
+                movieSection.innerText = movieSection.getAttribute('data-title')
+            }
+            
             newNode.addEventListener('dragstart', (e) => {
                 newNode.parentElement.querySelector('input').checked = false
-                e.dataTransfer.setData('text/plain', e.target.id)
-                e.dataTransfer.setData('bool', false)
+                e.dataTransfer.setData('id', e.target.id)
             })
             
             e.target.appendChild(newNode)
             e.target.querySelector('input[type="checkbox"]').checked = true
 
-            updateSchedule()
+            document.querySelector('aside').classList.remove('dragging')
         })
 
         cell.addEventListener('dragover', (e) => { e.preventDefault() })
@@ -149,26 +141,19 @@ function createTimetable(tbody) {
 function timeToRow(time) {
     const hours = time.split(':')[0]
     const minutes = time.split(':')[1]
-    return 2 * (hours - 10) + (minutes / 30)
+    return 2 * (hours - 9) + (minutes / 30)
 }
 
 function addEventListeners() {
-    const moviesElements = document.querySelectorAll('#timetable aside div.screening')
-    const movieScreenings = document.querySelectorAll('aside div.screening')
-    movieSchedules = {}
-
-    movieScreenings.forEach((movie) => {
-        movieSchedules[movie.id] = 0
-    })
+    const aside = document.querySelector('#timetable aside')
+    const moviesElements = aside.querySelectorAll('div.screening')
 
     moviesElements.forEach((movie) => {
         movie.addEventListener('dragstart', (e) => {
-            e.dataTransfer.setData('text/plain', e.target.id)
-            e.dataTransfer.setData('bool', true)
+            e.dataTransfer.setData('id', e.target.id)
         })
     })
 
-    const aside = document.querySelector('#timetable aside')
     let counter = 0
 
     aside.addEventListener('dragenter', (e) => { 
@@ -189,42 +174,29 @@ function addEventListeners() {
     
     aside.addEventListener('drop', (e) => { 
         e.preventDefault()
-        const data = e.dataTransfer.getData('text/plain')
+        aside.classList.remove('dragging')
 
+        const data = e.dataTransfer.getData('id')
         const cell = document.querySelector('table #' + data)
 
-        if (cell.id.indexOf('n') == -1) {
+        if (!cell) // HACK: for elements from aside to aside, there might be a better solution
+            return
+
+        if (cell.id.indexOf('_') != -1) {
             changesSaved = false
-
-            const xhr = new XMLHttpRequest()
             const id = cell.id.slice(cell.id.indexOf('_') + 1)
-
-            xhr.open('DELETE', 'https://wawel.herokuapp.com/movies/screening/' + id, true)
-            xhr.setRequestHeader("content-type", "application/json")
-
-            xhr.onreadystatechange = () => {
-                if (xhr.readyState != xhr.DONE) return
-                
-                if (xhr.status == 200) {
-                    changesSaved = true
-                } else {
-                    createSnackbar('Wystąpił błąd podczas aktualizowania danych', 'error', 'long')
-                    console.error(xhr.responseText)
-                }
-            }
-
-            xhr.send()
+            deleteScreening(id)
         }
 
         cell.parentElement.querySelector('input[type="checkbox"]').checked = false
         cell.remove()
-
-        aside.classList.remove('dragging')
     })
 
     const switch3D = aside.querySelector('input[type="checkbox"]')
 
     switch3D.addEventListener('change', () => {
+        D3 = switch3D.checked
+
         moviesElements.forEach((movie) => {
             if (switch3D.checked)
                 movie.classList.add('D3')
@@ -233,10 +205,11 @@ function addEventListeners() {
         })
     })
     
-
     const soundSelect = aside.querySelector('select')
 
     soundSelect.addEventListener('change', () => {
+        soundType = { 'subtitled': 'Napisy', 'dubbed': 'Dubbing', 'lector': 'Lektor' }[soundSelect.value]
+
         moviesElements.forEach((movie) => {
             ['subtitled', 'dubbed', 'lector'].forEach((sound) => { movie.classList.remove(sound) })
             movie.classList.add(soundSelect.value)
@@ -246,7 +219,7 @@ function addEventListeners() {
     const timetableCell = tbody.querySelector('td:not(:first-child)')
 
     window.addEventListener('resize', () => {
-        table.style = "--cell-width: " + timetableCell.offsetWidth + "px;"
+        table.style.setProperty('--cell-width', timetableCell.offsetWidth + 'px')
     })
 
     const dateSelect = document.querySelector('#day-select input')
@@ -276,36 +249,58 @@ function addEventListeners() {
         getRepertoire(city, date)
     })
 
-    const cityToSelector = { 'KATOWICE': 1, 'KRAKOW': 2, 'LUBAN': 3, 'OPOLE': 4, 'WROCLAW': 5 }
-    document.querySelector('#screenings li:nth-child(' + cityToSelector[city] + ')').classList.add('active')
+    const cityMenu = document.querySelector('#screenings')
+    cityMenu.style.transition = 'none'
+    cityMenu.classList.add('active')
+    setTimeout(() => { cityMenu.style.removeProperty('transition') }, 0)
+    cityMenu.querySelector('li#c' + cityId ).classList.add('active')
 }
 
-const movies = fetch('https://wawel.herokuapp.com/movies')
-    .then((response) => response.json())
-    .then((data) => {
-        return data
-    })
+const getRepertoire = async (city, date) => {
+    const repertoire = fetch('/administracja/screenings/get/' + cityId + '/' + date)
+        .then((response) => response.json())
+        .then((data) => {
+            return data
+        })
 
-const getMovies = async () => {
-    const m = await movies
-    
-    m.forEach((movieData) => {
-        if (movieData.status === 'ZARCHIWIZOWANY')
-            return
+    const screenings = await repertoire
 
+
+    screenings.forEach((screening) => {
         const movie = document.createElement('div')
         movie.draggable = true
-        movie.classList.add('screening', 'subtitled')
-        movie.style = "--duration: " + movieData.duration + ";"
-        movie.setAttribute('data-duration', movieData.duration)
-        movie.id = 'm' + movieData.id
+        movie.classList.add('screening')
+        movie.style = "--duration: " + screening.duration + ";"
+        movie.setAttribute('data-duration', screening.duration)
+        movie.id = 'm' + screening.movie_id + '_' + screening.screening_id
+
+        movie.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('id', e.target.id)
+        })
+
+        if (screening.is_3D)
+            movie.classList.add('D3')
+
+        switch (screening.sound_type) {
+            case 'Dubbing':
+                movie.classList.add('dubbed')
+                break;
+        
+            case 'Lektor':
+                movie.classList.add('lector')
+                break;
+        
+            default:
+                movie.classList.add('subtitled')
+                break;
+        }
 
         const title = document.createElement('p')
-        title.innerText = movieData.title
+        title.innerText = screening.title
         movie.appendChild(title)
         
         const duration = document.createElement('span')
-        duration.innerText = movieData.duration + ' min'
+        duration.innerText = screening.duration + ' min'
         title.appendChild(duration)
 
         const ads = document.createElement('div')
@@ -313,107 +308,29 @@ const getMovies = async () => {
         ads.classList.add('ads')
         movie.appendChild(ads)
 
-        const screening = document.createElement('div')
-        screening.innerText = 'Film'
-        screening.setAttribute('data-title', movieData.title)
-        screening.classList.add('movie')
-        movie.appendChild(screening)
+        const screeningElement = document.createElement('div')
+        screeningElement.innerText = screening.title
+        screeningElement.classList.add('movie')
+
+        movie.appendChild(screeningElement)
 
         const cleanup = document.createElement('div')
         cleanup.innerText = 'Sprzątanie'
         cleanup.classList.add('cleanup')
         movie.appendChild(cleanup)
 
-        document.querySelector('#timetable aside').appendChild(movie)
-    })
-}
-
-const getRepertoire = async (city, date) => {
-    const repertoire = fetch('https://wawel.herokuapp.com/movies/repertoire?city=' + city + '&date=' + date)
-        .then((response) => response.json())
-        .then((data) => {
-            return data
-        })
-
-    const r = await repertoire
-
-    r.items.forEach((screeningData) => {
-        screeningData.screenings.forEach((screening) => {
-            const movie = document.createElement('div')
-            movie.draggable = true
-            movie.classList.add('screening')
-            movie.style = "--duration: " + screeningData.movie.duration + ";"
-            movie.setAttribute('data-duration', screeningData.movie.duration)
-            movie.id = 'm' + screeningData.movie.id + '_' + screening.screeningId
-
-            movie.addEventListener('dragstart', (e) => {
-                movie.parentElement.querySelector('input').checked = false
-                e.dataTransfer.setData('text/plain', e.target.id)
-                e.dataTransfer.setData('bool', false)
-            })
-
-            if (screening.movieType == 'D3')
-                movie.classList.add('D3')
-
-            switch (screening.movieSoundType) {
-                case "DUBBING":
-                    movie.classList.add('dubbed')
-                    break;
-            
-                case "LEKTOR":
-                    movie.classList.add('lector')
-                    break;
-            
-                default:
-                    movie.classList.add('subtitled')
-                    break;
-            }
-
-            const title = document.createElement('p')
-            title.innerText = screeningData.movie.title
-            movie.appendChild(title)
-            
-            const duration = document.createElement('span')
-            duration.innerText = screeningData.movie.duration + ' min'
-            title.appendChild(duration)
-
-            const ads = document.createElement('div')
-            ads.innerText = 'Reklamy'
-            ads.classList.add('ads')
-            movie.appendChild(ads)
-
-            const screeningElement = document.createElement('div')
-            screeningElement.innerText = screeningData.movie.title
-            screeningElement.classList.add('movie')
-
-            movie.appendChild(screeningElement)
-
-            const cleanup = document.createElement('div')
-            cleanup.innerText = 'Sprzątanie'
-            cleanup.classList.add('cleanup')
-            movie.appendChild(cleanup)
-
-            const screenName = screening.screenName
-
-            if (screenName) {
-                const cell = document.querySelector('#timetable table tr:nth-child(' + (timeToRow(screening.startTime) + 1) + ') td:nth-child(' + (parseInt(screenName.slice(4)) + 1) + ')')
-                cell.appendChild(movie)
-                cell.querySelector('input').checked = true
-            }
-        })
+        const cell = document.querySelector('#timetable table tr:nth-child(' + (timeToRow(screening.time) + 1) + ') td:nth-child(' + (parseInt(screening.hall) + 1) + ')')
+        cell.appendChild(movie)
+        cell.querySelector('input').checked = true
     })
 }
 
 let changesSaved = true
-let date = new Date().toISOString().slice(0, 10)
 const table = document.querySelector('#timetable table')
 const tbody = table.querySelector('tbody')
-let movieSchedules
 
-const city = urlParams.get('city')
-// getMovies().then(() => createTimetable(tbody) ).then(() => getRepertoire(city, date) ).then(() => addEventListeners() )
-
-addEventListeners()
+createTimetable(tbody)
+getRepertoire(city, date).then(() => addEventListeners() )
 
 window.addEventListener("beforeunload", (e) => {
     if (!changesSaved) {

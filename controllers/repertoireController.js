@@ -15,7 +15,7 @@ async function getRepertoire(city, date) {
 
         let entry = { movie: movie, screenings: [] }
 
-        sql = 'SELECT screening_id, time, is_3D, sound_type FROM screenings NATURAL JOIN cinemas NATURAL JOIN movies WHERE city = ? AND date = ? AND movie_id = ?;'
+        sql = 'SELECT screening_id, time, is_3D, sound_type, hall FROM screenings NATURAL JOIN cinemas NATURAL JOIN movies WHERE city = ? AND date = ? AND movie_id = ?;'
         let [screenings] = await connection.query(sql, [city, date, movie.movie_id])
         
         for (let screening of screenings)
@@ -38,7 +38,7 @@ async function randomFillDatabase() {
     const endTime = new Date('1970-01-01T23:30:00')
 
     const movies = 4
-    const movieDurations = [5, 8, 5, 5] // Ceil in half hours for example: ceil(147 min / 30 min) == 5
+    const movieDurations = [6, 9, 6, 6] // Ceil in half hours for example: ceil(147 min / 30 min) == 5
     const cinemas = 5
     const cinemaHalls = [3, 2, 4, 1, 4]
     const soundTypes = ['Dubbing', 'Napisy']
@@ -55,6 +55,10 @@ async function randomFillDatabase() {
                     time.setTime(time.getTime() + (offset * 30 * 60 * 1000))
 
                     let movie = Math.floor(Math.random() * movies) + 1
+
+                    if (time.getTime() + (movieDurations[movie - 1] * 30 * 60 * 1000) > endTime.getTime())
+                        break
+
                     let soundType = soundTypes[Math.floor(Math.random() * 2)]
 
                     let sql = "INSERT INTO `screenings` VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)"

@@ -94,9 +94,9 @@ main > section #timetable div.wrapper #table table {
     border-right: 1px solid rgba(255, 255, 255, .25);
 }
 
-main > section #timetable div.wrapper #table table tr {
+main > section #timetable div.wrapper #table tr {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
 }
 
 main > section #timetable div.wrapper #table table thead {
@@ -178,11 +178,11 @@ main > section #timetable div.wrapper aside header select#sound-type option {
     color: #222;
 }
 
-main > section #timetable div.wrapper aside aside.dragging {
+main > section #timetable div.wrapper aside.dragging {
     background-color: #333;
 }
 
-main > section #timetable div.wrapper aside aside.dragging::after {
+main > section #timetable div.wrapper aside.dragging::after {
     content: 'Upuść, aby usunąć';
     width: 50%;
     display: block;
@@ -323,7 +323,7 @@ div.screening:hover div.ads {
 
 table div.screening div.movie,
 div.screening:hover div.movie {
-    height: calc(var(--duration) / 60 * var(--time-scale));
+    height: calc(var(--duration) / 30 * var(--time-scale));
 }
 
 table div.screening div.cleanup,

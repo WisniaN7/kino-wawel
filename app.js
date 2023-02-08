@@ -3,7 +3,6 @@
 const createError = require('http-errors')
 const express = require('express')
 const session = require('express-session');
-const fileUpload = require('express-fileupload');
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')

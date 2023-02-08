@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <%- include('../partials/head') %>
+    <link rel="stylesheet" href="stylesheets/admin.css">
+    <link rel="stylesheet" href="stylesheets/edit screenings.css">
+</head>
+<body>
+    <header>
+        <%- include('../partials/header') %>
+    </header>
+    <main>
+        <aside>
+            <%- include('../partials/admin') %>
+        </aside>
+        <section>
+            <header class="bottom-gradient-border">
+                <div id="day-select">
+                    <span class="arrow left"></span>
+                    <div>
+                        <span>Czwartek 11.09</span>
+                        <input type="date">
+                    </div>
+                    <span class="arrow right"></span>
+                </div>
+                <ul id="legend">
+                    <li class="D2">2D</li>
+                    <li class="D3">3D</li>
+                    <li class="subtitled">Napisy</li>
+                    <li class="dubbing">Dubbing</li>
+                    <li class="lector">Lektor</li>
+                </ul>
+            </header>
+            <section id="timetable" class="bottom-gradient-border">
+                <div class="wrapper">
+                    <div id="table">
+                        <form action="">
+                            <table style="--columns: <%= halls + 1 %>"> 
+                                <thead>
+                                    <tr>
+                                        <th>Godz.</th>
+                                        <% for (let i = 1; i <= halls; i++) { %>
+                                            <th>Sala <%= i %></th>
+                                        <% } %> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <aside>
+                        <header class="bottom-gradient-border">
+                            <div class="D3">
+                                <span>2D</span>
+                                <label class="switch">
+                                    <input type="checkbox" name="D3" id="D3" hidden>
+                                    <span class="slider round"></span>
+                                </label>
+                                <span>3D</span>
+                            </div>
+                            <select name="sound-type" id="sound-type">
+                                <option value="subtitled" selected>Napisy</option>
+                                <option value="dubbed">Dubbing</option>
+                                <option value="lector">Lektor</option>
+                            </select>
+                        </header>
+                        <% for (const movie of movies) { %> 
+                            <div draggable="true" class="screening subtitled" data-duration="<%= movie.duration %>" id="m<%= movie.movie_id %>" style="--duration: <%= movie.duration %>;">
+                                <p><%= movie.title %><span><%= movie.duration %> min</span></p>
+                                <div class="ads">Reklamy</div>
+                                <div data-title="<%= movie.title %>" class="movie">Film</div>
+                                <div class="cleanup">Sprzątanie</div>
+                            </div>
+                        <% } %> 
+                    </aside>
+                </div>
+            </section>
+        </section>
+    </main>
+    <script src="javascripts/main.js"></script>
+    <script src="javascripts/admin.js"></script>
+    <script src="javascripts/edit screenings.js"></script>
+</body>
+</html>

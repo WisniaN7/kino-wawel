@@ -15,7 +15,7 @@
         </aside>
         <section>
             <h2><span class="capital">E</span>dytuj film</h2>
-            <form action="/administracja/<%= movie ? 'edit' : 'add' %>" method="POST">
+            <form action="/administracja/movies/<%= movie ? 'edit' : 'add' %>" method="POST">
                 <input type="hidden" name="movie" value="<%= movie ? movie.movie_id : 'NULL' %>">
                 <div class="long-input">
                     <label for="title">Tytuł</label>
