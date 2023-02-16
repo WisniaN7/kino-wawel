@@ -1,5 +1,3 @@
-// TODO: change user icon when user is not logged in
-
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString);
 const error = urlParams.get('status')

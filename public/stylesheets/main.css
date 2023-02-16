@@ -741,10 +741,13 @@ article.description > .info p.description {
 
 @media only screen and (max-width: 768px) {
     body > header {
+        width: calc(100vw - 100px);
         position: relative;
+        padding: 0 50px;
+        mix-blend-mode: unset;
     }
     
-    div.burger-menu {
+    body > header div.burger-menu {
         width: 25px;
         height: 20px;
         display: flex;
@@ -752,32 +755,27 @@ article.description > .info p.description {
         justify-content: space-between;
         position: absolute;
         cursor: pointer;
-        transition: 300ms;
-    }
-
-    body > header {
-        width: calc(100vw - 100px);
-        padding: 0 50px;
-        mix-blend-mode: unset;
-    }
-
-    body > header div.burger-menu {
         right: 50px;
+        transition: 300ms;
+        z-index: 10;
+    }
+    
+    body > header div.burger-menu.active {
+        position: fixed; /* HACK */
     }
 
     body > header nav {
         min-width: 300px;
-        height: calc(100vh - var(--header-height) - 50px);
-        padding: 25px 0;
+        height: 100vh;
+        padding-top: var(--header-height);
         flex-direction: column-reverse;
         align-items: flex-end;
         position: fixed;
-        top: var(--header-height);
+        top: 0;
         right: -100%;
         background-color: #282828;
         mix-blend-mode: normal;
         transition: 100ms;
-        z-index: 1000;
     }
 
     body > header nav.active {
@@ -785,7 +783,7 @@ article.description > .info p.description {
     }
 
     body > header nav ul {
-        width: 80%;
+        width: 100%;
         flex-direction: column;
         align-items: flex-end;
     }

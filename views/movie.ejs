@@ -37,6 +37,9 @@
         </section>
         <section id="reviews">
             <h2><span class="capital">R</span>ecenzje użytkowników</h2>
+            <% if (reviews.length == 0) { %>
+                <p>Brak recenzji dla tego filmu</p>
+            <% } %>
             <% for (const review of reviews) { %>
                 <article>
                     <div class="bottom-gradient-border">

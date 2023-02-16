@@ -202,6 +202,10 @@ section#reviews article > div div.rating svg {
     margin-left: 10px;
 }
 
+section#reviews > p:last-child {
+    padding-bottom: 50px;
+}
+
 @media only screen and (max-width: 1366px) {
     section#movie aside div.title h2 {
         --font-size: 1.75rem;
@@ -277,6 +281,7 @@ section#reviews article > div div.rating svg {
 
     section#reviews {
         max-width: 100vw;
+        min-height: unset;
         width: 90%;
         padding: 0 5%;
         margin-top: 50px;

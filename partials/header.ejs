@@ -13,37 +13,39 @@
         <span class="right"></span>
     </div>
 </div>
-<nav>
-    <ul>
-        <% if (user?.role == 'admin') { %>
-            <li><a href="administracja">Administracja</a></li>
-        <% } %>
-        <li><a href="repertuar">Repertuar</a></li>
-        <li><a href="wydarzenia">Wydarzenia</a></li>
-        <li><a href="kontakt">Kontakt</a></li>
-        <% if (!user) { %>
-            <li class="signin">
-                <a href="logowanie">Logowanie</a>
-                <span>|</span>
-                <a href="rejestracja">Rejestracja</a>
-            </li>
-        <% } %>
-    </ul>
-    <% if (user) { %>
-        <div class="user-menu">
-            <div class="user">
-                <div class="icon-user">
-                    <span class="head"></span>
-                    <span class="body"></span>
+<div id="navigation">
+    <nav>
+        <ul>
+            <% if (user?.role == 'admin') { %>
+                <li><a href="administracja">Administracja</a></li>
+            <% } %>
+            <li><a href="repertuar">Repertuar</a></li>
+            <li><a href="wydarzenia">Wydarzenia</a></li>
+            <li><a href="kontakt">Kontakt</a></li>
+            <% if (!user) { %>
+                <li class="signin">
+                    <a href="logowanie">Logowanie</a>
+                    <span>|</span>
+                    <a href="rejestracja">Rejestracja</a>
+                </li>
+            <% } %>
+        </ul>
+        <% if (user) { %>
+            <div class="user-menu">
+                <div class="user">
+                    <div class="icon-user">
+                        <span class="head"></span>
+                        <span class="body"></span>
+                    </div>
                 </div>
+                <menu>
+                    <li><p class="username"> <%= user.username %> </p></li>
+                    <li><a href= <%= user.username + '/bilety' %> >Moje bilety</a></li>
+                    <li><a href= <%= user.username + '/recenzje' %> >Moje recenzje</a></li>
+                    <li><a href= <%= user.username + '/obejrzane' %> >Obejrzane filmy</a></li>
+                    <li><a href="wyloguj">Wyloguj</a></li>
+                </menu>
             </div>
-            <menu>
-                <li><p class="username"> <%= user.username %> </p></li>
-                <li><a href= <%= user.username + '/bilety' %> >Moje bilety</a></li>
-                <li><a href= <%= user.username + '/recenzje' %> >Moje recenzje</a></li>
-                <li><a href= <%= user.username + '/obejrzane' %> >Obejrzane filmy</a></li>
-                <li><a href="wyloguj">Wyloguj</a></li>
-            </menu>
-        </div>
-    <% } %>
-</nav>
+        <% } %>
+    </nav>
+</div>
