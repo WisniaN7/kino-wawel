@@ -20,6 +20,7 @@ async function getMovie(id) {
     const [rating] = await connection.query(sql, id)
     movie[0].rating = rating[0].rating
     
+    await connection.end()
     return movie[0]
 }
 
@@ -27,6 +28,7 @@ async function getScreenings(movieId, city, date) {
     const connection = await db.createConnection()
     sql = 'SELECT screening_id, time, is_3D, sound_type FROM screenings NATURAL JOIN cinemas NATURAL JOIN movies WHERE movie_id = ? AND city = ? AND date = ?;'
     const [screenings] = await connection.query(sql, [movieId, city, date])
+    await connection.end()
     return screenings
 }
 
@@ -34,6 +36,7 @@ async function getReviews(movieId) {
     const connection = await db.createConnection()
     sql = 'SELECT rating, review, username FROM reviews NATURAL JOIN users WHERE movie_id = ?;'
     const [reviews] = await connection.query(sql, movieId)
+    await connection.end()
     return reviews
 }
 

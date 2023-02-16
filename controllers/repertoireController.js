@@ -24,6 +24,7 @@ async function getRepertoire(city, date) {
         data.push(entry)
     }
 
+    await connection.end()
     return data
 }
 
@@ -73,6 +74,8 @@ async function randomFillDatabase() {
 
         date.setDate(date.getDate() + 1)
     }
+
+    await connection.end()
 }
 
 module.exports = {

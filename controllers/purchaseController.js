@@ -6,6 +6,7 @@ async function getTickets(id) {
     const connection = await db.createConnection()
     const sql = 'SELECT seat_row, seat_number FROM tickets WHERE screening_id = ? ORDER BY seat_row, seat_number;'
     const [tickets] = await connection.query(sql, id)
+    await connection.end()
     return tickets
 }
 
@@ -13,6 +14,7 @@ async function getTicketTypes() {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM ticket_types ORDER BY price DESC;'
     const [ticketTypes] = await connection.execute(sql)
+    await connection.end()
     return ticketTypes
 }
 
@@ -33,6 +35,7 @@ async function buyTickets(screening, seats, ticketsCounts, userId = null) {
     }
 
     await connection.execute(sql)
+    await connection.end()
 }
 
 module.exports = {

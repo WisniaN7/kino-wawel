@@ -4,6 +4,7 @@ const getMovies = async () => {
     const connection = await db.createConnection()
     let sql = 'SELECT * FROM movies WHERE archived = 0;'
     const [movies] = await connection.query(sql)
+    await connection.end()
     return movies
 }
 
@@ -53,6 +54,7 @@ const getMoviesWithStatus = async () => {
         }
     }
 
+    await connection.end()
     return movies
 }
 
@@ -60,6 +62,7 @@ const getScreenings = async (cinemaId, date) => {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM screenings NATURAL JOIN movies WHERE cinema_id = ? AND date = ?;'
     const [screenings] = await connection.query(sql, [cinemaId, date])
+    await connection.end()
     return screenings
 }
 
@@ -67,12 +70,14 @@ const archiveMovie = async (movie_id) => {
     const connection = await db.createConnection()
     const sql = 'UPDATE movies SET archived = 1 WHERE movie_id = ?;'
     await connection.query(sql, movie_id)
+    await connection.end()
 }
 
 const deleteMovie = async (movie_id) => {
     const connection = await db.createConnection()
     const sql = 'DELETE FROM movies WHERE movie_id = ?;'
     await connection.query(sql, movie_id)
+    await connection.end()
 }
 
 const addMovie = async (title, age_rating, duration, trailer, description, genres) => {
@@ -84,6 +89,8 @@ const addMovie = async (title, age_rating, duration, trailer, description, genre
         sql = 'INSERT INTO movie_genres (movie_id, genre_id) VALUES (?, (SELECT genre_id FROM genres WHERE genre = ?));'
         await connection.query(sql, [movieId.insertId, genre])
     }
+
+    await connection.end()
 }
 
 const editMovie = async (movieId, title, age_rating, duration, description, trailer, genres) => {
@@ -98,12 +105,15 @@ const editMovie = async (movieId, title, age_rating, duration, description, trai
         sql = 'INSERT INTO movie_genres (movie_id, genre_id) VALUES (?, (SELECT genre_id FROM genres WHERE genre = ?));'
         await connection.query(sql, [movieId, genre])
     }
+
+    await connection.end()
 }
 
 const getGenres = async () => {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM genres;'
     const [genres] = await connection.query(sql)
+    await connection.end()
     return genres
 }
 
@@ -111,6 +121,7 @@ const addScreening = async (movie_id, cinema_id, hall, date, time, is_3D, sound_
     const connection = await db.createConnection()
     const sql = 'INSERT INTO screenings VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);'
     const [newScreening] = await connection.query(sql, [movie_id, cinema_id, hall, date, time, +is_3D, sound_type])
+    await connection.end()
     return newScreening
 }
 
@@ -118,12 +129,14 @@ const editScreening = async (screening_id, hall, time) => {
     const connection = await db.createConnection()
     const sql = 'UPDATE screenings SET hall = ?, time = ? WHERE screening_id = ?;'
     await connection.query(sql, [hall, time, screening_id])
+    await connection.end()
 }
 
 const deleteScreening = async (screeningId) => {
     const connection = await db.createConnection()
     const sql = 'DELETE FROM screenings WHERE screening_id = ?;'
     await connection.query(sql, screeningId)
+    await connection.end()
 }
 
 module.exports = {

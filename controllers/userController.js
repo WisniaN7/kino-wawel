@@ -32,6 +32,7 @@ async function getTickets(userId) {
             screening.tickets[ticket.ticket_type]++
     }
 
+    await connection.end()
     return screenings
 }
 
@@ -39,6 +40,7 @@ async function getReviews(userId) {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM reviews NATURAL JOIN movies WHERE user_id = ?;'
     const [reviews] = await connection.query(sql, userId)
+    await connection.end()
     return reviews
 }
 
@@ -46,6 +48,7 @@ async function getReview(reviewId) {
     const connection = await db.createConnection()
     const sql = 'SELECT rating, review, movie_id, title, description FROM reviews NATURAL JOIN movies WHERE review_id = ? LIMIT 1;'
     const [reviews] = await connection.query(sql, reviewId)
+    await connection.end()
     return reviews[0]
 }
 
@@ -82,6 +85,7 @@ async function getWatched(userId) {
         }
     }
 
+    await connection.end()
     return watchedMovies
 }
 
@@ -89,12 +93,14 @@ async function updateRating(userId, movieId, rating) {
     const connection = await db.createConnection()
     const sql = 'UPDATE reviews SET rating = ? WHERE user_id = ? AND movie_id = ?;'
     await connection.query(sql, [rating, userId, movieId])
+    await connection.end()
 }
 
 async function updateReview(userId, movieId, rating, review) {
     const connection = await db.createConnection()
     const sql = 'UPDATE reviews SET rating = ?, review = ? WHERE user_id = ? AND movie_id = ?;'
     await connection.query(sql, [rating, review, userId, movieId])
+    await connection.end()
 }
 
 module.exports = {
