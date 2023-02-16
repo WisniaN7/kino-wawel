@@ -34,7 +34,6 @@ main div.movie.right {
 
 span.arrow {
     --arrow-distance: 75px;
-    z-index: 100;
 }
 
 main div.title {

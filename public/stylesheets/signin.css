@@ -59,3 +59,9 @@ main section a {
 main section a span {
     text-decoration: underline;
 }
+
+@media only screen and (max-width: 768px) {
+    main {
+        margin: 0;
+    }
+}

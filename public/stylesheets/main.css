@@ -295,43 +295,6 @@ div.user div.icon-user span.head {
     left: 30%;
 }
 
-div.user menu {
-    position: absolute;
-    top: calc(100% - 5px);
-    right: 0;
-    list-style: none;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 3px solid var(--lime-accent);
-    border-radius: 15px;
-    padding: 10px 40px;
-    opacity: 0;
-    transition: opacity 100ms ease-in-out;
-    visibility: hidden;
-    cursor: default;
-}
-
-div.user menu.active {
-    visibility: visible;
-    opacity: 1;
-}
-
-div.user menu li {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px 0;
-    margin: 0;
-}
-
-div.user menu li p {
-    margin: 0;
-}
-
-div.user menu li a {
-    color: var(--lime-accent);
-    font-weight: 700;
-    white-space: nowrap;
-}
-
 span.arrow {
     width: var(--arrow-size);
     height: var(--arrow-size);
@@ -339,7 +302,7 @@ span.arrow {
     top: 50%;
     transform: translate(0, -50%) rotate(45deg);
     cursor: pointer;
-    z-index: 100;
+    z-index: 10;
     opacity: 0.25;
     transition: 150ms;
     border-radius: calc(var(--arrow-size) / 3);
@@ -665,6 +628,47 @@ body > header nav ul li a.active {
     opacity: 1;
 }
 
+body > header nav div.user-menu {
+    position: relative;
+}
+
+body > header nav div.user-menu menu {
+    position: absolute;
+    top: calc(100% - 5px);
+    right: 0;
+    list-style: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 3px solid var(--lime-accent);
+    border-radius: 15px;
+    padding: 10px 40px;
+    opacity: 0;
+    transition: opacity 100ms ease-in-out;
+    visibility: hidden;
+    cursor: default;
+}
+
+body > header nav div.user-menu menu.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+body > header nav div.user-menu menu li {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+    margin: 0;
+}
+
+body > header nav div.user-menu menu li p {
+    margin: 0;
+}
+
+body > header nav div.user-menu menu li a {
+    color: var(--lime-accent);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
 main div.wrapper {
     max-width: 1152px;
     margin: 0 auto;
@@ -766,12 +770,14 @@ article.description > .info p.description {
         height: calc(100vh - var(--header-height) - 50px);
         padding: 25px 0;
         flex-direction: column-reverse;
+        align-items: flex-end;
         position: fixed;
         top: var(--header-height);
         right: -100%;
         background-color: #282828;
-        mix-blend-mode: none;
+        mix-blend-mode: normal;
         transition: 100ms;
+        z-index: 1000;
     }
 
     body > header nav.active {
@@ -804,10 +810,55 @@ article.description > .info p.description {
     body > header nav ul li.signin span {
         display: none;
     }
+    
+    body > header nav div.user-menu {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
 
+    body > header nav div.user-menu div.user {
+        margin-right: 25px;
+    }
+
+    body > header nav div.user-menu menu {
+        width: 100%;
+        max-height: 0;
+        position: static;
+        background-color: #333;
+        border: unset;
+        border-radius: 0;
+        padding: 0;
+        opacity: 1;
+        visibility: visible;
+        overflow-y: hidden;
+        transition: 300ms;
+    }
+
+    body > header nav div.user-menu menu.active {
+        padding: 10px 0;
+        max-height: calc((1rem + 30px) * 5 + 20px);
+    }
+
+    body > header nav div.user-menu menu li {
+        padding: 15px 25px;
+    }
+
+    body > header nav div.user-menu menu li p {
+        margin: 0;
+    }
+
+    body > header nav div.user-menu menu li a {
+        color: #fff;
+        font-weight: unset;
+        opacity: .5;
+        white-space: unset;
+    }
+    
     article.listing {
-        height: 220px;
-        padding: 20px 0;
+        height: fit-content;
+        padding: 30px 0;
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;

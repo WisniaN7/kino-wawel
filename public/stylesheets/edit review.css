@@ -97,3 +97,42 @@ main div.wrapper aside p {
     font-size: .9rem;
     text-align: right;
 }
+
+@media only screen and (max-width: 768px) {
+    main {
+        margin-top: 0;
+    }
+
+    main div.wrapper {
+        flex-direction: column;
+    }
+
+    main div.wrapper > * {
+        margin-top: 50px;
+    }
+
+    main div.wrapper section {
+        width: calc(100% - 40px);
+        margin: auto;
+    }
+    
+    main div.wrapper section label {
+        margin-top: 25px;
+    }
+
+    main div.wrapper aside {
+        width: calc(100% - 40px);
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    main div.wrapper aside img {
+        width: 60%;
+        margin-bottom: 0 auto 30px auto;
+    }
+
+    main div.wrapper aside p {
+        text-align: center;
+    }
+}

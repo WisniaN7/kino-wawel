@@ -50,3 +50,24 @@ main div.wrapper > h2 {
     text-align: center;
     margin-top: 100px;
 }
+
+@media only screen and (max-width: 768px) {
+    main {
+        margin-top: 0;
+    }
+    
+    main div.wrapper {
+        padding: 35px 0;
+    }
+
+    main header h2 {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    main article div.tickets {
+        width: calc(100% - 40px);
+        height: auto;
+        margin: 0 auto;
+    }
+}

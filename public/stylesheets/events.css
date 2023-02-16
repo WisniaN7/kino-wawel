@@ -43,14 +43,12 @@ main div.wrapper div.tile:nth-of-type(4) {
 
 main div.wrapper div.tile h2 {
     display: block;
-    z-index: 100;
-    border-bottom: 2px solid #fff;
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
     margin: 0;
     border-bottom: 2px solid #fff;
-    z-index: 100;
+    z-index: 10;
     transition: 300ms ease-out;
 }
 
@@ -88,4 +86,36 @@ main div.wrapper div.tile.big div p {
 
 main div.wrapper div.tile.small div p {
     margin-top: 3.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+    main {
+        margin-top: 0;
+    }
+
+    main div.wrapper {
+        padding: 0;
+    }
+
+    main div.wrapper div.tile {
+        width: calc(100% - 50px);
+        aspect-ratio: 1/1;
+        padding: 50px 25px;
+    }
+
+    main div.wrapper div.tile h2 {
+        width: inherit;
+    }
+
+    main div.wrapper div.tile.big h2 {
+        font-size: 2.5rem;
+    }
+
+    main div.wrapper div.tile.small h2 {
+        font-size: 1.25rem;
+    }
+
+    main div.wrapper div.tile div p {
+        font-size: .9rem;
+    }
 }

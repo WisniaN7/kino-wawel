@@ -7,7 +7,7 @@ const message = urlParams.get('message')
 
 window.addEventListener('load', () => {
     document.querySelector('header div.user div.icon-user')?.addEventListener('click', () => {
-        document.querySelector('header div.user menu').classList.toggle('active')
+        document.querySelector('header div.user-menu menu').classList.toggle('active')
     })
 
     const burgerMenu = document.querySelector('header div.burger-menu')
@@ -76,8 +76,10 @@ function handleErrors() {
         createSnackbar('Dodanie filmu powiodło się.', 'success', 'short')
     else if (error == 16)
         createSnackbar('Edycja filmu powiodła się.', 'success', 'short')
+    else if (error == 17)
+        createSnackbar('Zaloguj się, aby uzyskać dostęp do zasobu.', 'error', 'short')
     else
-        createSnackbar('Unknown status: ' + error + ', with message: ' + message)
+    createSnackbar('Unknown status: ' + error + ', with message: ' + message)
 }
 
 function isItTooLate(time, timeOffset) {

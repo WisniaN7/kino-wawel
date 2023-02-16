@@ -20,8 +20,8 @@ main article.listing div.rating {
     justify-content: center;
 }
 
-main article.listing div.rating div.p {
-    font-weight: 200;
+main article.listing div.rating div p {
+    text-align: center;
 }
 
 main article.listing div.rating div.stars {
@@ -47,4 +47,26 @@ main article.listing a.btn {
 main div.wrapper > h2 {
     text-align: center;
     margin-top: 100px;
+}
+
+@media only screen and (max-width: 768px) {
+    main {
+        margin-top: 0;
+    }
+
+    main div.wrapper {
+        padding: 35px 0;
+    }
+
+    main header h2 {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    main article.listing div.rating {
+        width: calc(100% - 40px);
+        margin: 10px auto 0 auto;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+    }
 }

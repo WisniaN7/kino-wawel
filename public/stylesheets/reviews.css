@@ -59,3 +59,65 @@ main div.wrapper > h2 {
     text-align: center;
     margin-top: 100px;
 }
+
+@media only screen and (max-width: 768px) {
+    main {
+        margin-top: 0;
+    }
+
+    main div.wrapper {
+        padding: 35px 0;
+    }
+
+    main div.wrapper > header h2 {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    main div.wrapper header h2 a {
+        color: #fff;
+    }
+
+    main div.wrapper article {
+        padding: 10px 0;
+        margin-bottom: 1rem;
+    }
+
+    main div.wrapper article img {
+        display: none;
+    }
+
+    main div.wrapper article div.body {
+        width: calc(100% - 40px);
+        margin: 0 auto;
+    }
+
+    main div.wrapper article div.body > * {
+        width: 100%;
+        padding: 0;
+    }
+
+    main div.wrapper article div.body header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    main div.wrapper article div.body header h2 {
+        --font-size: 1.5rem;
+        color: #fff;
+    }
+
+    main div.wrapper article div.body header > div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    main div.wrapper article div.body header > div div.stars {
+        margin-left: 10px;
+    }
+
+    main div.wrapper article div.body header a.btn {
+        display: none;
+    }
+}
