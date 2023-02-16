@@ -103,3 +103,34 @@ main div.movie img {
     -webkit-filter: brightness(0.5);
             filter: brightness(0.5);
 }
+
+@media only screen and (max-width: 768px) {
+    main {
+        height: calc(100vh - var(--header-height));
+    }
+
+    span.arrow {
+        --arrow-distance: 25px;
+    }
+
+    main div.title h2 {
+        font-size: 3rem;
+        line-height: 3rem;
+    }
+
+    main div.title {
+        min-width: 0;
+        max-width: calc(100% - 150px);
+        margin-left: 75px;
+    }
+
+    main div.title div {
+        height: 50px;
+    }
+
+    main div.title a {
+        width: 100% !important;
+        margin-bottom: 10px;
+        font-size: 1rem;
+    }
+}

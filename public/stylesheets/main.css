@@ -510,9 +510,7 @@ input:checked + .slider:before {
 }
 
 div.burger-menu {
-
     display: none;
-
 }
 
 div.burger-menu.active {
@@ -753,18 +751,35 @@ article.description > .info p.description {
         transition: 300ms;
     }
 
+    body > header {
+        width: calc(100vw - 100px);
+        padding: 0 50px;
+        mix-blend-mode: unset;
+    }
+
+    body > header div.burger-menu {
+        right: 50px;
+    }
+
     body > header nav {
         min-width: 300px;
-        height: calc(100vh - var(--header-height));
+        height: calc(100vh - var(--header-height) - 50px);
+        padding: 25px 0;
         flex-direction: column-reverse;
         position: fixed;
         top: var(--header-height);
-        right: 0;
-        background-color: #222;
+        right: -100%;
+        background-color: #282828;
         mix-blend-mode: none;
+        transition: 100ms;
+    }
+
+    body > header nav.active {
+        right: 0;
     }
 
     body > header nav ul {
+        width: 80%;
         flex-direction: column;
         align-items: flex-end;
     }
@@ -778,7 +793,49 @@ article.description > .info p.description {
         width: 100%;
         display: block;
         text-align: right;
-        padding: 15px 25px;
+        padding: 15px 25px !important;
+    }
+
+    body > header nav ul li.signin {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body > header nav ul li.signin span {
+        display: none;
+    }
+
+    article.listing {
+        height: 220px;
+        padding: 20px 0;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    article.listing img {
+        width: 85px;
+        margin-left: 25px;
+    }
+
+    article.listing > .info {
+        width: calc(100% - 210px);
+        margin-left: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: #fff;
+    }
+
+    article.listing > .info div h2,
+    article.listing > .info div p {
+        --font-size: 1.2rem;
+    }
+
+    article > .info p.info {
+        font-size: 0.9rem;
+        opacity: .5;
+        font-weight: 300;
     }
 }
 

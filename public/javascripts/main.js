@@ -6,8 +6,15 @@ const error = urlParams.get('status')
 const message = urlParams.get('message')
 
 window.addEventListener('load', () => {
-    document.querySelector('header div.user div.icon-user')?.addEventListener('click', function() {
+    document.querySelector('header div.user div.icon-user')?.addEventListener('click', () => {
         document.querySelector('header div.user menu').classList.toggle('active')
+    })
+
+    const burgerMenu = document.querySelector('header div.burger-menu')
+
+    burgerMenu.addEventListener('click', () => {
+        burgerMenu.classList.toggle('active')
+        document.querySelector('header nav').classList.toggle('active')
     })
 
     handleErrors()

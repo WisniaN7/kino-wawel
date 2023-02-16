@@ -210,9 +210,106 @@ section#reviews article > div div.rating svg {
     section#movie aside div.rating {
         font-size: 1.75rem;
     }
-
+    
     section#movie aside div.rating svg {
         width: 1.75rem;
         height: 1.75rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    main {
+        margin-top: 0;
+    }
+
+    section#movie {
+        position: relative;
+        height: calc(142vh - var(--header-height)); /* Just works, not sure why */
+    }
+
+    section#movie > div {
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: -75vh 0; /* Just works, not sure why */
+        background-size: auto 100vh;
+    }
+
+    section#movie aside {
+        width: 90%;
+        height: calc(80vh - 25px);
+        padding: 50% 5% 25px 5%;
+        top: calc(25% - 25px);
+        -webkit-mask-image: linear-gradient(to bottom, transparent, black 25%);
+                mask-image: linear-gradient(to bottom, transparent, black 25%);
+        transform: none;
+    }
+
+    section#movie aside::after {
+        content: unset;
+    }
+
+    section#movie aside > * {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    section#movie aside div.title {
+        align-items: center;
+    }
+
+    section#movie aside div.title h2 {
+        --font-size: 2.3rem;
+    }
+
+    section#movie aside div.rating {
+        font-size: 2.3rem;
+    }
+
+    section#movie aside div.rating svg {
+        width: 2.3rem;
+        height: 2.3rem;
+    }
+
+    section#movie aside div.screenings {
+        justify-content: space-evenly;
+        transform: unset;
+    }
+
+    section#reviews {
+        max-width: 100vw;
+        width: 90%;
+        padding: 0 5%;
+        margin-top: 50px;
+    }
+
+    section#reviews h2 {
+        width: 100%;
+        padding-bottom: 15px;
+        --font-size: 1.3rem;
+    }
+
+    section#reviews article {
+        width: 90%;
+        margin: auto;
+        padding-bottom: 30px;
+    }
+
+    section#reviews article > div {
+        font-size: 1rem;
+    }
+
+    section#reviews article > div div.user {
+        margin-left: 10px;
+        transform: scale(0.8);
+    }
+
+    section#reviews article > div p.username {
+        margin-left: 20px;
+    }
+
+    section#reviews article > div div.rating svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        margin-left: 5px;
     }
 }

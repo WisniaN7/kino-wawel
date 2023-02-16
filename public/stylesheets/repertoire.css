@@ -109,7 +109,73 @@ main article.description img {
     margin-left: calc(5% - (65px / 4));
 }
 
-main article.description div.info p.description {
-    height: auto;
-    margin-top: 15px;
+@media only screen and (max-width: 768px) {
+    main {
+        margin-top: 0;
+    }
+
+    main header {
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        padding: 20px 0;
+    }
+
+    main header select {
+        width: 90%;
+    }
+
+    main header div#show-descriptions {
+        display: none;
+    }
+
+    main header div#day-select div span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    main article div.screenings {
+        width: calc(100% - 55px);
+        margin: 15px auto 0 auto;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    main article div.screenings a {
+        width: 80px;
+        height: 55px;
+        flex-direction: column;
+        margin: 0 5px;
+        transition: background-color .2s ease-in-out;
+    }
+
+    main article div.screenings a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    main article div.screenings a * {
+        margin: 0;
+        text-align: center;
+        color: #fff;
+    }
+
+    main article div.screenings a p.hour {
+        font-weight: 400;
+        font-size: 0.95rem;
+    }
+
+    main article div.screenings a p.type {
+        font-size: 0.55rem;
+        white-space: nowrap;
+    }
+
+    main article.description img {
+        width: 85px;
+        margin-left: 25px;
+    }
+
+    main article.description a.info p.description {
+        max-height: 0;
+        margin: 0;
+    }
 }

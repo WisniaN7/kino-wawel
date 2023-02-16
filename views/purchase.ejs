@@ -12,20 +12,6 @@
         <form action="<%= 'zakup/' + screening %>" method="POST">
             <section id="hall">
                 <h2><span class="capital">W</span>ybór <span class="capital">M</span>iejsc</h2>
-                <div id="legend">
-                    <div>
-                        <span>Wybrane miejsca</span>
-                        <div class="seat chosen"></div>
-                    </div>
-                    <div>
-                        <span>Wolne miejsca</span>
-                        <div class="seat free"></div>
-                    </div>
-                    <div>
-                        <span>Zajęte miejsca</span>
-                        <div class="seat taken"></div>
-                    </div>
-                </div>
                 <div id="screen"></div>
                 <fieldset id="seats">
                     <% let row = 1 %>
@@ -67,6 +53,20 @@
                         <span> <%= i != 0 ? i : '' %> </span>
                     <% } %>
                 </fieldset>
+                <div id="legend">
+                    <div>
+                        <span>Wybrane miejsca</span>
+                        <div class="seat chosen"></div>
+                    </div>
+                    <div>
+                        <span>Wolne miejsca</span>
+                        <div class="seat free"></div>
+                    </div>
+                    <div>
+                        <span>Zajęte miejsca</span>
+                        <div class="seat taken"></div>
+                    </div>
+                </div>
             </section>
             <aside>
                 <h2><span class="capital">T</span>woje <span class="capital">B</span>ilety</h2>
