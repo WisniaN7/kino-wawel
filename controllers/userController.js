@@ -165,6 +165,21 @@ const getWatched = async (userId) => {
     return uniqueWatchedMovies
 }
 
+const getMovie = async (movieId) => {
+    const connection = await db.createConnection()
+    const sql = 'SELECT title, description FROM movies WHERE movie_id = ?;'
+    let movie = []
+
+    try {
+        [movie] = await connection.query(sql, movieId)
+    } catch (err) {
+        console.error(err)
+    }
+
+    await connection.end()
+    return movie[0]
+}
+
 const updateRating = async (userId, movieId, rating) => {
     const connection = await db.createConnection()
     const sql = 'UPDATE reviews SET rating = ? WHERE user_id = ? AND movie_id = ?;'
@@ -196,6 +211,7 @@ module.exports = {
     getReview,
     getReviews,
     getWatched,
+    getMovie,
     updateRating,
     updateReview,
 }

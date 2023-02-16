@@ -33,10 +33,24 @@ router.get('/*/obejrzane', async (req, res, next) => {
     res.render('watched', { movies: movies, user: req.session.user, host: req.hostname })
 })
 
-router.get('/*/recenzje/:mode/:id', async (req, res, next) => {
+router.get('/*/recenzje/nowa/:id', async (req, res, next) => {
+    if (req.session.user == undefined) {
+        res.redirect('/logowanie?status=17')
+        return
+    }
+
+    const movie = await userController.getMovie(req.params.id)
+    res.render('edit review', { editMode: false, movie: movie, user: req.session.user, host: req.hostname })
+})
+
+router.get('/*/recenzje/edytuj/:id', async (req, res, next) => {
+    if (req.session.user == undefined) {
+        res.redirect('/logowanie?status=17')
+        return
+    }
+
     const review = await userController.getReview(req.params.id)
-    review.edit = req.params.mode == 'edytuj'
-    res.render('edit review', { review: review, user: req.session.user, host: req.hostname })
+    res.render('edit review', { editMode: true, review: review, user: req.session.user, host: req.hostname })
 })
 
 router.post('/reviews/rating', async (req, res, next) => {

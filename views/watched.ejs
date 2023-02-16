@@ -35,7 +35,7 @@
                                     <% } %> 
                                 </div>
                             </div>
-                            <a href="<%= user.username %>/recenzje/<%= movie?.review ? 'edytuj/' + movie.review_id : 'nowa' %>" class="btn <%= movie?.review ? 'cta-2' : 'cta-1' %>"><%= movie?.review ? 'Edytuj recenzje' : 'Napisz recenzje' %></a>
+                            <a href="<%= user.username %>/recenzje/<%= movie?.review ? 'edytuj/' + movie.review_id : 'nowa/' + movie.movie_id %>" class="btn <%= movie?.review ? 'cta-2' : 'cta-1' %>"><%= movie?.review ? 'Edytuj recenzje' : 'Napisz recenzje' %></a>
                         </div>
                     </article>
                 <% } %>
