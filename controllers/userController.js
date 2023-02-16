@@ -1,13 +1,30 @@
 const db = require('./database')
 
-async function getTickets(userId) {
+const getTickets = async (userId) => {
     const connection = await db.createConnection()
 
     let sql = 'SELECT screening_id, date, time, city FROM tickets NATURAL JOIN screenings NATURAL JOIN cinemas WHERE user_id = ? GROUP BY screening_id;'
-    const [screenings] = await connection.query(sql, userId)
+    let screenings = []
+
+    try {
+        [screenings] = await connection.query(sql, userId)
+    } catch (err) {
+        console.error(err)
+        await connection.end()
+        return []
+    }
 
     sql = 'SELECT ticket_type FROM ticket_types;'
-    const [ticketTypesQuery] = await connection.query(sql)
+    let ticketTypesQuery = []
+
+    try {
+        [ticketTypesQuery] = await connection.query(sql)
+    } catch (err) {
+        console.error(err)
+        await connection.end()
+        return []
+    }
+
     let ticketTypes = {}
 
     for (const ticket_type of ticketTypesQuery)
@@ -15,7 +32,16 @@ async function getTickets(userId) {
 
     for (const screening of screenings) {
         sql = 'SELECT movie_id, title, age_rating, duration, genre FROM screenings NATURAL JOIN movies NATURAL JOIN movie_genres NATURAL JOIN genres WHERE screening_id = ?;'
-        const [movie] = await connection.query(sql, screening.screening_id)
+        let movie = []
+        
+        try {
+            [movie] = await connection.query(sql, screening.screening_id)
+        } catch (err) {
+            console.error(err)
+            await connection.end()
+            return []
+        }
+
         let genres = []
 
         for (const genre of movie)
@@ -26,7 +52,15 @@ async function getTickets(userId) {
         
         screening.tickets = { ...ticketTypes }
         sql = 'SELECT ticket_type FROM tickets NATURAL JOIN ticket_types WHERE user_id = ? AND screening_id = ?;'
-        const [tickets] = await connection.query(sql, [userId, screening.screening_id])
+        let tickets = []
+
+        try {
+            [tickets] = await connection.query(sql, [userId, screening.screening_id])
+        } catch (err) {
+            console.error(err)
+            await connection.end()
+            return []
+        }
 
         for (const ticket of tickets)
             screening.tickets[ticket.ticket_type]++
@@ -36,46 +70,86 @@ async function getTickets(userId) {
     return screenings
 }
 
-async function getReviews(userId) {
+const getReviews = async (userId) => {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM reviews NATURAL JOIN movies WHERE user_id = ?;'
-    const [reviews] = await connection.query(sql, userId)
+    let reviews = []
+
+    try {
+        [reviews] = await connection.query(sql, userId)
+    } catch (err) {
+        console.error(err)
+    }
+    
     await connection.end()
     return reviews
 }
 
-async function getReview(reviewId) {
+const getReview = async (reviewId) => {
     const connection = await db.createConnection()
     const sql = 'SELECT rating, review, movie_id, title, description FROM reviews NATURAL JOIN movies WHERE review_id = ? LIMIT 1;'
-    const [reviews] = await connection.query(sql, reviewId)
+    let review = []
+
+    try {
+        [review] = await connection.query(sql, reviewId)
+    } catch (err) {
+        console.error(err)
+    }
+
     await connection.end()
-    return reviews[0]
+    return review[0]
 }
 
-async function getWatched(userId) {
+const getWatched = async (userId) => {
     const connection = await db.createConnection()
-    let sql = 'SELECT movie_id, title, age_rating, duration, description, date, time FROM tickets NATURAL JOIN screenings NATURAL JOIN movies WHERE user_id = ? GROUP BY movie_id ORDER BY date;'
-    const [watchedMovies] = await connection.query(sql, userId)
+    let sql = 'SELECT movie_id, title, age_rating, duration, description, date, time FROM tickets NATURAL JOIN screenings NATURAL JOIN movies WHERE user_id = ? ORDER BY date;'
+    let [watchedMovies] = []
+
+    try {
+        [watchedMovies] = await connection.query(sql, userId)
+    } catch (err) {
+        console.error(err)
+        await connection.end()
+        return []
+    }
 
     let occurances = []
+    let uniqueWatchedMovies = []
 
     for (const watched of watchedMovies) {
-        const date = new Date(watched.date.toISOString().slice(0, 10) + 'T' + watched.time)
+        const date = new Date(watched.date)
+        date.setHours(watched.time.split(':')[0])
+        date.setMinutes(watched.time.split(':')[1])
 
         if (date > new Date() || occurances.includes(watched.movie_id)) {
-            const index = watchedMovies.indexOf(watched)
-            watchedMovies.splice(index, 1)
             continue
         } 
 
         occurances.push(watched.movie_id)
 
         sql = 'SELECT genre FROM movies NATURAL JOIN movie_genres NATURAL JOIN genres WHERE movie_id = ? ORDER BY genre;'
-        const [genres] = await connection.query(sql, watched.movie_id)
+        let genres = []
+
+        try {
+            [genres] = await connection.query(sql, watched.movie_id)
+        } catch (err) {
+            console.error(err)
+            await connection.end()
+            return []
+        }
+
         watched.genres = genres.map(genre => genre.genre).join(', ')
 
         sql = 'SELECT review_id, rating, review FROM reviews WHERE user_id = ? AND movie_id = ?;'
-        const [rating] = await connection.query(sql, [userId, watched.movie_id])
+        let rating = []
+
+        try {
+            [rating] = await connection.query(sql, [userId, watched.movie_id])
+        } catch (err) {
+            console.error(err)
+            await connection.end()
+            return []
+        }
 
         watched.rating = rating[0]?.rating || 0
 
@@ -83,23 +157,37 @@ async function getWatched(userId) {
             watched.review = true
             watched.review_id = rating[0].review_id
         }
+
+        uniqueWatchedMovies.push(watched)
     }
 
     await connection.end()
-    return watchedMovies
+    return uniqueWatchedMovies
 }
 
-async function updateRating(userId, movieId, rating) {
+const updateRating = async (userId, movieId, rating) => {
     const connection = await db.createConnection()
     const sql = 'UPDATE reviews SET rating = ? WHERE user_id = ? AND movie_id = ?;'
-    await connection.query(sql, [rating, userId, movieId])
+
+    try {
+        await connection.query(sql, [rating, userId, movieId])
+    } catch (err) {
+        console.error(err)
+    }
+    
     await connection.end()
 }
 
-async function updateReview(userId, movieId, rating, review) {
+const updateReview = async (userId, movieId, rating, review) => {
     const connection = await db.createConnection()
     const sql = 'UPDATE reviews SET rating = ?, review = ? WHERE user_id = ? AND movie_id = ?;'
-    await connection.query(sql, [rating, review, userId, movieId])
+
+    try {
+        await connection.query(sql, [rating, review, userId, movieId])
+    } catch (err) {
+        console.error(err)
+    }
+    
     await connection.end()
 }
 

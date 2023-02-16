@@ -1,6 +1,6 @@
 const mysql = require('mysql2/promise')
 
-async function createConnection() {
+const createConnection = async () => {
     const conn = await mysql.createConnection({
         host: 'localhost',
         port: 3306,
@@ -9,8 +9,7 @@ async function createConnection() {
         database: 'kino_wawel'
     })
     
-    conn.connect();
-
+    await conn.connect();
     return conn
 }
 

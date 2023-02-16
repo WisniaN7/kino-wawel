@@ -3,22 +3,37 @@ let router = express.Router()
 
 const userController = require('../controllers/userController')
 
-router.get('/:user/bilety', async (req, res, next) => {
+router.get('/*/bilety', async (req, res, next) => {
+    if (req.session.user == undefined) {
+        res.redirect('/logowanie?status=17')
+        return
+    }
+
     const tickets = await userController.getTickets(req.session.user.user_id)
     res.render('tickets', { tickets: tickets, user: req.session.user, host: req.hostname })
 })
 
-router.get('/:user/recenzje', async (req, res, next) => {
+router.get('/*/recenzje', async (req, res, next) => {
+    if (req.session.user == undefined) {
+        res.redirect('/logowanie?status=17')
+        return
+    }
+        
     const reviews = await userController.getReviews(req.session.user.user_id)
     res.render('reviews', { reviews: reviews, user: req.session.user, host: req.hostname })
 })
 
-router.get('/:user/obejrzane', async (req, res, next) => {
+router.get('/*/obejrzane', async (req, res, next) => {
+    if (req.session.user == undefined) {
+        res.redirect('/logowanie?status=17')
+        return
+    }
+                
     const movies = await userController.getWatched(req.session.user.user_id)
     res.render('watched', { movies: movies, user: req.session.user, host: req.hostname })
 })
 
-router.get('/:user/recenzje/:mode/:id', async (req, res, next) => {
+router.get('/*/recenzje/:mode/:id', async (req, res, next) => {
     const review = await userController.getReview(req.params.id)
     review.edit = req.params.mode == 'edytuj'
     res.render('edit review', { review: review, user: req.session.user, host: req.hostname })

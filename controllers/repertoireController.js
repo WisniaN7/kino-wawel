@@ -1,22 +1,41 @@
 const db = require('./database')
 
-async function getRepertoire(city, date) {
+const getRepertoire = async (city, date) => {
     const connection = await db.createConnection()
 
     let data = []
 
     let sql = 'SELECT movie_id, title, rating, age_rating, duration, description, AVG(rating) AS "rating" FROM screenings NATURAL JOIN movies NATURAL JOIN cinemas NATURAL JOIN reviews WHERE city = ? AND date = ? GROUP BY movie_id;'
-    let [movies] = await connection.query(sql, [city, date])
+    let movies = []
+    
+    try {
+        [movies] = await connection.query(sql, [city, date])
+    } catch (err) {
+        console.error(err)
+    }
     
     for (let movie of movies) {
         sql = 'SELECT genre FROM genres NATURAL JOIN movie_genres WHERE movie_id = ? ORDER BY genre;'
-        let [genres] = await connection.query(sql, movie.movie_id)
+        let genres = []
+        
+        try {
+            [genres] = await connection.query(sql, movie.movie_id)
+        } catch (err) {
+            console.error(err)
+        }
+        
         movie.genres = genres.map(genre => genre.genre).join(', ')
 
         let entry = { movie: movie, screenings: [] }
 
         sql = 'SELECT screening_id, time, is_3D, sound_type, hall FROM screenings NATURAL JOIN cinemas NATURAL JOIN movies WHERE city = ? AND date = ? AND movie_id = ?;'
-        let [screenings] = await connection.query(sql, [city, date, movie.movie_id])
+        let screenings = []
+        
+        try {
+            [screenings] = await connection.query(sql, [city, date, movie.movie_id])
+        } catch (err) {
+            console.error(err)
+        }
         
         for (let screening of screenings)
             entry.screenings.push(screening)
@@ -28,11 +47,20 @@ async function getRepertoire(city, date) {
     return data
 }
 
-async function randomFillDatabase() {
+const randomFillDatabase = async () => {
     const connection = await db.createConnection()
 
-    await connection.execute('DELETE FROM screenings;')
-    await connection.execute('ALTER TABLE screenings AUTO_INCREMENT = 0;')
+    try {
+        await connection.execute('DELETE FROM screenings;')
+    } catch (err) {
+        console.error(err)
+    }
+
+    try {
+        await connection.execute('ALTER TABLE screenings AUTO_INCREMENT = 0;')
+    } catch (err) {
+        console.error(err)
+    }
 
     let date = new Date('2023-01-01')
     const endDate = new Date('2023-04-01')
@@ -63,10 +91,14 @@ async function randomFillDatabase() {
                     let soundType = soundTypes[Math.floor(Math.random() * 2)]
 
                     let sql = "INSERT INTO `screenings` VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)"
-                    await connection.query(sql, [movie, cinema, hall, date.toISOString().slice(0, 10), time.toISOString().slice(11, 19), Math.floor(Math.random() * 2), soundType])
+
+                    try {
+                        await connection.query(sql, [movie, cinema, hall, date.toISOString().slice(0, 10), time.toISOString().slice(11, 19), Math.floor(Math.random() * 2), soundType])
+                    } catch (err) {
+                        console.error(err)
+                    }
 
                     time.setTime(time.getTime() + (movieDurations[movie] * 30 * 60 * 1000))
-
                     console.log(i++)
                 }
             }

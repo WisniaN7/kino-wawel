@@ -15,7 +15,7 @@ router.post('/:screening', async (req, res, next) => {
     if (ticketsCounts.reduce((partialSum, a) => partialSum + a, 0) != req.body.seats.length)
         res.status(400) // TODO: failure page
 
-    await purchaseController.buyTickets(req.params.screening, req.body.seats, ticketsCounts, req.session.user.user_id)
+    await purchaseController.buyTickets(req.params.screening, req.body.seats, ticketsCounts, req.session.user ? req.session.user.user_id : null)
     res.render('success', { user: req.session.user, email: req.body.email, host: req.hostname })
 })
 

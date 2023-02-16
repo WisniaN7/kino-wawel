@@ -1,3 +1,5 @@
+// TODO: discounts
+
 function calcTotal() {
     const tickets = document.querySelectorAll('.ticket-type .ticket-counter')
     let total = 0
@@ -119,7 +121,4 @@ window.addEventListener('load', () => {
             ticketsSelector.classList.add('incorrect')
         } 
     })
-
-    if (user = getCookie('user'))
-        document.querySelector('input[type="email"]').value = user.email
 })

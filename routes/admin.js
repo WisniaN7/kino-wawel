@@ -6,10 +6,10 @@ const indexController = require('../controllers/indexController')
 const movieController = require('../controllers/movieController')
 
 router.get('/', async (req, res, next) => {
-    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' } // TODO: Remove this line
-
-    if (req.session.user && req.session.user.role != 'admin')
+    if (req.session.user && req.session.user.role != 'admin') {
         res.redirect(req.headers.referer || '/') // TODO: Redirect to 404 page
+        return
+    }
 
     const movies = await adminController.getMoviesWithStatus()
     const cinemas = await indexController.getCinemas()
@@ -17,10 +17,10 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
-    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' } // TODO: Remove this line
-
-    if (req.session.user && req.session.user.role != 'admin')
+    if (req.session.user && req.session.user.role != 'admin') {
         res.redirect(req.headers.referer || '/') // TODO: Redirect to 404 page
+        return
+    }
         
     const cinemas = await indexController.getCinemas()
     const movie = await movieController.getMovie(req.params.id)
@@ -67,8 +67,6 @@ router.post('/movies/edit', async (req, res, next) => {
 
 
 router.get('/seanse/:city/*', async (req, res, next) => {
-    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' } // TODO: Remove this line
-    
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
@@ -103,7 +101,6 @@ router.post('/screenings/edit', async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
-    console.log(req.body)
     await adminController.editScreening(req.body.screening_id, req.body.hall, req.body.time)
     res.status(200).send()
 })

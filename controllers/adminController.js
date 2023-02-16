@@ -3,7 +3,14 @@ const db = require('./database')
 const getMovies = async () => {
     const connection = await db.createConnection()
     let sql = 'SELECT * FROM movies WHERE archived = 0;'
-    const [movies] = await connection.query(sql)
+    let movies = []
+
+    try {
+        [movies] = await connection.query(sql)
+    } catch (err) {
+        console.error(err)
+    }
+
     await connection.end()
     return movies
 }
@@ -11,7 +18,13 @@ const getMovies = async () => {
 const getMoviesWithStatus = async () => {
     const connection = await db.createConnection()
     let sql = 'SELECT * FROM movies;'
-    const [movies] = await connection.query(sql)
+    let movies = []
+
+    try {
+        [movies] = await connection.query(sql)
+    } catch (err) {
+        console.error(err)
+    }
     
     for (const movie of movies) {
         sql = 'SELECT genre FROM genres NATURAL JOIN movie_genres WHERE movie_id = ? ORDER BY genre;'
@@ -61,7 +74,14 @@ const getMoviesWithStatus = async () => {
 const getScreenings = async (cinemaId, date) => {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM screenings NATURAL JOIN movies WHERE cinema_id = ? AND date = ?;'
-    const [screenings] = await connection.query(sql, [cinemaId, date])
+    let screenings = []
+
+    try {
+        [screenings] = await connection.query(sql, [cinemaId, date])
+    } catch (err) {
+        console.error(err)
+    }
+
     await connection.end()
     return screenings
 }
@@ -69,25 +89,48 @@ const getScreenings = async (cinemaId, date) => {
 const archiveMovie = async (movie_id) => {
     const connection = await db.createConnection()
     const sql = 'UPDATE movies SET archived = 1 WHERE movie_id = ?;'
-    await connection.query(sql, movie_id)
+
+    try {
+        await connection.query(sql, movie_id)
+    } catch (err) {
+        console.error(err)
+    }
+
     await connection.end()
 }
 
 const deleteMovie = async (movie_id) => {
     const connection = await db.createConnection()
     const sql = 'DELETE FROM movies WHERE movie_id = ?;'
-    await connection.query(sql, movie_id)
+
+    try {
+        await connection.query(sql, movie_id)
+    } catch (err) {
+        console.error(err)
+    }
+
     await connection.end()
 }
 
 const addMovie = async (title, age_rating, duration, trailer, description, genres) => {
     const connection = await db.createConnection()
     let sql = 'INSERT INTO movies VALUES (NULL, ?, ?, ?, ?, ?, 0);'
-    const [movieId] = await connection.query(sql, [title, age_rating, duration, trailer, description])
+    let movieId = []
+
+    try {
+        [movieId] = await connection.query(sql, [title, age_rating, duration, trailer, description])
+    } catch (err) {
+        console.error(err)
+    }
 
     for (const genre of genres) {
         sql = 'INSERT INTO movie_genres (movie_id, genre_id) VALUES (?, (SELECT genre_id FROM genres WHERE genre = ?));'
-        await connection.query(sql, [movieId.insertId, genre])
+
+        try {
+            await connection.query(sql, [movieId.insertId, genre])
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     await connection.end()
@@ -96,14 +139,29 @@ const addMovie = async (title, age_rating, duration, trailer, description, genre
 const editMovie = async (movieId, title, age_rating, duration, description, trailer, genres) => {
     const connection = await db.createConnection()
     let sql = 'UPDATE movies SET title = ?, age_rating = ?, duration = ?, description = ?, trailer = ? WHERE movie_id = ?;'
-    await connection.query(sql, [title, age_rating, duration, description, trailer, movieId])
+
+    try {
+        await connection.query(sql, [title, age_rating, duration, description, trailer, movieId])
+    } catch (err) {
+        console.error(err)
+    }
 
     sql = 'DELETE FROM movie_genres WHERE movie_id = ?;'
-    await connection.query(sql, movieId)
+    
+    try {
+        await connection.query(sql, movieId)
+    } catch (err) {
+        console.error(err)
+    }
 
     for (const genre of genres) {
         sql = 'INSERT INTO movie_genres (movie_id, genre_id) VALUES (?, (SELECT genre_id FROM genres WHERE genre = ?));'
-        await connection.query(sql, [movieId, genre])
+
+        try {
+            await connection.query(sql, [movieId, genre])
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     await connection.end()
@@ -112,15 +170,31 @@ const editMovie = async (movieId, title, age_rating, duration, description, trai
 const getGenres = async () => {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM genres;'
-    const [genres] = await connection.query(sql)
+    let genres = []
+
+    try {
+        [genres] = await connection.query(sql)
+    } catch (err) {
+        console.error(err)
+    }
+
     await connection.end()
     return genres
 }
 
 const addScreening = async (movie_id, cinema_id, hall, date, time, is_3D, sound_type) => {
+    console.log(date);
+
     const connection = await db.createConnection()
     const sql = 'INSERT INTO screenings VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);'
-    const [newScreening] = await connection.query(sql, [movie_id, cinema_id, hall, date, time, +is_3D, sound_type])
+    let newScreening = []
+
+    try {
+        [newScreening] = await connection.query(sql, [movie_id, cinema_id, hall, date, time, +is_3D, sound_type])
+    } catch (err) {
+        console.error(err)
+    }
+
     await connection.end()
     return newScreening
 }
@@ -128,14 +202,26 @@ const addScreening = async (movie_id, cinema_id, hall, date, time, is_3D, sound_
 const editScreening = async (screening_id, hall, time) => {
     const connection = await db.createConnection()
     const sql = 'UPDATE screenings SET hall = ?, time = ? WHERE screening_id = ?;'
-    await connection.query(sql, [hall, time, screening_id])
+
+    try {
+        await connection.query(sql, [hall, time, screening_id])
+    } catch (err) {
+        console.error(err)
+    }
+    
     await connection.end()
 }
 
 const deleteScreening = async (screeningId) => {
     const connection = await db.createConnection()
     const sql = 'DELETE FROM screenings WHERE screening_id = ?;'
-    await connection.query(sql, screeningId)
+
+    try {
+        await connection.query(sql, screeningId)
+    } catch (err) {
+        console.error(err)
+    }
+    
     await connection.end()
 }
 

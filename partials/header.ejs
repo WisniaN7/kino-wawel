@@ -1,4 +1,4 @@
-<h1><a href="http://127.0.0.1:3000/">Kino Wawel</a></h1>
+<h1><a href="http://<%= host %>:3000/">Kino Wawel</a></h1>
 <div class="burger-menu">
     <div class="line">
         <span class="left"></span>
@@ -30,10 +30,12 @@
         <% } %>
     </ul>
     <% if (user) { %>
-        <div class="user">
-            <div class="icon-user">
-                <span class="head"></span>
-                <span class="body"></span>
+        <div class="user-menu">
+            <div class="user">
+                <div class="icon-user">
+                    <span class="head"></span>
+                    <span class="body"></span>
+                </div>
             </div>
             <menu>
                 <li><p class="username"> <%= user.username %> </p></li>

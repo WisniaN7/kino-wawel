@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
 
     // render the error page
     res.status(err.status || 500)
-    res.render('error', { user: req.session.user })
+    res.render('error', { user: req.session.user, host: req.hostname })
 })
 
 app.locals.capitalizeTitle = (title) => {

@@ -27,11 +27,13 @@
                             <p class="description"><%= movie.description %> </p>
                         </a>
                         <div class="rating">
-                            <p><%= movie?.review ? 'Oceniono' : 'Oceń' %></p>
-                            <div class="stars" data-rating="<%= movie.rating %>" data-movie="<%= movie.movie_id %>">
-                                <% for (let i = 0; i < 5; i++) { %>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star <%= i < movie.rating ? 'full' : '' %>"><polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /></svg>
-                                <% } %> 
+                            <div>
+                                <p><%= movie?.review ? 'Oceniono' : 'Oceń' %></p>
+                                <div class="stars" data-rating="<%= movie.rating %>" data-movie="<%= movie.movie_id %>">
+                                    <% for (let i = 0; i < 5; i++) { %>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star <%= i < movie.rating ? 'full' : '' %>"><polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /></svg>
+                                    <% } %> 
+                                </div>
                             </div>
                             <a href="<%= user.username %>/recenzje/<%= movie?.review ? 'edytuj/' + movie.review_id : 'nowa' %>" class="btn <%= movie?.review ? 'cta-2' : 'cta-1' %>"><%= movie?.review ? 'Edytuj recenzje' : 'Napisz recenzje' %></a>
                         </div>

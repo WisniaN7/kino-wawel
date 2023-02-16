@@ -1,19 +1,33 @@
 const db = require('./database')
 
-async function getHeroMovies() {
+const getHeroMovies = async () => {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM movies WHERE archived = 0 ORDER BY movie_id DESC LIMIT 3;'
-    const [heroMovies] = await connection.query(sql)
+    let heroMovies = []
+
+    try {
+        [heroMovies] = await connection.query(sql)
+    } catch (err) {
+        console.error(err)
+    }
+    
     await connection.end()
     return heroMovies
 }
 
-async function getCinemas() {
+const getCinemas = async () => {
     const connection = await db.createConnection()
     const sql = 'SELECT * FROM cinemas ORDER BY city;'
-    const [ticketTypes] = await connection.query(sql)
+    let cinemas = []
+
+    try {
+        [cinemas] = await connection.query(sql)
+    } catch (err) {
+        console.error(err)
+    }
+    
     await connection.end()
-    return ticketTypes
+    return cinemas
 }
 
 module.exports = {
