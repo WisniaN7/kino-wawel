@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 
     const movies = await adminController.getMoviesWithStatus()
     const cinemas = await indexController.getCinemas()
-    res.render('admin', { movies: movies, cinemas: cinemas, user: req.session.user })
+    res.render('admin', { movies: movies, cinemas: cinemas, user: req.session.user, host: req.hostname })
 })
 
 router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
@@ -26,7 +26,7 @@ router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
     const movie = await movieController.getMovie(req.params.id)
     const genres = await adminController.getGenres()
 
-    res.render('edit movie', { movie: movie, cinemas: cinemas, genres: genres, user: req.session.user })
+    res.render('edit movie', { movie: movie, cinemas: cinemas, genres: genres, user: req.session.user, host: req.hostname })
 })
 
 router.post('/movies/archive', async (req, res, next) => {
@@ -80,7 +80,7 @@ router.get('/seanse/:city/*', async (req, res, next) => {
         if (cinema.cinema_id == req.params.city)
             halls = cinema.halls
 
-    res.render('edit screenings', { movies: movies, cinemas: cinemas, halls: halls, user: req.session.user })
+    res.render('edit screenings', { movies: movies, cinemas: cinemas, halls: halls, user: req.session.user, host: req.hostname })
 })
 
 router.get('/screenings/get/:city/:date', async (req, res, next) => {

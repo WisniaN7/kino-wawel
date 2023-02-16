@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <%- include('../partials/head')  %> 
-    <link rel="stylesheet" href="stylesheets/landing.css">
+    <link rel="stylesheet" href="http://<%= host %>:3000/stylesheets/landing.css">
 </head>
 <body>
     <header>
@@ -13,8 +13,7 @@
         <%
         const positions = ['left', 'center', 'right'];
         
-        for(const [i, movie] of movies.entries()) { 
-        %>
+        for (const [i, movie] of movies.entries()) { %>
             <div class="movie <%= positions[i] %>">
                 <div class="title">
                     <h2><%= movie.title %></h2>

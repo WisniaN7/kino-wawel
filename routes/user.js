@@ -5,23 +5,23 @@ const userController = require('../controllers/userController')
 
 router.get('/:user/bilety', async (req, res, next) => {
     const tickets = await userController.getTickets(req.session.user.user_id)
-    res.render('tickets', { tickets: tickets, user: req.session.user })
+    res.render('tickets', { tickets: tickets, user: req.session.user, host: req.hostname })
 })
 
 router.get('/:user/recenzje', async (req, res, next) => {
     const reviews = await userController.getReviews(req.session.user.user_id)
-    res.render('reviews', { reviews: reviews, user: req.session.user })
+    res.render('reviews', { reviews: reviews, user: req.session.user, host: req.hostname })
 })
 
 router.get('/:user/obejrzane', async (req, res, next) => {
     const movies = await userController.getWatched(req.session.user.user_id)
-    res.render('watched', { movies: movies, user: req.session.user })
+    res.render('watched', { movies: movies, user: req.session.user, host: req.hostname })
 })
 
 router.get('/:user/recenzje/:mode/:id', async (req, res, next) => {
     const review = await userController.getReview(req.params.id)
     review.edit = req.params.mode == 'edytuj'
-    res.render('edit review', { review: review, user: req.session.user })
+    res.render('edit review', { review: review, user: req.session.user, host: req.hostname })
 })
 
 router.post('/reviews/rating', async (req, res, next) => {

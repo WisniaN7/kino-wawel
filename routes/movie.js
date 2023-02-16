@@ -21,6 +21,7 @@ router.get('/:id/:city/:date/*', async (req, res, next) => {
         cinemas: cinemas,
         reviews: reviews,
         user: req.session.user,
+        host: req.hostname
     })
 })
 
