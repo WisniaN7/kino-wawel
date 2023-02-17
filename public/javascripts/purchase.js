@@ -93,18 +93,21 @@ window.addEventListener('load', () => {
     const discountBtn = document.querySelector('#inputs div button')
     let discount = 0
     
-    discountBtn.addEventListener('click', (e) => {
+    discountBtn.addEventListener('click', async (e) => {
         e.preventDefault()
         discountBtn.classList.remove('correct')
 
-        if (!['WAWEL5', 'WAWEL10', 'WAWEL15'].includes(discountInput.value)) {
+        const fetchDiscount = fetch('/zakup/discounts/' + discountInput.value).then(res => res.json()).then(res => res.discount)
+        discount = await fetchDiscount
+
+        if (!discount) {
+            discount = 0
             discountBtn.classList.add('error')
             discountBtn.querySelector('span').innerText = '→'
             return
         } 
 
-        discount = parseInt(discountInput.value.split('WAWEL')[1])
-        totalDisplay.innerText = calcTotal() * (100 - discount) / 100
+        totalDisplay.innerText = Math.round(((calcTotal() * discount) + Number.EPSILON) * 100) / 100
 
         discountBtn.querySelector('span').innerText = '✔'
         discountBtn.classList.add('correct')

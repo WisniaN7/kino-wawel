@@ -1,5 +1,3 @@
-// TODO: discounts
-
 const db = require('./database')
 
 const getTickets = async (id) => {
@@ -79,9 +77,25 @@ const areSeatFree = async (screening, seats) => {
     return result[0].taken == 0
 }
 
+const getDiscount = async (discountCode) => {
+    const connection = await db.createConnection()
+    const sql = 'SELECT discount FROM discount_codes WHERE discount_code = ?;'
+    let discount = []
+
+    try {
+        [discount] = await connection.query(sql, discountCode)
+    } catch (err) {
+        console.error(err)
+    }
+
+    await connection.end()
+    return discount[0]?.discount
+}
+
 module.exports = {
     getTickets,
     getTicketTypes,
     buyTickets,
     areSeatFree,
+    getDiscount,
 }

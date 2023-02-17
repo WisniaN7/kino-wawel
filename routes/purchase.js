@@ -3,6 +3,11 @@ let router = express.Router()
 
 const purchaseController = require('../controllers/purchaseController')
 
+router.get('/discounts/:discount_code', async (req, res, next) => {
+    const discount = await purchaseController.getDiscount(req.params.discount_code)
+    res.status(200).json({ discount: discount })
+})
+
 router.get('/:title/:screening', async (req, res, next) => {
     const ticketTypes = await purchaseController.getTicketTypes()
     const tickets = await purchaseController.getTickets(req.params.screening)
