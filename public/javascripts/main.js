@@ -76,8 +76,12 @@ function handleErrors() {
         createSnackbar('Edycja filmu powiodła się.', 'success', 'short')
     else if (error == 17)
         createSnackbar('Zaloguj się, aby uzyskać dostęp do zasobu.', 'error', 'short')
+    else if (error == 18)
+        createSnackbar('Wybrano niepoprawną liczbę biletów.', 'error', 'short')
+    else if (error == 19)
+        createSnackbar('Miejsca są już zajęte.', 'error', 'short')
     else
-    createSnackbar('Unknown status: ' + error + ', with message: ' + message)
+        createSnackbar('Unknown status: ' + error + ', with message: ' + message)
 }
 
 function isItTooLate(time, timeOffset) {
