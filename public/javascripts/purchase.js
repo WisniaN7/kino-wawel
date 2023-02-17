@@ -61,10 +61,11 @@ window.addEventListener('load', () => {
             ticketsSelector.setAttribute('data-required', parseInt(ticketsSelector.getAttribute('data-required')) - 1)
             ticketsSelector.classList.remove('incorrect')
             
-            if (parseInt(ticketsSelector.getAttribute('data-required')) == 0)
+            if (parseInt(ticketsSelector.getAttribute('data-required')) == 0) {
                 ticketsSelector.classList.remove('chosen')
+                ticketValidator.required = true
+            }
             
-            ticketValidator.required = false
             ticketsSelector.dispatchEvent(validateEvent)
         })
     })
@@ -115,8 +116,10 @@ window.addEventListener('load', () => {
 
     submit.addEventListener('click', (e) => {
         if (!ticketsSelector.classList.contains('correct')) {
-            e.preventDefault()
+            ticketValidator.required = true
             ticketsSelector.classList.add('incorrect')
-        } 
+        } else {
+            ticketValidator.required = false
+        }
     })
 })

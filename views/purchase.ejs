@@ -80,7 +80,9 @@
                                 <div <%= i + 1 == ticketTypes.length ? 'id=validation' : ''  %> >    
                                     <span class="ticket-counter" data-price= <%= ticket.price %> >0</span>
                                     <input type="number" name= <%= ticket.ticket_type_id %> value="0">
-                                    <%- i + 1 == ticketTypes.length ? '<input type="radio" name="validation" required>' : '' %>
+                                    <% if (i + 1  == ticketTypes.length) { %>
+                                        <input type="radio" name="validation" required>
+                                    <% } %>
                                 </div>
                                 <div class="plus">
                                     <span></span>
