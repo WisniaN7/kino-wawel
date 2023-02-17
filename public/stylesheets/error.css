@@ -1,0 +1,33 @@
+main {
+    width: 100vw;
+    min-height: calc(100vh - var(--header-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: var(--header-height);
+}
+
+main div#screen {
+    height: 30vh;
+    position: relative;
+    aspect-ratio: 2.35/1;
+    background: linear-gradient(0deg, #CCC 0%, #fff 100%);
+    box-shadow: 0 0 60px 5px rgba(255, 255, 255, .75);
+}
+
+main div#screen h2 {
+    position: absolute;
+    font-size: 7rem;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: 5px;
+    color: #222;
+    padding-right: 5px;
+    margin: 0;
+}
+
+main p {
+    font-size: 1.5rem;
+    margin-top: 75px;
+}

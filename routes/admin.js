@@ -5,9 +5,16 @@ const adminController = require('../controllers/adminController')
 const indexController = require('../controllers/indexController')
 const movieController = require('../controllers/movieController')
 
+const redirectTo404 = (req, res, next) => {
+    res.locals.message = 'Not Found'
+    res.locals.error = { status: 404 }
+    res.status(404)
+    res.render('error', { user: req.session.user, host: req.hostname })
+}
+
 router.get('/', async (req, res, next) => {
-    if (req.session.user && req.session.user.role != 'admin') {
-        res.redirect(req.headers.referer || '/') // TODO: Redirect to 404 page
+    if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
+        redirectTo404(req, res, next)
         return
     }
 
@@ -17,8 +24,8 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
-    if (req.session.user && req.session.user.role != 'admin') {
-        res.redirect(req.headers.referer || '/') // TODO: Redirect to 404 page
+    if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
+        redirectTo404(req, res, next)
         return
     }
         
@@ -67,8 +74,10 @@ router.post('/movies/edit', async (req, res, next) => {
 
 
 router.get('/seanse/:city/*', async (req, res, next) => {
-    if (req.session.user && req.session.user.role != 'admin')
-        res.status(403).send()
+    if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
+        redirectTo404(req, res, next)
+        return
+    }
 
     const movies = await adminController.getMovies()
     const cinemas = await indexController.getCinemas()
@@ -82,8 +91,10 @@ router.get('/seanse/:city/*', async (req, res, next) => {
 })
 
 router.get('/screenings/get/:city/:date', async (req, res, next) => {
-    if (req.session.user && req.session.user.role != 'admin')
-        res.status(403).send()
+    if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
+        redirectTo404(req, res, next)
+        return
+    }
 
     const repertoire = await adminController.getScreenings(req.params.city, req.params.date)
     res.status(200).json(repertoire)
