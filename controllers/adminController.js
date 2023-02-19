@@ -1,4 +1,5 @@
 const db = require('./database')
+const fs = require('fs')
 
 const getMovies = async () => {
     const connection = await db.createConnection()
@@ -101,13 +102,30 @@ const archiveMovie = async (movie_id) => {
 
 const deleteMovie = async (movie_id) => {
     const connection = await db.createConnection()
-    const sql = 'DELETE FROM movies WHERE movie_id = ?;'
+    let sql = 'SELECT title FROM movies WHERE movie_id = ?;'
+    let title = []
+
+    try {
+        [title] = await connection.query(sql, [movie_id])
+    } catch (err) {
+        console.error(err)
+    }
+    
+    sql = 'DELETE FROM movies WHERE movie_id = ?;'
 
     try {
         await connection.query(sql, movie_id)
     } catch (err) {
         console.error(err)
     }
+
+    fs.unlink(`public/images/posters/${title[0].title}.jpg`, (err) => {
+        if (err) console.error(err)
+    })
+
+    fs.unlink(`public/images/background/${title[0].title}.jpg`, (err) => {
+        if (err) console.error(err)
+    })
 
     await connection.end()
 }
@@ -138,13 +156,30 @@ const addMovie = async (title, age_rating, duration, trailer, description, genre
 
 const editMovie = async (movieId, title, age_rating, duration, description, trailer, genres) => {
     const connection = await db.createConnection()
-    let sql = 'UPDATE movies SET title = ?, age_rating = ?, duration = ?, description = ?, trailer = ? WHERE movie_id = ?;'
+    let sql = 'SELECT title FROM movies WHERE movie_id = ?;'
+    let oldTitle = []
+
+    try {
+        [oldTitle] = await connection.query(sql, [movieId])
+    } catch (err) {
+        console.error(err)
+    }
+
+    sql = 'UPDATE movies SET title = ?, age_rating = ?, duration = ?, description = ?, trailer = ? WHERE movie_id = ?;'
 
     try {
         await connection.query(sql, [title, age_rating, duration, description, trailer, movieId])
     } catch (err) {
         console.error(err)
     }
+
+    fs.rename(`public/images/posters/${oldTitle[0].title}.jpg`, `public/images/posters/${title}.jpg`, (err) => {
+        if (err) console.error(err)
+    })
+
+    fs.rename(`public/images/background/${oldTitle[0].title}.jpg`, `public/images/background/${title}.jpg`, (err) => {
+        if (err) console.error(err)
+    })
 
     sql = 'DELETE FROM movie_genres WHERE movie_id = ?;'
     

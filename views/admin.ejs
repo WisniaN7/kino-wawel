@@ -30,7 +30,9 @@
                     <p class="status <%= movie.status %>"><span>•</span> <%= movie.statusLocalized %></p>
                     <div class="manage">
                         <a href="administracja/filmy/edytuj/<%= movie.movie_id %>/<%= movie.title %>" class="edit btn cta-1">Edytuj</a>
-                        <a href="" class="edit btn cta-3 archive" data-movie="<%= movie.movie_id %> ">Zarchiwizuj</a>
+                        <% if (!movie.archived) { %>
+                            <a href="" class="edit btn cta-3 archive" data-movie="<%= movie.movie_id %> ">Zarchiwizuj</a>
+                        <% } %>
                         <a href="" class="delete btn cta-2 alert" data-movie="<%= movie.movie_id %> " data-title="<%= movie.title %>">Usuń</a>
                     </div>
                 </article>

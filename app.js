@@ -2,7 +2,7 @@
 
 const createError = require('http-errors')
 const express = require('express')
-const session = require('express-session');
+const session = require('express-session')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')

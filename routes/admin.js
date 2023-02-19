@@ -1,5 +1,18 @@
-let express = require('express');
-let router = express.Router();
+let express = require('express')
+let router = express.Router()
+
+const multer = require('multer')
+
+const storage = multer.diskStorage({ 
+    destination: (req, file, cb) => {
+        cb(null, __dirname + '/../public/images/' + (file.fieldname == 'poster' ? 'posters' : 'background'))
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.title + '.jpg' /* +  file.mimetype.split('/')[1] */)
+    }
+})
+
+const uploads = multer({ storage: storage }).fields([{ name: 'poster', maxCount: 1 }, { name: 'bgImage', maxCount: 1 }])
 
 const adminController = require('../controllers/adminController')
 const indexController = require('../controllers/indexController')
@@ -13,6 +26,8 @@ const redirectTo404 = (req, res, next) => {
 }
 
 router.get('/', async (req, res, next) => {
+    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return
@@ -24,6 +39,8 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
+    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return
@@ -52,10 +69,7 @@ router.delete('/movies/delete', async (req, res, next) => {
     res.status(200).send()
 })
 
-router.post('/movies/add', async (req, res, next) => { // TODO: file upload
-    console.log(req.body);
-    console.log(req.files);
-    
+router.post('/movies/add', uploads, async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
@@ -63,7 +77,7 @@ router.post('/movies/add', async (req, res, next) => { // TODO: file upload
     res.status(200).send()
 })
 
-router.post('/movies/edit', async (req, res, next) => {
+router.post('/movies/edit', uploads, async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
