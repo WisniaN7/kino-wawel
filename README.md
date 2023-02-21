@@ -1,6 +1,6 @@
 # Kino Wawel / Wawel Cinema
 ## About 
-Final project for the course "*WWW Techniques*" and "*Graphical Interfaces*" at the Jagiellonian University of Warsaw. The project is a web application for a small **imaginary cinema network**.
+Final project for the course "*WWW Techniques*" and "*Graphical Interfaces*" at the FAIS faculty at Jagiellonian University. The project is a web application for a small **imaginary cinema network**.
 
 ## How to run
 1. Download the project and install XAMPP (recommended) and Node.js (if you don't have the already).
