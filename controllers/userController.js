@@ -11,7 +11,7 @@ const getTickets = async (userId) => {
     } catch (err) {
         console.error(err)
         await connection.end()
-        return []
+        return null
     }
 
     sql = 'SELECT ticket_type FROM ticket_types;'
@@ -22,7 +22,7 @@ const getTickets = async (userId) => {
     } catch (err) {
         console.error(err)
         await connection.end()
-        return []
+        return null
     }
 
     let ticketTypes = {}
@@ -39,7 +39,7 @@ const getTickets = async (userId) => {
         } catch (err) {
             console.error(err)
             await connection.end()
-            return []
+            return null
         }
 
         let genres = []
@@ -59,7 +59,7 @@ const getTickets = async (userId) => {
         } catch (err) {
             console.error(err)
             await connection.end()
-            return []
+            return null
         }
 
         for (const ticket of tickets)
@@ -79,6 +79,8 @@ const getReviews = async (userId) => {
         [reviews] = await connection.query(sql, userId)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
     
     await connection.end()
@@ -94,6 +96,8 @@ const getReview = async (reviewId) => {
         [review] = await connection.query(sql, reviewId)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()
@@ -110,7 +114,7 @@ const getWatched = async (userId) => {
     } catch (err) {
         console.error(err)
         await connection.end()
-        return []
+        return null
     }
 
     let occurances = []
@@ -121,9 +125,8 @@ const getWatched = async (userId) => {
         date.setHours(watched.time.split(':')[0])
         date.setMinutes(watched.time.split(':')[1])
 
-        if (date > new Date() || occurances.includes(watched.movie_id)) {
+        if (date > new Date() || occurances.includes(watched.movie_id))
             continue
-        } 
 
         occurances.push(watched.movie_id)
 
@@ -135,7 +138,7 @@ const getWatched = async (userId) => {
         } catch (err) {
             console.error(err)
             await connection.end()
-            return []
+            return null
         }
 
         watched.genres = genres.map(genre => genre.genre).join(', ')
@@ -148,7 +151,7 @@ const getWatched = async (userId) => {
         } catch (err) {
             console.error(err)
             await connection.end()
-            return []
+            return null
         }
 
         watched.rating = rating[0]?.rating || 0
@@ -174,6 +177,8 @@ const getMovie = async (movieId) => {
         [movie] = await connection.query(sql, movieId)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()
@@ -188,9 +193,12 @@ const updateRating = async (userId, movieId, rating) => {
         await connection.query(sql, [rating, userId, movieId])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
     
     await connection.end()
+    return true
 }
 
 const updateReview = async (userId, movieId, rating, review) => {
@@ -201,9 +209,12 @@ const updateReview = async (userId, movieId, rating, review) => {
         await connection.query(sql, [rating, review, userId, movieId])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
     
     await connection.end()
+    return true
 }
 
 module.exports = {

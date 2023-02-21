@@ -10,6 +10,8 @@ const getMovies = async () => {
         [movies] = await connection.query(sql)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()
@@ -25,6 +27,8 @@ const getMoviesWithStatus = async () => {
         [movies] = await connection.query(sql)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
     
     for (const movie of movies) {
@@ -48,10 +52,25 @@ const getMoviesWithStatus = async () => {
         }
 
         sql = 'SELECT COUNT(CURRENT_TIMESTAMP < date) AS "before" FROM screenings WHERE movie_id = ? AND CURRENT_TIMESTAMP < date;'
-        const [before] = await connection.query(sql, movie.movie_id)
+        let before = [], after = []
+
+        try {
+            [before] = await connection.query(sql, movie.movie_id)
+        } catch (err) {
+            console.log(err)
+            await connection.end()
+            return null
+        }
 
         sql = 'SELECT COUNT(CURRENT_TIMESTAMP > date) AS "after" FROM screenings WHERE movie_id = ? AND CURRENT_TIMESTAMP > date;'
-        const [after] = await connection.query(sql, movie.movie_id)
+
+        try {
+            [after] = await connection.query(sql, movie.movie_id)
+        } catch (err) {
+            console.log(err)
+            await connection.end()
+            return null
+        }
         
         if (before[0].before && after[0].after) {
             movie.status = 'playing'
@@ -81,6 +100,8 @@ const getScreenings = async (cinemaId, date) => {
         [screenings] = await connection.query(sql, [cinemaId, date])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()
@@ -95,9 +116,12 @@ const archiveMovie = async (movie_id) => {
         await connection.query(sql, movie_id)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
 
     await connection.end()
+    return true
 }
 
 const deleteMovie = async (movie_id) => {
@@ -109,25 +133,30 @@ const deleteMovie = async (movie_id) => {
         [title] = await connection.query(sql, [movie_id])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
     
     sql = 'DELETE FROM movies WHERE movie_id = ?;'
-
+    
     try {
         await connection.query(sql, movie_id)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
-
+    
     fs.unlink(`public/images/posters/${title[0].title}.jpg`, (err) => {
         if (err) console.error(err)
     })
-
+    
     fs.unlink(`public/images/background/${title[0].title}.jpg`, (err) => {
         if (err) console.error(err)
     })
-
+    
     await connection.end()
+    return true
 }
 
 const addMovie = async (title, age_rating, duration, trailer, description, genres) => {
@@ -139,6 +168,8 @@ const addMovie = async (title, age_rating, duration, trailer, description, genre
         [movieId] = await connection.query(sql, [title, age_rating, duration, trailer, description])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
 
     for (const genre of genres) {
@@ -148,10 +179,13 @@ const addMovie = async (title, age_rating, duration, trailer, description, genre
             await connection.query(sql, [movieId.insertId, genre])
         } catch (err) {
             console.error(err)
+            await connection.end()
+            return false
         }
     }
 
     await connection.end()
+    return true
 }
 
 const editMovie = async (movieId, title, age_rating, duration, description, trailer, genres) => {
@@ -163,6 +197,8 @@ const editMovie = async (movieId, title, age_rating, duration, description, trai
         [oldTitle] = await connection.query(sql, [movieId])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
 
     sql = 'UPDATE movies SET title = ?, age_rating = ?, duration = ?, description = ?, trailer = ? WHERE movie_id = ?;'
@@ -171,6 +207,8 @@ const editMovie = async (movieId, title, age_rating, duration, description, trai
         await connection.query(sql, [title, age_rating, duration, description, trailer, movieId])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
 
     fs.rename(`public/images/posters/${oldTitle[0].title}.jpg`, `public/images/posters/${title}.jpg`, (err) => {
@@ -187,6 +225,8 @@ const editMovie = async (movieId, title, age_rating, duration, description, trai
         await connection.query(sql, movieId)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
 
     for (const genre of genres) {
@@ -196,10 +236,13 @@ const editMovie = async (movieId, title, age_rating, duration, description, trai
             await connection.query(sql, [movieId, genre])
         } catch (err) {
             console.error(err)
+            await connection.end()
+            return false
         }
     }
 
     await connection.end()
+    return true
 }
 
 const getGenres = async () => {
@@ -211,6 +254,8 @@ const getGenres = async () => {
         [genres] = await connection.query(sql)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()
@@ -228,6 +273,8 @@ const addScreening = async (movie_id, cinema_id, hall, date, time, is_3D, sound_
         [newScreening] = await connection.query(sql, [movie_id, cinema_id, hall, date, time, +is_3D, sound_type])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()
@@ -242,9 +289,12 @@ const editScreening = async (screening_id, hall, time) => {
         await connection.query(sql, [hall, time, screening_id])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
     
     await connection.end()
+    return true
 }
 
 const deleteScreening = async (screeningId) => {
@@ -255,9 +305,12 @@ const deleteScreening = async (screeningId) => {
         await connection.query(sql, screeningId)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
     
     await connection.end()
+    return true
 }
 
 module.exports = {

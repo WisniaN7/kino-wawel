@@ -10,6 +10,8 @@ const getMovie = async (id) => {
         [movie] = await connection.query(sql, id)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     if (movie.length == 0)
@@ -29,6 +31,8 @@ const getMovie = async (id) => {
         [rating] = await connection.query(sql, id)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     movie[0].rating = rating[0].rating
@@ -46,6 +50,8 @@ const getScreenings = async (movieId, city, date) => {
         [screenings] = await connection.query(sql, [movieId, city, date])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()
@@ -61,6 +67,8 @@ const getReviews = async (movieId) => {
         [reviews] = await connection.query(sql, movieId)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
     
     await connection.end()

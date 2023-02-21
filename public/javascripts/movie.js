@@ -19,7 +19,12 @@ const id = urlParts[urlParts.length - 4]
 
 const getScreenings = async () => {
     const screenings = fetch('/film/screenings/' + id + '/' + city + '/' + date)
-        .then(response => response.json())
+        .then(response => {
+            if (response.status == 200)
+                return response.json()
+            else
+                createSnackbar('Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem serwisu.', 'error', 'long')
+        })
         
     const s = await screenings
 

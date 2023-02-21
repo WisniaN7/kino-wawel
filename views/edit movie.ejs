@@ -28,7 +28,7 @@
                             <span></span>
                             <span></span>
                         </div>
-                        <input type="file" id="poster" name="poster" hidden>
+                        <input type="file" id="poster" name="poster" hidden accept="image/jpeg">
                         <% if (movie) { %>
                             <img src="images/posters/<%= movie.title %>.jpg" alt="plakat">
                         <% } %>
@@ -89,7 +89,7 @@
                             <span></span>
                             <span></span>
                         </div>
-                        <input type="file" id="bgImage" name="bgImage" hidden>
+                        <input type="file" id="bgImage" name="bgImage" hidden accept="image/jpeg">
                         <% if (movie) { %>
                             <img src="images/background/<%= movie.title %>.jpg" alt="tło">
                         <% } %>
@@ -102,6 +102,7 @@
                 </div>
             </form>
         </section>
+        <%- include('../partials/snackbar') %>
     </main>
     <script src="javascripts/main.js"></script>
     <script src="javascripts/admin.js"></script>

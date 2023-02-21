@@ -13,34 +13,37 @@
             <header class="bottom-gradient-border">
                 <h2><span class="capital">M</span>oje filmy</h2>
             </header>
-            <% if (movies.length == 0) { %>
-                <h2>Brak historii obejrzanych filmów</h2>
-            <% } else { %>
-                <% for (const movie of movies) { %> 
-                    <article class="bottom-gradient-border listing description">
-                        <img src="images/posters/<%= movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= movie.title %>" >
-                        <a href="film/<%= movie.movie_id %>/Kraków/<%= new Date().toISOString().slice(0, 10) %>/<%= movie.title %>" class="info">
-                            <div>
-                                <h2><%- capitalizeTitle(movie.title) %></h2>
-                            </div>
-                            <p class="info"><%= movie.genres %> | Od lat <%= movie.age_rating %> | <%= movie.duration %> min</p>
-                            <p class="description"><%= movie.description %> </p>
-                        </a>
-                        <div class="rating">
-                            <div>
-                                <p><%= movie?.review ? 'Oceniono' : 'Oceń' %></p>
-                                <div class="stars" data-rating="<%= movie.rating %>" data-movie="<%= movie.movie_id %>">
-                                    <% for (let i = 0; i < 5; i++) { %>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star <%= i < movie.rating ? 'full' : '' %>"><polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /></svg>
-                                    <% } %> 
+            <% if (locals.movies) { %>
+                <% if (movies.length == 0) { %>
+                    <h2>Brak historii obejrzanych filmów</h2>
+                <% } else { %>
+                    <% for (const movie of movies) { %> 
+                        <article class="bottom-gradient-border listing description">
+                            <img src="images/posters/<%= movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= movie.title %>" >
+                            <a href="film/<%= movie.movie_id %>/Kraków/<%= new Date().toISOString().slice(0, 10) %>/<%= movie.title %>" class="info">
+                                <div>
+                                    <h2><%- capitalizeTitle(movie.title) %></h2>
                                 </div>
+                                <p class="info"><%= movie.genres %> | Od lat <%= movie.age_rating %> | <%= movie.duration %> min</p>
+                                <p class="description"><%= movie.description %> </p>
+                            </a>
+                            <div class="rating">
+                                <div>
+                                    <p><%= movie?.review ? 'Oceniono' : 'Oceń' %></p>
+                                    <div class="stars" data-rating="<%= movie.rating %>" data-movie="<%= movie.movie_id %>">
+                                        <% for (let i = 0; i < 5; i++) { %>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20.96 19.96" class="star <%= i < movie.rating ? 'full' : '' %>"><polygon points="19.46 7.35 12.26 7.35 9.98 0.5 7.7 7.35 0.5 7.35 6.34 11.61 4.22 18.46 9.98 14.3 15.74 18.46 13.62 11.61 19.46 7.35 19.46 7.35" /></svg>
+                                        <% } %> 
+                                    </div>
+                                </div>
+                                <a href="<%= user.username %>/recenzje/<%= movie?.review ? 'edytuj/' + movie.review_id : 'nowa/' + movie.movie_id %>" class="btn <%= movie?.review ? 'cta-2' : 'cta-1' %>"><%= movie?.review ? 'Edytuj recenzje' : 'Napisz recenzje' %></a>
                             </div>
-                            <a href="<%= user.username %>/recenzje/<%= movie?.review ? 'edytuj/' + movie.review_id : 'nowa/' + movie.movie_id %>" class="btn <%= movie?.review ? 'cta-2' : 'cta-1' %>"><%= movie?.review ? 'Edytuj recenzje' : 'Napisz recenzje' %></a>
-                        </div>
-                    </article>
+                        </article>
+                    <% } %>
                 <% } %>
             <% } %>
         </div>
+        <%- include('../partials/snackbar') %>
     </main>
     <script src="javascripts/main.js"></script>
     <script src="javascripts/watched.js"></script>

@@ -12,6 +12,8 @@ const getRepertoire = async (city, date) => {
         [movies] = await connection.query(sql, [city, date])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
     
     for (let movie of movies) {
@@ -22,6 +24,8 @@ const getRepertoire = async (city, date) => {
             [genres] = await connection.query(sql, movie.movie_id)
         } catch (err) {
             console.error(err)
+            await connection.end()
+            return null
         }
         
         movie.genres = genres.map(genre => genre.genre).join(', ')
@@ -35,6 +39,8 @@ const getRepertoire = async (city, date) => {
             [screenings] = await connection.query(sql, [city, date, movie.movie_id])
         } catch (err) {
             console.error(err)
+            await connection.end()
+            return null
         }
         
         for (let screening of screenings)

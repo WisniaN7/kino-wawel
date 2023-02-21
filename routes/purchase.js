@@ -5,12 +5,26 @@ const purchaseController = require('../controllers/purchaseController')
 
 router.get('/discounts/:discount_code', async (req, res, next) => {
     const discount = await purchaseController.getDiscount(req.params.discount_code)
-    res.status(200).json({ discount: discount })
+
+    if (discount)
+        res.status(200).json({ discount: discount })
+    else
+        res.status(500).send()
 })
 
 router.get('/:title/:screening', async (req, res, next) => {
     const ticketTypes = await purchaseController.getTicketTypes()
     const tickets = await purchaseController.getTickets(req.params.screening)
+
+    if (!ticketTypes || !tickets) {
+        res.render('purchase', {
+            snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem serwisu.', type: 'error', duration: 'long' },
+            user: req.session.user, screening: req.params.screening, title: req.params.title, host: req.hostname
+        })
+
+        return
+    }
+
     res.render('purchase', { user: req.session.user, screening: req.params.screening, title: req.params.title, tickets: tickets, ticketTypes: ticketTypes, host: req.hostname })
 })
 

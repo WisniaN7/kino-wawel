@@ -22,7 +22,9 @@ router.post('/signin', async (req, res, next) => {
 })
 
 router.post('/signup', async (req, res, next) => {
-    if (await authController.singup(req.body.login, req.body.email, req.body.password))   
+    const userSignedup = await authController.singup(req.body.login, req.body.email, req.body.password)
+
+    if (userSignedup)   
         res.redirect('/?status=6')
     else
         res.redirect('/rejestracja?status=8')

@@ -4,11 +4,13 @@
         <li><a href="administracja">Filmy</a></li>
         <li id="screeningsBtn">Seanse</li>
         <li>
-            <ul id="screenings" style="--cities: <%= cinemas.length %>;">
-                <% for (const cinema of cinemas) { %> 
-                    <li id="c<%= cinema.cinema_id %>"><a href="/administracja/seanse/<%= cinema.cinema_id %>/<%= cinema.city %>"><%= cinema.city %></a></li>
-                <% } %>
-            </ul>
+            <% if (locals.cinemas) { %>
+                <ul id="screenings" style="--cities: <%= cinemas.length %>;">
+                    <% for (const cinema of cinemas) { %> 
+                        <li id="c<%= cinema.cinema_id %>"><a href="/administracja/seanse/<%= cinema.cinema_id %>/<%= cinema.city %>"><%= cinema.city %></a></li>
+                    <% } %>
+                </ul>
+            <% } %>
         </li>
     </ul>
 </div>

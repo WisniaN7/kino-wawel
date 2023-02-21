@@ -9,6 +9,8 @@ const getHeroMovies = async () => {
         [heroMovies] = await connection.query(sql)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
     
     await connection.end()
@@ -24,6 +26,8 @@ const getCinemas = async () => {
         [cinemas] = await connection.query(sql)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
     
     await connection.end()

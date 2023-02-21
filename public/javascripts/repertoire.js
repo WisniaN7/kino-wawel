@@ -94,7 +94,12 @@ const getMovies = async (city, date) => {
     document.querySelector('main div.wrapper').appendChild(loader)
 
     const movies = fetch('/repertuar/' + city + '/' + date)
-        .then((response) => response.json())
+        .then((res) => {
+            if (res.ok)
+                return res.json()
+            else
+                createSnackbar('Wystąpił błąd podczas pobierania danych. Odśwież stronę lub skontaktuj się z administratorem serwisu.', 'error', 'long')
+        })
 
     const m = await movies
 

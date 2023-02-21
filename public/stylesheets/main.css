@@ -378,6 +378,11 @@ h2 span.capital {
     cursor: pointer;
 }
 
+button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+}
+
 .btn {
     text-decoration: none;
 }

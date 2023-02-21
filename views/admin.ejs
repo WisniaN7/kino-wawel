@@ -17,27 +17,30 @@
                 <h2><span class="capital">F</span>ilmy</h2>
                 <a href="administracja/filmy/edytuj/nowy" class="add btn cta-1">Dodaj nowy</a>
             </header>
-            <% for (const movie of movies) { %> 
-                <article class="bottom-gradient-border listing">
-                    <img src="images/posters/<%= movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= movie.title %>">
-                    <div class="info">
-                        <div>
-                            <h2><%- capitalizeTitle(movie.title) %> </h2>
+            <% if (locals.movies) { %> 
+                <% for (const movie of movies) { %> 
+                    <article class="bottom-gradient-border listing">
+                        <img src="images/posters/<%= movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= movie.title %>">
+                        <div class="info">
+                            <div>
+                                <h2><%- capitalizeTitle(movie.title) %> </h2>
+                            </div>
+                            <p class="info"><%= movie.genres %> | Od lat <%= movie.age_rating %> | <%= movie.duration %> min</p>
+                            <p class="description"><%= movie.description %></p>
                         </div>
-                        <p class="info"><%= movie.genres %> | Od lat <%= movie.age_rating %> | <%= movie.duration %> min</p>
-                        <p class="description"><%= movie.description %></p>
-                    </div>
-                    <p class="status <%= movie.status %>"><span>•</span> <%= movie.statusLocalized %></p>
-                    <div class="manage">
-                        <a href="administracja/filmy/edytuj/<%= movie.movie_id %>/<%= movie.title %>" class="edit btn cta-1">Edytuj</a>
-                        <% if (!movie.archived) { %>
-                            <a href="" class="edit btn cta-3 archive" data-movie="<%= movie.movie_id %> ">Zarchiwizuj</a>
-                        <% } %>
-                        <a href="" class="delete btn cta-2 alert" data-movie="<%= movie.movie_id %> " data-title="<%= movie.title %>">Usuń</a>
-                    </div>
-                </article>
+                        <p class="status <%= movie.status %>"><span>•</span> <%= movie.statusLocalized %></p>
+                        <div class="manage">
+                            <a href="administracja/filmy/edytuj/<%= movie.movie_id %>/<%= movie.title %>" class="edit btn cta-1">Edytuj</a>
+                            <% if (!movie.archived) { %>
+                                <a href="" class="edit btn cta-3 archive" data-movie="<%= movie.movie_id %> ">Zarchiwizuj</a>
+                            <% } %>
+                            <a href="" class="delete btn cta-2 alert" data-movie="<%= movie.movie_id %> " data-title="<%= movie.title %>">Usuń</a>
+                        </div>
+                    </article>
+                <% } %>
             <% } %>
         </section>
+        <%- include('../partials/snackbar') %>
     </main>
     <script src="javascripts/main.js"></script>
     <script src="javascripts/admin.js"></script>

@@ -25,9 +25,12 @@ const singup = async (login, email, password) => {
         await connection.query(sql, [login, email, password])
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
     
     await connection.end()
+    return true
 }
 
 module.exports = {

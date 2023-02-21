@@ -35,11 +35,11 @@
                 <div class="wrapper">
                     <div id="table">
                         <form action="">
-                            <table style="--columns: <%= halls + 1 %>"> 
+                            <table style="--columns: <%= locals.halls ? halls + 1 : 5 %>"> 
                                 <thead>
                                     <tr>
                                         <th>Godz.</th>
-                                        <% for (let i = 1; i <= halls; i++) { %>
+                                        <% for (let i = 1; i <= (locals.halls ? halls : 4); i++) { %>
                                             <th>Sala <%= i %></th>
                                         <% } %> 
                                     </tr>
@@ -66,18 +66,21 @@
                                 <option value="lector">Lektor</option>
                             </select>
                         </header>
-                        <% for (const movie of movies) { %> 
-                            <div draggable="true" class="screening subtitled" data-duration="<%= movie.duration %>" id="m<%= movie.movie_id %>" style="--duration: <%= movie.duration %>;">
-                                <p><%= movie.title %><span><%= movie.duration %> min</span></p>
-                                <div class="ads">Reklamy</div>
-                                <div data-title="<%= movie.title %>" class="movie">Film</div>
-                                <div class="cleanup">Sprzątanie</div>
-                            </div>
+                        <% if (locals.movies) { %>
+                            <% for (const movie of movies) { %> 
+                                <div draggable="true" class="screening subtitled" data-duration="<%= movie.duration %>" id="m<%= movie.movie_id %>" style="--duration: <%= movie.duration %>;">
+                                    <p><%= movie.title %><span><%= movie.duration %> min</span></p>
+                                    <div class="ads">Reklamy</div>
+                                    <div data-title="<%= movie.title %>" class="movie">Film</div>
+                                    <div class="cleanup">Sprzątanie</div>
+                                </div>
+                            <% } %> 
                         <% } %> 
                     </aside>
                 </div>
             </section>
         </section>
+        <%- include('../partials/snackbar') %>
     </main>
     <script src="javascripts/main.js"></script>
     <script src="javascripts/admin.js"></script>

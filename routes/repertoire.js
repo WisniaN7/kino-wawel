@@ -9,7 +9,11 @@ router.get('/', (req, res, next) => {
 
 router.get('/:city/:date', async (req, res, next) => {
     const ret = await repertoireController.getRepertoire(req.params.city, req.params.date)
-    res.status(200).send(ret)
+
+    if (ret)
+        res.status(200).json(ret)
+    else
+        res.status(500).send()
 })
 
 router.get('/fill', async (req, res, next) => {

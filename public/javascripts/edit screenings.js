@@ -1,3 +1,5 @@
+// TODO: dropping screenings on itself - force target to cell and not div
+
 const urlParts = window.location.href.split('/')
 const city = urlParts[urlParts.length - 1]
 const cityId = urlParts[urlParts.length - 2]
@@ -88,7 +90,7 @@ function createTimetable(tbody) {
         cell.addEventListener('drop', async (e) => {
             e.preventDefault()
             const data = e.dataTransfer.getData('id')
-            const movie = document.querySelector('table #' + data)
+            const movie = document.querySelector('#' + data)
 
             const cellsOccupied = Math.ceil((parseInt(movie.getAttribute('data-duration')) + 60) / 30)
             const col = parseInt(cell.getAttribute('data-col'))
@@ -259,9 +261,11 @@ function addEventListeners() {
 
 const getRepertoire = async (city, date) => {
     const repertoire = fetch('/administracja/screenings/get/' + cityId + '/' + date)
-        .then((response) => response.json())
-        .then((data) => {
-            return data
+        .then((res) =>  {
+            if (res.status == 200)
+                return res.json()
+            else
+                createSnackbar('Wystąpił błąd podczas pobierania danych. Odśwież stronę lub skontaktuj się z administratorem.', 'error', 'long')
         })
 
     const screenings = await repertoire

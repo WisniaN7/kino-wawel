@@ -13,34 +13,37 @@
             <header class="bottom-gradient-border">
                 <h2><span class="capital">M</span>oje bilety</h2>
             </header>
-            <% if (tickets.length == 0) { %>
-                <h2>Brak historii biletów</h2>
-            <% } else { %>
-                <% for (const ticket of tickets) { %>
-                    <% const expired = new Date() > new Date([ticket.date.getFullYear(), ticket.date.getMonth(), ticket.date.getDate()].join('-') + 'T' + ticket.time) %> 
-                    <article class="bottom-gradient-border listing description">
-                        <img src="images/posters/<%= ticket.movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= ticket.movie.title %>" >
-                        <a href="film/<%= ticket.movie.movie_id %>/<%= ticket.city %>/<%= ticket.date.toISOString().slice(0, 10) %>/<%= ticket.movie.title %>" class="info">
-                            <div>
-                                <h2><%- capitalizeTitle(ticket.movie.title) %></h2>
-                            </div>
-                            <p class="info"><%= ticket.movie.genre %> | Od lat <%= ticket.movie.age_rating %> | <%= ticket.movie.duration %> min</p>
-                            <p class="date <%= expired ? 'expired' : '' %> "><%= ticket.city %> <%= ticket.date.toLocaleDateString() %> <%= ticket.time.slice(0, 5) %></p>
-                        </a>
-                        <div class="tickets">
-                            <div class="types">
-                                <% for (const ticket_type in ticket.tickets) { %>
-                                    <p> <%= ticket_type %> <br> <%= ticket.tickets[ticket_type] %> </p>
+            <% if (locals.tickets) { %>
+                <% if (tickets.length == 0) { %>
+                    <h2>Brak historii biletów</h2>
+                <% } else { %>
+                    <% for (const ticket of tickets) { %>
+                        <% const expired = new Date() > new Date([ticket.date.getFullYear(), ticket.date.getMonth(), ticket.date.getDate()].join('-') + 'T' + ticket.time) %> 
+                        <article class="bottom-gradient-border listing description">
+                            <img src="images/posters/<%= ticket.movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= ticket.movie.title %>" >
+                            <a href="film/<%= ticket.movie.movie_id %>/<%= ticket.city %>/<%= ticket.date.toISOString().slice(0, 10) %>/<%= ticket.movie.title %>" class="info">
+                                <div>
+                                    <h2><%- capitalizeTitle(ticket.movie.title) %></h2>
+                                </div>
+                                <p class="info"><%= ticket.movie.genre %> | Od lat <%= ticket.movie.age_rating %> | <%= ticket.movie.duration %> min</p>
+                                <p class="date <%= expired ? 'expired' : '' %> "><%= ticket.city %> <%= ticket.date.toLocaleDateString() %> <%= ticket.time.slice(0, 5) %></p>
+                            </a>
+                            <div class="tickets">
+                                <div class="types">
+                                    <% for (const ticket_type in ticket.tickets) { %>
+                                        <p> <%= ticket_type %> <br> <%= ticket.tickets[ticket_type] %> </p>
+                                    <% } %>
+                                </div>
+                                <% if (!expired) { %> 
+                                    <a href="files/bilet.txt" class="btn cta-1" download>Pobierz bilety</a>
                                 <% } %>
                             </div>
-                            <% if (!expired) { %> 
-                                <a href="files/bilet.txt" class="btn cta-1" download>Pobierz bilety</a>
-                            <% } %>
-                        </div>
-                    </article>
+                        </article>
+                    <% } %>
                 <% } %>
             <% } %>
         </div>
+        <%- include('../partials/snackbar') %>
     </main>
     <script src="javascripts/main.js"></script>
 </body>

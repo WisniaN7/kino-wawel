@@ -26,7 +26,7 @@ const redirectTo404 = (req, res, next) => {
 }
 
 router.get('/', async (req, res, next) => {
-    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+    // req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
 
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
@@ -35,20 +35,39 @@ router.get('/', async (req, res, next) => {
 
     const movies = await adminController.getMoviesWithStatus()
     const cinemas = await indexController.getCinemas()
+    
+    if (!movies || !cinemas) {
+        res.render('admin', {
+            snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem.', type: 'error', duration: 'long' },
+            halls: halls, user: req.session.user, host: req.hostname
+        })
+        
+        return
+    }
+
     res.render('admin', { movies: movies, cinemas: cinemas, user: req.session.user, host: req.hostname })
 })
 
 router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
-    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+    // req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
 
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return
     }
         
-    const cinemas = await indexController.getCinemas()
     const movie = await movieController.getMovie(req.params.id)
     const genres = await adminController.getGenres()
+    const cinemas = await indexController.getCinemas()
+
+    if (!movie || !genres || !cinemas) {
+        res.render('admin', {
+            snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem.', type: 'error', duration: 'long' },
+            halls: halls, user: req.session.user, host: req.hostname
+        })
+
+        return
+    }
 
     res.render('edit movie', { movie: movie, cinemas: cinemas, genres: genres, user: req.session.user, host: req.hostname })
 })
@@ -57,38 +76,38 @@ router.post('/movies/archive', async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
-    await adminController.archiveMovie(req.body.movie_id)
-    res.status(200).send()
+    const movieArchived = await adminController.archiveMovie(req.body.movie_id)
+    res.status(movieArchived ? 200 : 500).send()
 })
 
 router.delete('/movies/delete', async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
-    await adminController.deleteMovie(req.body.movie_id)
-    res.status(200).send()
+    const movieDeleted = await adminController.deleteMovie(req.body.movie_id)
+    res.status(movieDeleted ? 200 : 500).send()
 })
 
 router.post('/movies/add', uploads, async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
-    await adminController.addMovie(req.body.title, req.body.PG, req.body.duration, req.body.trailer, req.body.description, req.body.genres.split(', '))
-    res.status(200).send()
+    const movieAdded = await adminController.addMovie(req.body.title, req.body.PG, req.body.duration, req.body.trailer, req.body.description, req.body.genres.split(', '))
+    res.status(movieAdded ? 200 : 500).send()
 })
 
 router.post('/movies/edit', uploads, async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
-    await adminController.editMovie(req.body.movie, req.body.title, req.body.PG, req.body.duration, req.body.description, req.body.trailer, req.body.genres.split(', '))
-    res.status(200).send()
+    const movieEdited = await adminController.editMovie(req.body.movie, req.body.title, req.body.PG, req.body.duration, req.body.description, req.body.trailer, req.body.genres.split(', '))
+    res.status(movieEdited ? 200 : 500).send()
 })
 
 
 
 router.get('/seanse/:city/*', async (req, res, next) => {
-    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+    // req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
 
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
@@ -97,6 +116,16 @@ router.get('/seanse/:city/*', async (req, res, next) => {
 
     const movies = await adminController.getMovies()
     const cinemas = await indexController.getCinemas()
+
+    if (!movies || !cinemas) {
+        res.render('edit screenings', {
+            snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem.', type: 'error', duration: 'long' },
+            user: req.session.user, host: req.hostname
+        })
+
+        return
+    }
+
     let halls = 0
 
     for (const cinema of cinemas)
@@ -113,7 +142,11 @@ router.get('/screenings/get/:city/:date', async (req, res, next) => {
     }
 
     const repertoire = await adminController.getScreenings(req.params.city, req.params.date)
-    res.status(200).json(repertoire)
+
+    if (repertoire)
+        res.status(200).json(repertoire)
+    else
+        res.status(500).send()
 })
 
 router.post('/screenings/add', async (req, res, next) => {
@@ -121,23 +154,27 @@ router.post('/screenings/add', async (req, res, next) => {
         res.status(403).send()
 
     const newScreening = await adminController.addScreening(req.body.movie_id, req.body.cinema_id, req.body.hall, req.body.date, req.body.time, req.body.is_3D, req.body.sound_type)
-    res.status(200).json({ screening_id: newScreening.insertId })
+    
+    if (newScreening)
+        res.status(200).json({ screening_id: newScreening.insertId })
+    else
+        res.status(500).send()
 })
 
 router.post('/screenings/edit', async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
-    await adminController.editScreening(req.body.screening_id, req.body.hall, req.body.time)
-    res.status(200).send()
+    const screeningEdited = await adminController.editScreening(req.body.screening_id, req.body.hall, req.body.time)
+    res.status(screeningEdited ? 200 : 500).send()
 })
 
 router.delete('/screenings', async (req, res, next) => {
     if (req.session.user && req.session.user.role != 'admin')
         res.status(403).send()
 
-    await adminController.deleteScreening(req.body.id)
-    res.status(200).send()
+    const screningDeleted = await adminController.deleteScreening(req.body.id)
+    res.status(screningDeleted ? 200 : 500).send()
 })
 
 module.exports = router;

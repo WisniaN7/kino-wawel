@@ -9,6 +9,8 @@ const getTickets = async (id) => {
         [tickets] = await connection.query(sql, id)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()
@@ -24,6 +26,8 @@ const getTicketTypes = async () => {
         [ticketTypes] = await connection.execute(sql)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
     
     await connection.end()
@@ -51,9 +55,12 @@ const buyTickets = async (screening, seats, ticketsCounts, userId = null) => {
         await connection.execute(sql, placeholders)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
     
     await connection.end()
+    return true
 }
 
 const areSeatFree = async (screening, seats) => {
@@ -71,6 +78,8 @@ const areSeatFree = async (screening, seats) => {
         [result] = await connection.execute(sql, placeholders)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return false
     }
 
     await connection.end()
@@ -86,6 +95,8 @@ const getDiscount = async (discountCode) => {
         [discount] = await connection.query(sql, discountCode)
     } catch (err) {
         console.error(err)
+        await connection.end()
+        return null
     }
 
     await connection.end()

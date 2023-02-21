@@ -13,52 +13,55 @@
             <header class="bottom-gradient-border">
                 <h2><span class="capital">K</span>ontakt</h2>
             </header>
-            <article class="bottom-gradient-border listing description">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2551.187638186915!2d19.02343711501403!3d50.251079709592474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ce4c68133a5d%3A0x45e997ada8be953b!2sReymonta%2034%2C%2040-038%20Katowice!5e0!3m2!1sen!2spl!4v1674032948704!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <div>
-                    <h2><%= cinemas[0].city %></h2>
-                    <p><%= cinemas[0].address %>, <%= cinemas[0].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[0].city %></p>
-                    <a href="mailto:<%= cinemas[0].email %>"><%= cinemas[0].email %></a>
-                    <p><%= ('+48' + cinemas[0].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
-                </div>
-            </article>
-            <article class="bottom-gradient-border listing description">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2561.500741577903!2d19.941645015005285!3d50.0581832234336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b1478c5fd51%3A0xd5433298b8a5488c!2sStarowi%C5%9Blna%2010%2C%2031-032%20Krak%C3%B3w!5e0!3m2!1sen!2spl!4v1674033190923!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <div>
-                    <h2><%= cinemas[1].city %></h2>
-                    <p><%= cinemas[1].address %>, <%= cinemas[1].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[1].city %></p>
-                    <a href="mailto:<%= cinemas[1].email %>"><%= cinemas[1].email %></a>
-                    <p><%= ('+48' + cinemas[1].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
-                </div>
-            </article>
-            <article class="bottom-gradient-border listing description">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.507065909098!2d15.287591215053714!3d51.1175543469537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4708d3949ee4c093%3A0xd46ba8b0a377a44f!2s7%20Dywizji%2015%2C%2059-800%20Luba%C5%84!5e0!3m2!1sen!2spl!4v1674033142328!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <div>
-                    <h2><%= cinemas[2].city %></h2>
-                    <p><%= cinemas[2].address %>, <%= cinemas[2].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[2].city %></p>
-                    <a href="mailto:<%= cinemas[2].email %>"><%= cinemas[2].email %></a>
-                    <p><%= ('+48' + cinemas[2].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
-                </div>
-            </article>
-            <article class="bottom-gradient-border listing description">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.8175831259696!2d17.929563615033118!3d50.66764737957297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47105308b608e2d9%3A0xb646fc9ade2f91a3!2sOzimska%2040%2C%2045-058%20Opole!5e0!3m2!1sen!2spl!4v1674033227049!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <div>
-                    <h2><%= cinemas[3].city %></h2>
-                    <p><%= cinemas[3].address %>, <%= cinemas[3].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[3].city %></p>
-                    <a href="mailto:<%= cinemas[3].email %>"><%= cinemas[3].email %></a>
-                    <p><%= ('+48' + cinemas[3].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
-                </div>
-            </article>
-            <article class="bottom-gradient-border listing description">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.7161897400492!2d17.035457315053534!3d51.113696347234296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fe9d8d561b2cb%3A0x85e298f44e3ba71b!2sGrodzka%2011%2C%2050-115%20Wroc%C5%82aw!5e0!3m2!1sen!2spl!4v1674033263442!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                <div>
-                    <h2><%= cinemas[4].city %></h2>
-                    <p><%= cinemas[4].address %>, <%= cinemas[4].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[4].city %></p>
-                    <a href="mailto:<%= cinemas[4].email %>"><%= cinemas[4].email %></a>
-                    <p><%= ('+48' + cinemas[4].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
-                </div>
-            </article>
+            <% if (locals.cinemas) { %>
+                <article class="bottom-gradient-border listing description">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2551.187638186915!2d19.02343711501403!3d50.251079709592474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4716ce4c68133a5d%3A0x45e997ada8be953b!2sReymonta%2034%2C%2040-038%20Katowice!5e0!3m2!1sen!2spl!4v1674032948704!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div>
+                        <h2><%= cinemas[0].city %></h2>
+                        <p><%= cinemas[0].address %>, <%= cinemas[0].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[0].city %></p>
+                        <a href="mailto:<%= cinemas[0].email %>"><%= cinemas[0].email %></a>
+                        <p><%= ('+48' + cinemas[0].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
+                    </div>
+                </article>
+                <article class="bottom-gradient-border listing description">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2561.500741577903!2d19.941645015005285!3d50.0581832234336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b1478c5fd51%3A0xd5433298b8a5488c!2sStarowi%C5%9Blna%2010%2C%2031-032%20Krak%C3%B3w!5e0!3m2!1sen!2spl!4v1674033190923!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div>
+                        <h2><%= cinemas[1].city %></h2>
+                        <p><%= cinemas[1].address %>, <%= cinemas[1].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[1].city %></p>
+                        <a href="mailto:<%= cinemas[1].email %>"><%= cinemas[1].email %></a>
+                        <p><%= ('+48' + cinemas[1].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
+                    </div>
+                </article>
+                <article class="bottom-gradient-border listing description">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.507065909098!2d15.287591215053714!3d51.1175543469537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4708d3949ee4c093%3A0xd46ba8b0a377a44f!2s7%20Dywizji%2015%2C%2059-800%20Luba%C5%84!5e0!3m2!1sen!2spl!4v1674033142328!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div>
+                        <h2><%= cinemas[2].city %></h2>
+                        <p><%= cinemas[2].address %>, <%= cinemas[2].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[2].city %></p>
+                        <a href="mailto:<%= cinemas[2].email %>"><%= cinemas[2].email %></a>
+                        <p><%= ('+48' + cinemas[2].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
+                    </div>
+                </article>
+                <article class="bottom-gradient-border listing description">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2528.8175831259696!2d17.929563615033118!3d50.66764737957297!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47105308b608e2d9%3A0xb646fc9ade2f91a3!2sOzimska%2040%2C%2045-058%20Opole!5e0!3m2!1sen!2spl!4v1674033227049!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div>
+                        <h2><%= cinemas[3].city %></h2>
+                        <p><%= cinemas[3].address %>, <%= cinemas[3].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[3].city %></p>
+                        <a href="mailto:<%= cinemas[3].email %>"><%= cinemas[3].email %></a>
+                        <p><%= ('+48' + cinemas[3].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
+                    </div>
+                </article>
+                <article class="bottom-gradient-border listing description">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2504.7161897400492!2d17.035457315053534!3d51.113696347234296!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470fe9d8d561b2cb%3A0x85e298f44e3ba71b!2sGrodzka%2011%2C%2050-115%20Wroc%C5%82aw!5e0!3m2!1sen!2spl!4v1674033263442!5m2!1sen!2spl" style="border:0;" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div>
+                        <h2><%= cinemas[4].city %></h2>
+                        <p><%= cinemas[4].address %>, <%= cinemas[4].postal_code.toString().replace(/^(.{2})(.*)$/, "$1-$2") %> <%= cinemas[4].city %></p>
+                        <a href="mailto:<%= cinemas[4].email %>"><%= cinemas[4].email %></a>
+                        <p><%= ('+48' + cinemas[4].phone_number).replace(/^(.{3})(.{3})(.{3})(.*)$/, "$1 $2 $3 $4") %></p>
+                    </div>
+                </article>
+            <% } %>
         </div>
+        <%- include('../partials/snackbar') %>
     </main>
     <script src="javascripts/main.js"></script>
 </body>
