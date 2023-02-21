@@ -1,5 +1,3 @@
-// TODO: Remove error when screening is moved in the same place
-
 const urlParts = window.location.href.split('/')
 const city = urlParts[urlParts.length - 1]
 const cityId = urlParts[urlParts.length - 2]
@@ -67,7 +65,7 @@ function createTimetable(tbody) {
                 tr.appendChild(td)
             } else {
                 const td = document.createElement('td')
-                td.setAttribute('data-row', i - 19)
+                td.setAttribute('data-row', i - 17)
                 td.setAttribute('data-col', j)
 
                 const checkbox = document.createElement('input')
@@ -90,17 +88,19 @@ function createTimetable(tbody) {
         cell.addEventListener('drop', async (e) => {
             e.preventDefault()
             const data = e.dataTransfer.getData('id')
-            const movie = document.querySelector('#' + data)
+            const movie = document.querySelector('table #' + data)
 
-            const cellsOccupied = Math.ceil(movie.getAttribute('data-duration') / 30)
+            const cellsOccupied = Math.ceil((parseInt(movie.getAttribute('data-duration')) + 60) / 30)
             const col = parseInt(cell.getAttribute('data-col'))
             const row = parseInt(cell.getAttribute('data-row'))
             
-            for (let i = 0; i < cellsOccupied - 1; i++) {
-                const cell = document.querySelector('table tr:nth-of-type(' + parseInt(row + i) + ') td:nth-of-type(' + parseInt(col + 1) + ')')
-                
-                if (cell.querySelector('input').checked) {
-                    const collision = cell.querySelector('div.screening')
+            for (let i = 0; i < cellsOccupied; i++) {
+                const checkedCell = document.querySelector('table tr:nth-of-type(' + parseInt(row + i) + ') td:nth-of-type(' + parseInt(col + 1) + ')')
+
+                if (!checkedCell || checkedCell.querySelector('input').checked) {
+                    movie.parentElement.querySelector('input').checked = true
+
+                    const collision = checkedCell.querySelector('div.screening')
                     collision.classList.remove('collide')
                     collision.classList.add('collide')
                     setTimeout(() => collision.classList.remove('collide'), 3000)
@@ -150,6 +150,7 @@ function addEventListeners() {
 
     moviesElements.forEach((movie) => {
         movie.addEventListener('dragstart', (e) => {
+            movie.parentElement.querySelector('input').checked = false
             e.dataTransfer.setData('id', e.target.id)
         })
     })
@@ -275,6 +276,7 @@ const getRepertoire = async (city, date) => {
         movie.id = 'm' + screening.movie_id + '_' + screening.screening_id
 
         movie.addEventListener('dragstart', (e) => {
+            movie.parentElement.querySelector('input').checked = false
             e.dataTransfer.setData('id', e.target.id)
         })
 
