@@ -217,7 +217,7 @@ const updateReview = async (userId, movieId, rating, review) => {
     return true
 }
 
-const hasUserSeenMovie = async (userId, movieId) => {
+const userWatchedmovie = async (userId, movieId) => {
     const watchedMovies = await getWatched(req.session.user.user_id)
     return watchedMovies.some(movie => movie.movie_id === movieId)
 }
@@ -230,5 +230,5 @@ module.exports = {
     getMovie,
     updateRating,
     updateReview,
-    hasUserSeenMovie,
+    userWatchedmovie,
 }
