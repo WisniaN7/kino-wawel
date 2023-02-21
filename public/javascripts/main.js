@@ -81,7 +81,7 @@ function handleErrors() {
     else if (error == 19)
         createSnackbar('Miejsca są już zajęte.', 'error', 'short')
     else if (error == 20)
-        createSnackbar('Recenzje można dodawać tylko do obejrzanych filmów.', 'error', 'short')
+        createSnackbar('Recenzje można dodawać tylko do obejrzanych filmów.', 'error', 'long')
     else
         createSnackbar('Unknown status: ' + error + ', with message: ' + message)
 }
