@@ -69,44 +69,48 @@
                 </div>
             </section>
             <aside>
-                <h2><span class="capital">T</span>woje <span class="capital">B</span>ilety</h2>
-                <div id="tickets" data-chosen="0" data-required="0">
-                    <% for (const [i, ticket] of ticketTypes.entries()) { %>
-                        <div class="ticket-type">
-                            <div class="counter">
-                                <div class="minus">
-                                    <span></span>
+                <div>
+                    <h2><span class="capital">T</span>woje <span class="capital">B</span>ilety</h2>
+                    <div id="tickets" data-chosen="0" data-required="0">
+                        <% for (const [i, ticket] of ticketTypes.entries()) { %>
+                            <div class="ticket-type">
+                                <div class="counter">
+                                    <div class="minus">
+                                        <span></span>
+                                    </div>
+                                    <div <%= i + 1 == ticketTypes.length ? 'id=validation' : ''  %> >    
+                                        <span class="ticket-counter" data-price= <%= ticket.price %> >0</span>
+                                        <input type="number" name= <%= ticket.ticket_type_id %> value="0">
+                                        <% if (i + 1  == ticketTypes.length) { %>
+                                            <input type="radio" name="validation" required>
+                                        <% } %>
+                                    </div>
+                                    <div class="plus">
+                                        <span></span>
+                                        <span></span>
+                                    </div>
                                 </div>
-                                <div <%= i + 1 == ticketTypes.length ? 'id=validation' : ''  %> >    
-                                    <span class="ticket-counter" data-price= <%= ticket.price %> >0</span>
-                                    <input type="number" name= <%= ticket.ticket_type_id %> value="0">
-                                    <% if (i + 1  == ticketTypes.length) { %>
-                                        <input type="radio" name="validation" required>
-                                    <% } %>
-                                </div>
-                                <div class="plus">
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                                <p><%= ticket.ticket_type %> <span class="price"><%= ticket.price %></span>,-</p>
                             </div>
-                            <p><%= ticket.ticket_type %> <span class="price"><%= ticket.price %></span>,-</p>
-                        </div>
-                    <% } %>
-                </div>
-                <div id="inputs">
-                    <input type="email" name="email" placeholder="Wprowadź adres e-mail" <%= user?.email ? 'value=' + user.email : '' %> required>
-                    <div>
-                        <input type="text" name="discount_code" placeholder="Kod rabatowy">
-                        <button><span>&#8594;</span></button>
+                        <% } %>
                     </div>
                 </div>
-                <div id="summary">
-                    <h3>Do zapłaty: </h3>
-                    <p><span>0</span> zł</p>
-                </div>
-                <div id="buttons">
-                    <a href="repertuar" class="cta-3 btn">Anuluj</a>
-                    <button type="submit" class="cta-1">Zapłać</button>
+                <div>
+                    <div id="inputs">
+                        <input type="email" name="email" placeholder="Wprowadź adres e-mail" <%= user?.email ? 'value=' + user.email : '' %> required>
+                        <div>
+                            <input type="text" name="discount_code" placeholder="Kod rabatowy">
+                            <button><span>&#8594;</span></button>
+                        </div>
+                    </div>
+                    <div id="summary">
+                        <h3>Do zapłaty: </h3>
+                        <p><span>0</span> zł</p>
+                    </div>
+                    <div id="buttons">
+                        <a href="repertuar" class="cta-3 btn">Anuluj</a>
+                        <button type="submit" class="cta-1">Zapłać</button>
+                    </div>
                 </div>
             </aside>
         </form>

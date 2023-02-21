@@ -116,6 +116,7 @@ section#movie aside div.screenings {
     width: 100%;
     margin-left: auto;
     display: flex;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     transform: skew(5deg)
 }
@@ -275,7 +276,6 @@ section#reviews > p:last-child {
     }
 
     section#movie aside div.screenings {
-        justify-content: space-evenly;
         transform: unset;
     }
 

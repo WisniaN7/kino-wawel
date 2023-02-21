@@ -121,6 +121,9 @@ main form aside {
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #333;
     text-align: right;
     padding: 25px 60px;
@@ -223,7 +226,6 @@ main form aside div#tickets div.ticket-type div.counter div#validation input[typ
 
 main form aside div#inputs {
     width: 100%;
-    margin-top: 35%;
 }
 
 main form aside div#inputs input,
