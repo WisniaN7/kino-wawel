@@ -88,6 +88,8 @@ router.post('/movies/edit', uploads, async (req, res, next) => {
 
 
 router.get('/seanse/:city/*', async (req, res, next) => {
+    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return

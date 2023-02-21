@@ -62,12 +62,24 @@ const randomFillDatabase = async () => {
         console.error(err)
     }
 
+    let durations = []
+
+    try {
+        [durations] = await connection.execute('SELECT duration FROM movies;')
+    } catch (err) {
+        console.error(err)
+    }
+    
     let date = new Date('2023-01-01')
     const endDate = new Date('2023-04-01')
     const endTime = new Date('1970-01-01T23:30:00')
+    
+    const movies = durations.length
+    let movieDurations = []
 
-    const movies = 4
-    const movieDurations = [6, 9, 6, 6] // Ceil in half hours for example: ceil(147 min / 30 min) == 5
+    for (const duration of durations)
+        movieDurations.push(Math.ceil((duration.duration + 60) / 30))
+
     const cinemas = 5
     const cinemaHalls = [3, 2, 4, 1, 4]
     const soundTypes = ['Dubbing', 'Napisy']
@@ -98,7 +110,7 @@ const randomFillDatabase = async () => {
                         console.error(err)
                     }
 
-                    time.setTime(time.getTime() + (movieDurations[movie] * 30 * 60 * 1000))
+                    time.setTime(time.getTime() + (movieDurations[movie - 1] * 30 * 60 * 1000))
                     console.log(i++)
                 }
             }

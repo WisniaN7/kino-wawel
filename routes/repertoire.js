@@ -13,6 +13,8 @@ router.get('/:city/:date', async (req, res, next) => {
 })
 
 router.get('/fill', async (req, res, next) => {
+    // req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         res.locals.message = 'Not Found'
         res.locals.error = { status: 404 }
