@@ -230,5 +230,5 @@ module.exports = {
     getMovie,
     updateRating,
     updateReview,
-    userWatchedmovie,
+    userWatchedmovie
 }
