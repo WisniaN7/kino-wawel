@@ -77,6 +77,11 @@ router.get('/*/recenzje/nowa/:id', async (req, res, next) => {
         return
     }
 
+    if (await userController.checkIfWatched(req.session.user.user_id, req.params.id) == false) {
+        res.redirect('/' + req.session.user.username + '/recenzje?status=20')
+        return
+    }
+
     const movie = await userController.getMovie(req.params.id)
 
     if (!movie) {

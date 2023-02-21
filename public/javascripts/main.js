@@ -80,6 +80,8 @@ function handleErrors() {
         createSnackbar('Wybrano niepoprawną liczbę biletów.', 'error', 'short')
     else if (error == 19)
         createSnackbar('Miejsca są już zajęte.', 'error', 'short')
+    else if (error == 20)
+        createSnackbar('Recenzje można dodawać tylko do obejrzanych filmów.', 'error', 'short')
     else
         createSnackbar('Unknown status: ' + error + ', with message: ' + message)
 }
