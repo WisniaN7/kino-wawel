@@ -26,8 +26,6 @@ const redirectTo404 = (req, res, next) => {
 }
 
 router.get('/', async (req, res, next) => {
-    // req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
-
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return
@@ -49,8 +47,6 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
-    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
-
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return
@@ -111,8 +107,6 @@ router.post('/movies/edit', uploads, async (req, res, next) => {
 
 
 router.get('/seanse/:city/*', async (req, res, next) => {
-    // req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
-
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return

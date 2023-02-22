@@ -4,8 +4,6 @@ let router = express.Router()
 const userController = require('../controllers/userController')
 
 router.get('/*/bilety', async (req, res, next) => {
-    req.session.user = { user_id: 2, username: 'user', email: 'user@gmail.com', role: 'user' }
-
     if (req.session.user == undefined) {
         res.redirect('/logowanie?status=17')
         return
@@ -26,8 +24,6 @@ router.get('/*/bilety', async (req, res, next) => {
 })
 
 router.get('/*/recenzje', async (req, res, next) => {
-    req.session.user = { user_id: 2, username: 'user', email: 'user@gmail.com', role: 'user' }
-
     if (req.session.user == undefined) {
         res.redirect('/logowanie?status=17')
         return
@@ -48,8 +44,6 @@ router.get('/*/recenzje', async (req, res, next) => {
 })
 
 router.get('/*/obejrzane', async (req, res, next) => {
-    req.session.user = { user_id: 2, username: 'user', email: 'user@gmail.com', role: 'user' }
-
     if (req.session.user == undefined) {
         res.redirect('/logowanie?status=17')
         return
@@ -70,8 +64,6 @@ router.get('/*/obejrzane', async (req, res, next) => {
 })
 
 router.get('/*/recenzje/nowa/:id', async (req, res, next) => {
-    req.session.user = { user_id: 2, username: 'user', email: 'user@gmail.com', role: 'user' }
-
     if (req.session.user == undefined) {
         res.redirect('/logowanie?status=17')
         return
@@ -97,8 +89,6 @@ router.get('/*/recenzje/nowa/:id', async (req, res, next) => {
 })
 
 router.get('/*/recenzje/edytuj/:id', async (req, res, next) => {
-    req.session.user = { user_id: 2, username: 'user', email: 'user@gmail.com', role: 'user' }
-
     if (req.session.user == undefined) {
         res.redirect('/logowanie?status=17')
         return

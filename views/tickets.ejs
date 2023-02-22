@@ -18,7 +18,7 @@
                     <h2>Brak historii biletów</h2>
                 <% } else { %>
                     <% for (const ticket of tickets) { %>
-                        <% const expired = new Date() > new Date([ticket.date.getFullYear(), ticket.date.getMonth(), ticket.date.getDate()].join('-') + 'T' + ticket.time) %> 
+                        <% const expired = new Date() > new Date([ticket.date.getFullYear(), String(ticket.date.getMonth() + 1).padStart(2, '0'), String(ticket.date.getDate()).padStart(2, '0')].join('-') + 'T' + ticket.time) %> 
                         <article class="bottom-gradient-border listing description">
                             <img src="images/posters/<%= ticket.movie.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') %>.jpg" alt="<%= ticket.movie.title %>" >
                             <a href="film/<%= ticket.movie.movie_id %>/<%= ticket.city %>/<%= ticket.date.toISOString().slice(0, 10) %>/<%= ticket.movie.title %>" class="info">
