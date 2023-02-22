@@ -15,6 +15,9 @@ router.get('/', async (req, res, next) => {
         return
     }
 
+    for (const movie of movies)
+        movie.status = await indexController.isMoviePlayed(movie.movie_id)
+
     res.render('index', { movies: movies, user: req.session.user, host: req.hostname })
 })
 

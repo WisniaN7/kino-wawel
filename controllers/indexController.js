@@ -34,7 +34,25 @@ const getCinemas = async () => {
     return cinemas
 }
 
+const isMoviePlayed = async (movieId) => {
+    const connection = await db.createConnection()
+    const sql = 'SELECT * FROM screenings WHERE movie_id = ? AND date >= CURDATE() ORDER BY date ASC LIMIT 1;'
+    let screening = []
+
+    try {
+        [screening] = await connection.query(sql, [movieId])
+    } catch (err) {
+        console.error(err)
+        await connection.end()
+        return false
+    }
+
+    await connection.end()
+    return screening.length > 0
+}
+
 module.exports = {
     getHeroMovies,
     getCinemas,
+    isMoviePlayed,
 }

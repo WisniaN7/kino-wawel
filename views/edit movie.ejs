@@ -19,7 +19,7 @@
                 <input type="hidden" name="movie" value="<%= movie ? movie.movie_id : 'NULL' %>">
                 <div class="long-input">
                     <label for="title">Tytuł</label>
-                    <input type="text" name="title" id="title" placeholder="Nowy Film" value="<%= movie ? movie.title : '' %>" required>
+                    <input type="text" name="title" id="title" maxlength="64" placeholder="Nowy Film" value="<%= movie ? movie.title : '' %>" required>
                 </div>
                 <div class="file-input" id="poster-input">
                     <label for="poster">Plakat</label>

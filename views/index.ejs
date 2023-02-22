@@ -19,7 +19,9 @@
                     <div class="title">
                         <h2><%= movie.title %></h2>
                         <div>
-                            <a href="film/<%= movie.movie_id %>/Kraków/<%= new Date().toISOString().slice(0, 10) %>/<%= movie.title %>" class="cta-1">Kup bilet</a>
+                            <% if (movie.status) { %>
+                                <a href="film/<%= movie.movie_id %>/Kraków/<%= new Date().toISOString().slice(0, 10) %>/<%= movie.title %>" class="cta-1">Kup bilet</a>
+                            <% } %>
                             <a href="<%= movie.trailer %>" class="cta-2">Obejrzyj zwiastun</a>
                         </div>
                     </div>

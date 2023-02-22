@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
         cb(null, __dirname + '/../public/images/' + (file.fieldname == 'poster' ? 'posters' : 'background'))
     },
     filename: (req, file, cb) => {
-        cb(null, req.body.title + '.jpg' /* +  file.mimetype.split('/')[1] */)
+        cb(null, req.body.title.replaceAll(/[^a-zA-Z0-9ĄĆĘŁŃÓŚŹŻąćęłńóśźż/ .]/g, '') + '.jpg' /* +  file.mimetype.split('/')[1] */)
     }
 })
 
@@ -39,7 +39,7 @@ router.get('/', async (req, res, next) => {
     if (!movies || !cinemas) {
         res.render('admin', {
             snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem.', type: 'error', duration: 'long' },
-            halls: halls, user: req.session.user, host: req.hostname
+            user: req.session.user, host: req.hostname
         })
         
         return
@@ -49,21 +49,25 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
-    // req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
 
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return
     }
-        
-    const movie = await movieController.getMovie(req.params.id)
+    
+    let movie
+
+    if (req.params.id != 'nowy')
+        movie = await movieController.getMovie(req.params.id)
+
     const genres = await adminController.getGenres()
     const cinemas = await indexController.getCinemas()
 
-    if (!movie || !genres || !cinemas) {
+    if ((req.params.id == 'nowy' && !movie) || !genres || !cinemas) {
         res.render('admin', {
             snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem.', type: 'error', duration: 'long' },
-            halls: halls, user: req.session.user, host: req.hostname
+            user: req.session.user, host: req.hostname
         })
 
         return
