@@ -4,14 +4,12 @@ let router = express.Router()
 const indexController = require('../controllers/indexController')
 
 router.get('/', async (req, res, next) => {
-    console.log(req.rawHeaders[1])
-
     const movies = await indexController.getHeroMovies()
 
     if (!movies) {
         res.render('index', {
             snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem serwisu.', type: 'error', duration: 'long' },
-            user: req.session.user, host: req.rawHeaders[1]
+            user: req.session.user, host: req.headers.host
         })
 
         return
@@ -20,11 +18,11 @@ router.get('/', async (req, res, next) => {
     for (const movie of movies)
         movie.status = await indexController.isMoviePlayed(movie.movie_id)
 
-    res.render('index', { movies: movies, user: req.session.user, host: req.rawHeaders[1] })
+    res.render('index', { movies: movies, user: req.session.user, host: req.headers.host })
 })
 
 router.get('/wydarzenia', (req, res, next) => {
-    res.render('events', { user: req.session.user, host: req.rawHeaders[1] })
+    res.render('events', { user: req.session.user, host: req.headers.host })
 })
 
 router.get('/kontakt', async (req, res, next) => {
@@ -33,13 +31,13 @@ router.get('/kontakt', async (req, res, next) => {
     if (!cinemas) {
         res.render('contact', {
             snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem serwisu.', type: 'error', duration: 'long' },
-            user: req.session.user, host: req.rawHeaders[1]
+            user: req.session.user, host: req.headers.host
         })
 
         return
     }
 
-    res.render('contact', { cinemas: cinemas, user: req.session.user, host: req.rawHeaders[1] })
+    res.render('contact', { cinemas: cinemas, user: req.session.user, host: req.headers.host })
 })
 
 module.exports = router
