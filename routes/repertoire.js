@@ -16,8 +16,10 @@ router.get('/:city/:date', async (req, res, next) => {
         res.status(500).send()
 })
 
-router.get('/fill', async (req, res, next) => {
-    // req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+router.get('/fill/:start/:end', async (req, res, next) => {
+    req.session.user = { user_id: 1, username: 'admin', email: 'admin@kinowawel.pl', role: 'admin' }
+
+    console.log(req.params.start, req.params.end);
 
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         res.locals.message = 'Not Found'
@@ -27,7 +29,7 @@ router.get('/fill', async (req, res, next) => {
         return
     }
 
-    await repertoireController.randomFillDatabase()
+    await repertoireController.randomFillDatabase(req.params.start, req.params.end)
     res.redirect('/')
 })
 

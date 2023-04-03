@@ -53,7 +53,7 @@ const getRepertoire = async (city, date) => {
     return data
 }
 
-const randomFillDatabase = async () => {
+const randomFillDatabase = async (start, end) => {
     const connection = await db.createConnection()
 
     try {
@@ -76,8 +76,8 @@ const randomFillDatabase = async () => {
         console.error(err)
     }
     
-    let date = new Date('2023-01-01')
-    const endDate = new Date('2023-04-01')
+    let date = new Date(start)
+    const endDate = new Date(end)
     const endTime = new Date('1970-01-01T23:30:00')
     
     const movies = durations.length
