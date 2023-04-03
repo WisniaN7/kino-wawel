@@ -4,8 +4,6 @@ let router = express.Router()
 const indexController = require('../controllers/indexController')
 
 router.get('/', async (req, res, next) => {
-    console.log(req.protocol);
-
     const movies = await indexController.getHeroMovies()
 
     if (!movies) {
