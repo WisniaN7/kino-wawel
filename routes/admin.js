@@ -22,7 +22,7 @@ const redirectTo404 = (req, res, next) => {
     res.locals.message = 'Not Found'
     res.locals.error = { status: 404 }
     res.status(404)
-    res.render('error', { user: req.session.user, host: req.hostname })
+    res.render('error', { user: req.session.user, host: req.rawHeaders[1] })
 }
 
 router.get('/', async (req, res, next) => {
@@ -37,13 +37,13 @@ router.get('/', async (req, res, next) => {
     if (!movies || !cinemas) {
         res.render('admin', {
             snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem.', type: 'error', duration: 'long' },
-            user: req.session.user, host: req.hostname
+            user: req.session.user, host: req.rawHeaders[1]
         })
         
         return
     }
 
-    res.render('admin', { movies: movies, cinemas: cinemas, user: req.session.user, host: req.hostname })
+    res.render('admin', { movies: movies, cinemas: cinemas, user: req.session.user, host: req.rawHeaders[1] })
 })
 
 router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
@@ -63,13 +63,13 @@ router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
     if ((req.params.id == 'nowy' && !movie) || !genres || !cinemas) {
         res.render('admin', {
             snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem.', type: 'error', duration: 'long' },
-            user: req.session.user, host: req.hostname
+            user: req.session.user, host: req.rawHeaders[1]
         })
 
         return
     }
 
-    res.render('edit movie', { movie: movie, cinemas: cinemas, genres: genres, user: req.session.user, host: req.hostname })
+    res.render('edit movie', { movie: movie, cinemas: cinemas, genres: genres, user: req.session.user, host: req.rawHeaders[1] })
 })
 
 router.post('/movies/archive', async (req, res, next) => {
@@ -118,7 +118,7 @@ router.get('/seanse/:city/*', async (req, res, next) => {
     if (!movies || !cinemas) {
         res.render('edit screenings', {
             snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem.', type: 'error', duration: 'long' },
-            user: req.session.user, host: req.hostname
+            user: req.session.user, host: req.rawHeaders[1]
         })
 
         return
@@ -130,7 +130,7 @@ router.get('/seanse/:city/*', async (req, res, next) => {
         if (cinema.cinema_id == req.params.city)
             halls = cinema.halls
 
-    res.render('edit screenings', { movies: movies, cinemas: cinemas, halls: halls, user: req.session.user, host: req.hostname })
+    res.render('edit screenings', { movies: movies, cinemas: cinemas, halls: halls, user: req.session.user, host: req.rawHeaders[1] })
 })
 
 router.get('/screenings/get/:city/:date', async (req, res, next) => {

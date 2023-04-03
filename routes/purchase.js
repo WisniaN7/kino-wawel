@@ -19,13 +19,13 @@ router.get('/:title/:screening', async (req, res, next) => {
     if (!ticketTypes || !tickets) {
         res.render('purchase', {
             snackbar: { message: 'Wystąpił błąd przy pobieraniu danych, odśwież stronę lub skontaktuj się z administratorem serwisu.', type: 'error', duration: 'long' },
-            user: req.session.user, screening: req.params.screening, title: req.params.title, host: req.hostname
+            user: req.session.user, screening: req.params.screening, title: req.params.title, host: req.rawHeaders[1]
         })
 
         return
     }
 
-    res.render('purchase', { user: req.session.user, screening: req.params.screening, title: req.params.title, tickets: tickets, ticketTypes: ticketTypes, host: req.hostname })
+    res.render('purchase', { user: req.session.user, screening: req.params.screening, title: req.params.title, tickets: tickets, ticketTypes: ticketTypes, host: req.rawHeaders[1] })
 })
 
 router.post('/:title/:screening', async (req, res, next) => {
@@ -49,7 +49,7 @@ router.post('/:title/:screening', async (req, res, next) => {
 })
 
 router.get('/sukces', (req, res, next) => {
-    res.render('success', { user: req.session.user, email: req.query.email, host: req.hostname })
+    res.render('success', { user: req.session.user, email: req.query.email, host: req.rawHeaders[1] })
 })
 
 module.exports = router

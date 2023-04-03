@@ -4,7 +4,7 @@ let router = express.Router();
 const repertoireController = require('../controllers/repertoireController')
 
 router.get('/', (req, res, next) => {
-    res.render('repertoire', { user: req.session.user, host: req.hostname })
+    res.render('repertoire', { user: req.session.user, host: req.rawHeaders[1] })
 })
 
 router.get('/:city/:date', async (req, res, next) => {
@@ -23,7 +23,7 @@ router.get('/fill', async (req, res, next) => {
         res.locals.message = 'Not Found'
         res.locals.error = { status: 404 }
         res.status(404)
-        res.render('error', { user: req.session.user, host: req.hostname })
+        res.render('error', { user: req.session.user, host: req.rawHeaders[1] })
         return
     }
 
