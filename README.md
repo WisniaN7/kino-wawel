@@ -13,5 +13,10 @@ The final project for the course "*WWW Techniques*" and "*Graphical Interfaces*"
 * If you're having problems with the database, check ``controllers/database.js`` file and try changing the port, user or password values.
 * For admin access to add and edit movies and screening in the database via application, login as admin ``{ login: admin, password: admin }``.
 
+## Enviorments
+You can also preview the application, by clicking on one of the link in **Enviorments** section on the right side panel, and **View deployment** button after the new tab opens, however the previews work slower and might not have screenings to display for current date.
+* **github-pages** uses [*Heroku*](https://github.com/WisniaN7/kino-wawel/tree/Heroku) branch, which uses REST API as backend (more in [README](https://github.com/WisniaN7/kino-wawel/tree/Heroku))
+* **cyclic** uses Node branch, but user authorization does not work for now 
+
 ## Disclaimer
 All phone numbers and addresses are randomly selected (except the address in Lubań, where there exists a cinema, which was the inspiration for the project) and emails are fictional. Please do not call the numbers and do not harass the owners of the buildings at the given addresses. The images are taken from the Internet and are not owned by me. The project is for educational purposes only.
