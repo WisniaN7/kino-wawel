@@ -14,13 +14,13 @@ router.get('/*/bilety', async (req, res, next) => {
     if (!tickets) {
         res.render('tickets', {
             snackbar: { message: 'Wystąpił błąd podczas pobierania danych. Odśwież stronę lub skontatkuj się z administratorem serwisu.', type: 'error' },
-            user: req.session.user, host: req.headers.host
+            user: req.session.user, host: req.headers.host, protocol: req.protocol
         })
 
         return
     }
 
-    res.render('tickets', { tickets: tickets, user: req.session.user, host: req.headers.host })
+    res.render('tickets', { tickets: tickets, user: req.session.user, host: req.headers.host, protocol: req.protocol })
 })
 
 router.get('/*/recenzje', async (req, res, next) => {
@@ -34,13 +34,13 @@ router.get('/*/recenzje', async (req, res, next) => {
     if (!reviews) {
         res.render('reviews', {
             snackbar: { message: 'Wystąpił błąd podczas pobierania danych. Odśwież stronę lub skontatkuj się z administratorem serwisu.', type: 'error' },
-            user: req.session.user, host: req.headers.host
+            user: req.session.user, host: req.headers.host, protocol: req.protocol
         })
 
         return
     }
 
-    res.render('reviews', { reviews: reviews, user: req.session.user, host: req.headers.host })
+    res.render('reviews', { reviews: reviews, user: req.session.user, host: req.headers.host, protocol: req.protocol })
 })
 
 router.get('/*/obejrzane', async (req, res, next) => {
@@ -54,13 +54,13 @@ router.get('/*/obejrzane', async (req, res, next) => {
     if (!movies) {
         res.render('watched', {
             snackbar: { message: 'Wystąpił błąd podczas pobierania danych. Odśwież stronę lub skontatkuj się z administratorem serwisu.', type: 'error' },
-            user: req.session.user, host: req.headers.host
+            user: req.session.user, host: req.headers.host, protocol: req.protocol
         })
 
         return
     }
 
-    res.render('watched', { movies: movies, user: req.session.user, host: req.headers.host })
+    res.render('watched', { movies: movies, user: req.session.user, host: req.headers.host, protocol: req.protocol })
 })
 
 router.get('/*/recenzje/nowa/:id', async (req, res, next) => {
@@ -79,13 +79,13 @@ router.get('/*/recenzje/nowa/:id', async (req, res, next) => {
     if (!movie) {
         res.render('edit review', {
             snackbar: { message: 'Wystąpił błąd podczas pobierania danych. Odśwież stronę lub skontatkuj się z administratorem serwisu.', type: 'error' },
-            editMode: false, user: req.session.user, host: req.headers.host
+            editMode: false, user: req.session.user, host: req.headers.host, protocol: req.protocol
         })
 
         return
     }
 
-    res.render('edit review', { editMode: false, movie: movie, user: req.session.user, host: req.headers.host })
+    res.render('edit review', { editMode: false, movie: movie, user: req.session.user, host: req.headers.host, protocol: req.protocol })
 })
 
 router.get('/*/recenzje/edytuj/:id', async (req, res, next) => {
@@ -99,13 +99,13 @@ router.get('/*/recenzje/edytuj/:id', async (req, res, next) => {
     if (!review) {
         res.render('edit review', {
             snackbar: { message: 'Wystąpił błąd podczas pobierania danych. Odśwież stronę lub skontatkuj się z administratorem serwisu.', type: 'error' },
-            editMode: true, user: req.session.user, host: req.headers.host
+            editMode: true, user: req.session.user, host: req.headers.host, protocol: req.protocol
         })
 
         return
     }
     
-    res.render('edit review', { editMode: true, review: review, user: req.session.user, host: req.headers.host })
+    res.render('edit review', { editMode: true, review: review, user: req.session.user, host: req.headers.host, protocol: req.protocol })
 })
 
 router.post('/reviews/rating', async (req, res, next) => {

@@ -4,11 +4,11 @@ let router = express.Router();
 const authController = require('../controllers/authController')
 
 router.get('/logowanie', async (req, res, next) => {
-    res.render('signin', { user: req.session.user, host: req.headers.host })
+    res.render('signin', { user: req.session.user, host: req.headers.host, protocol: req.protocol })
 })
 
 router.get('/rejestracja', async (req, res, next) => {
-    res.render('signup', { user: req.session.user, host: req.headers.host })
+    res.render('signup', { user: req.session.user, host: req.headers.host, protocol: req.protocol })
 })
 
 router.post('/signin', async (req, res, next) => {

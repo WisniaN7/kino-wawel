@@ -30,7 +30,8 @@ router.get('/:id/:city/:date/*', async (req, res, next) => {
         cinemas: cinemas,
         reviews: reviews,
         user: req.session.user,
-        host: req.headers.host
+        host: req.headers.host,
+        protocol: req.protocol
     })
 })
 
