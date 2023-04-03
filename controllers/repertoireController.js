@@ -5,7 +5,7 @@ const getRepertoire = async (city, date) => {
 
     let data = []
 
-    let sql = 'SELECT movie_id, title, rating, age_rating, duration, description, AVG(rating) AS "rating" FROM screenings NATURAL JOIN movies NATURAL JOIN cinemas NATURAL JOIN reviews WHERE city = ? AND date = ? GROUP BY movie_id;'
+    let sql = 'SELECT screenings.movie_id, title, AVG(rating) AS "avgRating", age_rating, duration, description FROM screenings NATURAL JOIN movies NATURAL JOIN cinemas LEFT JOIN reviews ON movies.movie_id = reviews.movie_id WHERE city = ? AND date = ? GROUP BY screenings.movie_id, title, age_rating, duration, description;'
     let movies = []
     
     try {

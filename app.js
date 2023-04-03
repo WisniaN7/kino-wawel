@@ -1,5 +1,3 @@
-// TODO: try to change away from async/await to PromisePool
-
 const createError = require('http-errors')
 const express = require('express')
 const session = require('express-session')

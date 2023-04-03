@@ -129,7 +129,7 @@ const getMovies = async (city, date) => {
             h2.innerHTML += word.slice(1) + ' '
         })
 
-        listing.querySelector('div.rating p').innerText = Math.round(movie.rating * 100) / 100
+        listing.querySelector('div.rating p').innerText = Math.round(movie.avgRating * 100) / 100
 
         listing.querySelector('p.info').innerText = movie.genres
         listing.querySelector('p.info').innerText += ' | Od lat ' + movie.age_rating 
