@@ -9,7 +9,7 @@ The final project for the course "*WWW Techniques*" and "*Graphical Interfaces*"
 4. Import the ``kino_wawel.sql`` file into the database.
 5. Open the project in your favourite IDE and run ``npm start`` in the terminal.
 
-* Once run the app should be available at [localhost:3000](http://localhsot:300).
+* Once run the app should be available at [localhost:3000](http://localhost:3000).
 * If you're having problems with the database, check ``controllers/database.js`` file and try changing the port, user or password values.
 * For admin access to add and edit movies and screening in the database via application, login as admin ``{ login: admin, password: admin }``.
 
