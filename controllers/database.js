@@ -1,3 +1,4 @@
+require('dotenv').config()
 const mysql = require('mysql2/promise')
 
 process.env.DB_URL = process.env.DB_URL || 'localhost'
@@ -14,7 +15,7 @@ const createConnection = async () => {
         password: process.env.DB_PASS,
         database: process.env.DB_NAME
     })
-    
+
     await conn.connect();
     return conn
 }
