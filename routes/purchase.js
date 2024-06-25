@@ -9,7 +9,7 @@ router.get('/discounts/:discount_code', async (req, res, next) => {
     if (discount)
         res.status(200).json({ discount: discount })
     else
-        res.status(500).send()
+        res.status(500).json({ discount: null })
 })
 
 router.get('/:title/:screening', async (req, res, next) => {

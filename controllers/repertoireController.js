@@ -68,10 +68,10 @@ const randomFillDatabase = async (start, end) => {
         console.error(err)
     }
 
-    let durations = []
+    let movies = []
 
     try {
-        [durations] = await connection.execute('SELECT duration FROM movies;')
+        [movies] = await connection.execute('SELECT * FROM movies WHERE archived = 0;')
     } catch (err) {
         console.error(err)
     }
@@ -80,11 +80,10 @@ const randomFillDatabase = async (start, end) => {
     const endDate = new Date(end)
     const endTime = new Date('1970-01-01T23:30:00')
     
-    const movies = durations.length
     let movieDurations = []
 
-    for (const duration of durations)
-        movieDurations.push(Math.ceil((duration.duration + 60) / 30))
+    for (const movie of movies)
+        movieDurations.push(Math.ceil((movie.duration + 60) / 30))
 
     const cinemas = 5
     const cinemaHalls = [3, 2, 4, 1, 4]
@@ -101,23 +100,27 @@ const randomFillDatabase = async (start, end) => {
                     let offset = Math.floor(Math.random() * 4)
                     time.setTime(time.getTime() + (offset * 30 * 60 * 1000))
 
-                    let movie = Math.floor(Math.random() * movies) + 1
+                    let movieIndex = Math.floor(Math.random() * movies.length) + 1
 
-                    if (time.getTime() + (movieDurations[movie - 1] * 30 * 60 * 1000) > endTime.getTime())
+                    if (time.getTime() + (movieDurations[movieIndex - 1] * 30 * 60 * 1000) > endTime.getTime())
                         break
 
                     let soundType = soundTypes[Math.floor(Math.random() * 2)]
+                    let movieId = movies[movieIndex - 1].movie_id
 
                     let sql = "INSERT INTO `screenings` VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)"
 
                     try {
-                        await connection.query(sql, [movie, cinema, hall, date.toISOString().slice(0, 10), time.toISOString().slice(11, 19), Math.floor(Math.random() * 2), soundType])
+                        await connection.query(sql, [movieId, cinema, hall, date.toISOString().slice(0, 10), time.toISOString().slice(11, 19), Math.floor(Math.random() * 2), soundType])
                     } catch (err) {
                         console.error(err)
                     }
 
-                    time.setTime(time.getTime() + (movieDurations[movie - 1] * 30 * 60 * 1000))
-                    console.log(i++)
+                    time.setTime(time.getTime() + (movieDurations[movieIndex - 1] * 30 * 60 * 1000))
+                    i++
+
+                    if (i % 1000 == 0)
+                        console.log(i)
                 }
             }
         }

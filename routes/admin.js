@@ -46,7 +46,7 @@ router.get('/', async (req, res, next) => {
     res.render('admin', { movies: movies, cinemas: cinemas, user: req.session.user, host: req.headers.host, protocol: req.protocol })
 })
 
-router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
+router.get('/filmy/edytuj/:id/:title', async (req, res, next) => {
     if (!req.session.user || req.session.user && req.session.user.role != 'admin') {
         redirectTo404(req, res, next)
         return
@@ -55,7 +55,7 @@ router.get('/filmy/edytuj/:id/?*', async (req, res, next) => {
     let movie
 
     if (req.params.id != 'nowy')
-        movie = await movieController.getMovie(req.params.id)
+        movie = await movieController.getMovie(parseInt(req.params.id))
 
     const genres = await adminController.getGenres()
     const cinemas = await indexController.getCinemas()

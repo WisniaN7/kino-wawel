@@ -22,7 +22,7 @@ const singup = async (login, email, password) => {
     const sql = 'INSERT INTO users VALUES (null, ?, ?, ?, \'user\')'
 
     try {
-        await connection.query(sql, [login, email, password])
+        await connection.query(sql, [login, password, email])
     } catch (err) {
         console.error(err)
         await connection.end()
